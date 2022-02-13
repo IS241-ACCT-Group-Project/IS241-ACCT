@@ -1,0 +1,1 @@
+mysqlsh --host=localhost --user=user1 --password=sql_lol1 --file create_db.sql
