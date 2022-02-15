@@ -21,6 +21,7 @@ body {
   background-color: white;
   border-radius: 7px;
   box-shadow: 0px 0px 5px 2px black;
+  padding-bottom: 120px;
 }
 
 #login-error-msg-holder {
