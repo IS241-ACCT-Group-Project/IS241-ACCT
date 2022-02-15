@@ -1,8 +1,12 @@
+const myArgs = process.argv.slice(2);
+
+console.log(myArgs[0] + myArgs[1]);
+
 const mysql = require('mysql');
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'newuser',
-    password: 'newpassword',
+    user: myArgs[0], //'newuser',
+    password: myArgs[1], //'newpassword',
     database: 'VaxTest2'
 });
 

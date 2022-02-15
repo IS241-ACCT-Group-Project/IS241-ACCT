@@ -1,3 +1,4 @@
 # Visual Studio cache directory
 .vs/
 node_modules/
+mysql_login.txt
