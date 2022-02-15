@@ -1,6 +1,6 @@
 const myArgs = process.argv.slice(2);
 
-console.log(myArgs[0] + myArgs[1]);
+//console.log(myArgs[0] + myArgs[1]);
 
 const mysql = require('mysql');
 const connection = mysql.createConnection({
@@ -16,9 +16,10 @@ var express = require('express');
 var app = express();
 //var fs = require("fs");
 const cors = require("cors");
+//const { body, validationResult } = require('express-validator');
 app.use(cors());
-//app.options("*", cors());
 app.use(express.json());
+app.use(express.urlencoded());
 
 connection.connect((err) => {
     if (err) {
@@ -26,13 +27,6 @@ connection.connect((err) => {
     }
 
     console.log('Connected to MySQL Server!');
-
-    //connection.query("SELECT * FROM VACCINATOR", function (err, result) {
-    //    if (err) {
-    //        throw err;
-    //    }
-    //    console.log("Result: " + JSON.stringify(result));
-    //});
 
     app.get("/listVaccinators", function (req, res) {
         //fs.readFile(__dirname + "/" + "users.json", "utf8", function (err, data) {
@@ -48,9 +42,14 @@ connection.connect((err) => {
     });
 
     app.post("/addvaccinator", function (request, response) {
-        const firstname = connection.escape(request.body.FirstName);
-        const lastname = connection.escape(request.body.LastName);
-        const clinicid = connection.escape(request.body.ClinicID);
+        //body("firstName", "lastName").trim().isLength({ min: 1 }).escape();
+        //body("clinicID").trim().optional({ checkFalsy: true }).isNumeric().withMessage("Clinic ID must be a number.");
+        //validationResult(req)=> {
+        //}
+
+        const firstname = connection.escape(request.body.firstName);
+        const lastname = connection.escape(request.body.lastName);
+        const clinicid = connection.escape(request.body.clinicID);
         var sql = `INSERT INTO VACCINATOR (FirstName, LastName, ClinicID) VALUES (${firstname}, ${lastname}, ${clinicid});`;
 
         console.log(request.body);
@@ -62,9 +61,9 @@ connection.connect((err) => {
                 throw err;
             }
 
-            response.end(JSON.stringify("Executed SQL " + sql));
+            response.append("Link", ["index.html"]);
+            //response.end(JSON.stringify("Executed SQL " + sql));
         });
-
     });
 
     var server = app.listen(8081, "localhost", function () {
