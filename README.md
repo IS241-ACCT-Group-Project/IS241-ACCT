@@ -44,20 +44,20 @@ If something fails during the installation, you can open the installer again and
 
 To verify everything is installed, both these commands should return a version number: 
 ```batch
-$ node -v
-$ npm -v
+node -v
+npm -v
 ```
 
 Next, navigate to the `site/` folder and install the packages referenced in `package.json`:
 ```batch
-$ npm install
+npm install
 ```
 This should create a `node_modules/` folder and put the packages in there. This folder is ignored by the git repository.
 
 ### Start MySQL and Create a Local Database
 Next, you'll give your MySQL account priveleges to access the database. Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you created:
 ```batch
-$ mysqlsh --sql --host=localhost --user=YOUR_USERNAME --password=YOUR_PASSWORD
+mysqlsh --sql --host=localhost --user=YOUR_USERNAME --password=YOUR_PASSWORD
 ```
 That should put you in a MySQL prompt. In that prompt, run this. Remember to replace the placeholders with your username and password:
 ```sql
@@ -68,9 +68,9 @@ alter user 'YOUR_USERNAME' identified with mysql_native_password by 'YOUR_PASSWO
 
 Now, you should be able to run the batch file. The batch file depends on the `sql_login.txt` file you made earlier, so make sure that it's correct. 
 Batch files only work on Windows, so Mac/Linux users will have to create a `.sh` file. 
-In the database folder, run this command: 
+**In the database folder**, run this command: 
 ```batch
-$ ./create_db.bat
+./create_db.bat
 ```
 You should now have a vaccinator database with dummy data created and able to be modified from HTML. 
 
