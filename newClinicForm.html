@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>New Clinic Registration</title>
+	<link rel="stylesheet" href="loginStyles.css">
+
+
+</head>
+<body>
+	<main id="main-holder">
+	<h1>Account Registration</h1>
+		<div id="insuffient-information-erro-message-holder">
+			<p id="insuffient-information-error-message">Insufficient information provided</p>
+		</div>
+		<form id="newClinicForm">>
+		<h2>Contact</h2>
+			<form>
+				<label for="firstName">First name:</label><br>
+				<input type="text" id="firstName" name="firstName"><br>
+				
+				<label for="lastName">Last name:</label><br>
+				<input type="text" id="lastName" name="lastName"><br>
+				
+				<label for="phoneNumber">Phone Number:</label><br>
+				<input type="text" id="phoneNumber" name="phoneNumber"><br>
+				
+				<label for="email">Email:</label><br>
+				<input type="text" id="email" name="email"><br>
+
+				<label for="role">Role:</label><br>
+					<select name="role" id="role">
+						<option value="physician">Physician</option>
+
+						<option value="nurse">Nurse</option>
+
+						<option value="officeStaff">Office Staff</option>
+
+						<option value="socialWorker">Social Worker</option>
+
+						<option value="pharmacist">Pharmacist</option>
+
+						<option value="medStaffAgency">Medical Staffing Agency - Staff</option>
+
+						<option value="medDirector">Medical Director/Physician signing the agreement</option>
+
+						<option value="ceo">Chief Executive Officer/Chief Fiduciary Officer Signing the agreement</option>
+
+						<option value="Other">Other</option>
+					</select><br>
+				
+				<label for="vfcPin">VFC Pin:</label><br>
+				<input type="text" id="vfcPin" name="vfcPin"><br>
+				
+				<label for="accessType">Access Type:</label><br>
+					<select name="accessType" id="accessType">
+						<option value="clinicStaffReadOnly">Clinic staff view only read only, print records</option>
+
+						<option value="clinicStaffData">Clinic staff - data entry/reports</option>
+
+						<option value="vfcPrimary">VFC primary/bakcup role for reporting</option>
+
+						<option value="covidPrimary">Covid primary/backup role for reporting</option>
+
+						<option value="pharmacy">Pharmacy user</option>
+
+						<option value="schoolStaff">School staff</option>
+
+						<option value="dssCaseworker">DSS caseworker</option>
+
+						<option value="medStaffAgency">Medical Staffing Agency - view only</option>
+
+						<option value="medDirector">Medical Director/Physician signing the agreement</option>
+
+						<option value="ceo">Chief Executive Officer/Chief Fiduciary Officer Signing the agreement</option>
+					</select><br>
+			</form>
+
+		<h2>Organization</h2>
+			<form>
+				<label for="organizationName">Organization name:</label><br>
+				<input type="text" id="organizationName" name="organizationName"><br>
+				
+				<label for="organizationType">Organization type:</label><br>
+					<select name="accessType" id="accessType">
+						<option value="certHomeHealth">Certified Home Health Agency</option>
+						<option value="childcareProvider">Childcare provider</option>
+						<option value="childFamServices">Children and Family Services</option>
+						<option value="correctionsFacility">Corrections facility</option>
+						<option value="FQHC">FQHC</option>
+						<option value="HMO">HMO</option>
+						<option value="hospital">Hospital</option>
+						<option value="localPublicHealth">Local Public Health Agency</option>
+						<option value="medicaid">Medicaid</option>
+						<option value="medicalStaffAgency">Medical Staffing Agency</option>
+						<option value="militaryHealthFacility">Military Health Facility</option>
+						<option value="MoDoH">MO DOH</option>
+						<option value="nursingLongTerm">Nursing and long term care</option>
+						<option value="pharmacy">Pharmacy</option>
+						<option value="school">School</option>
+						<option value="urgentCare">Urgent Care</option>
+						<option value="other">Other</option>
+					</select><br>
+				
+				
+				<label for="address">Address:</label><br>
+				<input type="text" id="address" name="address"><br>
+				
+
+				<label for="city">City:</label><br>
+				<input type="text" id="city" name="city"><br>
+				
+				<label for="state">State:</label><br>
+				<input type="text" id="state" name="state"><br>
+				
+
+				<label for="zip">Zip:</label><br>
+				<input type="text" id="zip" name="zip"><br>
+
+				<label for="providerName">Provider name:</label><br>
+				<input type="text" id="providerName" name="providerName"><br>
+			</form>
+
+		<h2>
+			Documents
+		</h2>
+		    <form action="/action_page.php" 
+		        enctype="multipart/form-data">
+		          
+		        <label for="myfile">Select a file:</label>
+		        <input type="file" id="myfile" name="myfile" />
+		        <br /><br />
+		  </form>
+		    
+
+		<h2>
+			Validation
+		</h2>
+		<input type="submit" value="register" id="newClinicForm">
+		</form>
+	</main>
+</body>
