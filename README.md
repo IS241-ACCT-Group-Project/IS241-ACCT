@@ -77,5 +77,5 @@ You should now have a vaccinator database with dummy data created and able to be
 ### Testing the Database
 To make sure everything is working, open `site/index.html` in a web browser. 
 
-- The `Create DB` button will print the database to the browser console. F12 opens the console.
+- The `Show DB` button will print the database to the browser console. F12 opens the console.
 - Clicking the `Submit` text will add an entry to the database with the data in the three textarea elements.
