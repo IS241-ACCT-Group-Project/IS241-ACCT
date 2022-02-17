@@ -1,16 +1,19 @@
 # IS241-ACCT
-IS241 ACCT group project
-write to README test: wbh
-this is xiomara
-
 This is a school project to create a website that tracks dummy vaccination data to report to the CDC.
-<<<<<<< HEAD
-=======
+
+#### Table of Contents
+[Getting Set Up](#getting-set-up)
+
+[Update Log](#update-log)
+
+<br>
 
 ## Getting Set Up
 ### MySQL
 This project uses MySQL. You can download it here: https://dev.mysql.com/downloads/ 
+
 If given the choice, select the 'community' option and not 'web community.' It's not necessary to create an account; there should be a skip button at the bottom. 
+
 Select the 'Developer Default' setup type. You may also have to download Python. 
 #### Type and Networking
 Choose 'Development Computer' and keep the default connectivity settings.
@@ -20,6 +23,7 @@ Use strong password encryption for authentication.
 I made a user in addition to the root user, but I don't think it's required.
 
 At this point, create a `mysql_login.txt` file with the username and password you created. Put this file in the database folder. This file will be ignored in the git repository and will be used locally to log you in later.
+
 The file should have your username on the first line and your password on the second. It should look like this: 
 ```txt
 myusername
@@ -34,6 +38,7 @@ I don't think you need to set this up.
 
 ### Node.js
 This project uses Node.js. You can download it here: https://nodejs.org/en/download/ 
+
 We're using the Long Term Support version 16.14.0.
 #### Custom Setup
 The defaults for this are fine.
@@ -70,6 +75,7 @@ alter user 'YOUR_USERNAME' identified with mysql_native_password by 'YOUR_PASSWO
 
 Now, you should be able to run the batch file. The batch file depends on the `sql_login.txt` file you made earlier, so make sure that it's correct. 
 Batch files only work on Windows, so Mac/Linux users will have to create a `.sh` file. 
+
 **In the database folder**, run this command: 
 ```batch
 ./create_db.bat
@@ -81,4 +87,12 @@ To make sure everything is working, open `site/index.html` in a web browser.
 
 - The `Show DB` button will print the database to the browser console. F12 opens the console.
 - Clicking the `Submit` text will add an entry to the database with the data in the three textarea elements.
->>>>>>> 91ce52e4d08a54450d5a94b95ac61be48ae0e3dc
+
+
+## Update Log
+2.15.22: uploade are
+	- the log in page
+		- a user can log in to and get a succesful log in alert
+		- a user can select the registration link, which takes them to the new clinic form
+	-  the new clinic page
+		-contains a form with CDC required information about facilities and registered providers.

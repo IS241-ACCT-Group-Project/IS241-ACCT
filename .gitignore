@@ -1,4 +1,9 @@
 # Visual Studio cache directory
 .vs/
 node_modules/
+
+# MySQL Credentials
 mysql_login.txt
+
+# Mac generated files
+.DS_Store
