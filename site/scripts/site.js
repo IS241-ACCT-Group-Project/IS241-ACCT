@@ -1,5 +1,5 @@
 function listDB() {
-    fetch("http://localhost:8081/listvaccinators")
+    fetch("http://localhost:8081/listinjectors")
         .then(response => response.json())
         .then(data => console.log(data));
 }

@@ -28,12 +28,12 @@ connection.connect((err) => {
 
     console.log('Connected to MySQL Server!');
 
-    app.get("/listVaccinators", function (req, res) {
+    app.get("/listInjectors", function (req, res) {
         //fs.readFile(__dirname + "/" + "users.json", "utf8", function (err, data) {
         //    console.log(data);
         //    res.end(data);
 
-        connection.query("SELECT * FROM VACCINATOR", function (err, result) {
+        connection.query("SELECT * FROM INJECTOR", function (err, result) {
             if (err) {
                 throw err;
             }
@@ -41,16 +41,16 @@ connection.connect((err) => {
         });
     });
 
-    app.post("/addvaccinator", function (request, response) {
+    app.post("/addinjector", function (request, response) {
         //body("firstName", "lastName").trim().isLength({ min: 1 }).escape();
-        //body("clinicID").trim().optional({ checkFalsy: true }).isNumeric().withMessage("Clinic ID must be a number.");
+        //body("siteID").trim().optional({ checkFalsy: true }).isNumeric().withMessage("Site ID must be a number.");
         //validationResult(req)=> {
         //}
 
         const firstname = connection.escape(request.body.firstName);
         const lastname = connection.escape(request.body.lastName);
-        const clinicid = connection.escape(request.body.clinicID);
-        var sql = `INSERT INTO VACCINATOR (FirstName, LastName, ClinicID) VALUES (${firstname}, ${lastname}, ${clinicid});`;
+        const siteid = connection.escape(request.body.siteID);
+        var sql = `INSERT INTO INJECTOR (FirstName, LastName, SiteID) VALUES (${firstname}, ${lastname}, ${siteid});`;
 
         console.log(request.body);
         console.log(sql);
@@ -61,8 +61,17 @@ connection.connect((err) => {
                 throw err;
             }
 
-            response.append("Link", ["index.html"]);
+            //response.append("Link", ["index.html"]);
             //response.end(JSON.stringify("Executed SQL " + sql));
+
+            //response.setHeader("Content-Type", "text/html");
+            //response.write('<html>');
+            //response.write('<body>');
+            //response.write('<h1>Hello, World!</h1>');
+            //response.write('</body>');
+            //response.write('</html>');
+            response.statusCode = 204;
+            response.end();
         });
     });
 
