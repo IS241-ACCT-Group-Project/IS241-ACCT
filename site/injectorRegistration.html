@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registration</title>
+	<link rel="stylesheet" href="styles/loginStyles.css">
+
+
+</head>
+<body>
+	<main id="main-holder">
+	<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System</h1>				
+
+		<form id="newInjectorForm">
+		<h2>Injector Information</h2>
+			<form>
+				<label for="firstName">First name:</label><br>
+				<input type="text" id="firstName" name="firstName"><br>
+				
+				<label for="lastName">Last name:</label><br>
+				<input type="text" id="lastName" name="lastName"><br>
+				
+				<label for="phoneNumber">Phone Number:</label><br>
+				<input type="text" id="phoneNumber" name="phoneNumber"><br>
+				
+				<label for="email">Email:</label><br>
+				<input type="text" id="email" name="email"><br>
+
+				<label for="role">Role:</label><br>
+					<select name="role" id="role">
+						<option value="physician">Physician</option>
+
+						<option value="nurse">Nurse</option>
+
+						<option value="pharmacist">Pharmacist</option>
+
+						<option value="Other">Other</option>
+					</select><br>
+				
+				<label for="vfcPin">VFC Pin:</label><br>
+				<input type="text" id="vfcPin" name="vfcPin"><br>
+			</form>
+
+		<h2>Documents
+		</h2>
+		    <form action="/action_page.php" 
+		        enctype="multipart/form-data">
+		          
+		        <label for="myfile">Select a file:</label>
+		        <input type="file" id="myfile" name="myfile" />
+		        <br /><br />
+		  </form>
+		    
+		<input type="submit" value="register" id="newInjectorForm">
+		</form>
+	</main>
+</body>
