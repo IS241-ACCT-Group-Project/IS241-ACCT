@@ -10,7 +10,7 @@
 
 <body>
 	<main id="main-holder">
-	<h1>Account Registration</h1>
+	<h1>Injector Registration</h1>
 		<form id="newInjectorForm" action="http://localhost:8081/addinjector" method="post">
 		<h2>Contact</h2>
 				<label for="firstName">First name:</label><br>
@@ -21,8 +21,8 @@
 				
 				<label for="clinicID">clinicID</label><br>
 				<input type="number" id="clinicID" name="clinicID">
-		<input type="submit" value="Register" id="newVaccinationForm">
+		<input type="submit" value="Register" id="newInjectorForm">
 		</form>
-		<button onclick="listDB()">Show DB</button>
+		<button onclick="listDB('listinjectors')">Show DB</button>
 	</main>
 </body>

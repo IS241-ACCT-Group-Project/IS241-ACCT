@@ -28,16 +28,27 @@ connection.connect((err) => {
 
     console.log('Connected to MySQL Server!');
 
-    app.get("/listInjectors", function (req, res) {
-        //fs.readFile(__dirname + "/" + "users.json", "utf8", function (err, data) {
-        //    console.log(data);
-        //    res.end(data);
+    app.get("/listInjectors", function (req, response) {
+        var sql = "SELECT * FROM INJECTOR";
 
-        connection.query("SELECT * FROM INJECTOR", function (err, result) {
+        connection.query(sql, function (err, result) {
             if (err) {
                 throw err;
             }
-            res.end(JSON.stringify(result));
+
+            response.end(JSON.stringify(result));
+        });
+    });
+
+    app.get("/listsites", function (request, response) {
+        var sql = "SELECT * FROM SITE";
+        
+        connection.query(sql, function (err, result) {
+            if (err) {
+                throw err;
+            }
+
+            response.end(JSON.stringify(result));
         });
     });
 
@@ -65,19 +76,40 @@ connection.connect((err) => {
             //response.end(JSON.stringify("Executed SQL " + sql));
 
             //response.setHeader("Content-Type", "text/html");
-            //response.write('<html>');
-            //response.write('<body>');
-            //response.write('<h1>Hello, World!</h1>');
-            //response.write('</body>');
-            //response.write('</html>');
+            //response.write('<html><body><h1>Hello, World!</h1></body></html>');
             response.statusCode = 204;
+            response.end();
+        });
+    });
+
+    app.post("/addsite", function (request, response) {
+        //get values from form with request.body
+        const name = connection.escape(request.body.name);
+        const address = connection.escape(request.body.address);
+        const zipCode = connection.escape(request.body.zipCode);
+        const phone = connection.escape(request.body.phone);
+        //compile sql statement
+        var sql = `INSERT INTO SITE (SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES (${name}, ${address}, ${zipCode}, ${phone});`;
+
+        //debugging - prints to terminal
+        console.log(request.body);
+        console.log(sql);
+
+        //attempt to execute sql
+        connection.query(sql, function (err, result) {
+            //print error if something went wrong
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+
+            response.statusCode = 204; //do not leave web page
             response.end();
         });
     });
 
     var server = app.listen(8081, "localhost", function () {
         var host = server.address()
-        //var port = server.address()
         console.log("Example app listening at http://%s", host)
     })
 });
