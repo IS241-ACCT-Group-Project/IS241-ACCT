@@ -5,8 +5,8 @@ const myArgs = process.argv.slice(2);
 const mysql = require('mysql');
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: myArgs[0], //'newuser',
-    password: myArgs[1], //'newpassword',
+    user: myArgs[0], //username from database/mysql_login.txt
+    password: myArgs[1], //password from database/mysql_login.txt
     database: 'VaxTest2'
 });
 
@@ -52,6 +52,30 @@ connection.connect((err) => {
         });
     });
 
+    app.get("/listpatientinfo", function (request, response) {
+        var sql = "SELECT * FROM PATIENT_INFO";
+        
+        connection.query(sql, function (err, result) {
+            if (err) {
+                throw err;
+            }
+
+            response.end(JSON.stringify(result));
+        });
+    });
+
+    app.get("/listpatientvaccination", function (request, response) {
+        var sql = "SELECT * FROM PATIENT_VACCINATION";
+        
+        connection.query(sql, function (err, result) {
+            if (err) {
+                throw err;
+            }
+
+            response.end(JSON.stringify(result));
+        });
+    });
+
     app.post("/addinjector", function (request, response) {
         //body("firstName", "lastName").trim().isLength({ min: 1 }).escape();
         //body("siteID").trim().optional({ checkFalsy: true }).isNumeric().withMessage("Site ID must be a number.");
@@ -83,13 +107,66 @@ connection.connect((err) => {
     });
 
     app.post("/addsite", function (request, response) {
-        //get values from form with request.body
+        //get values from form "name=" with request.body
         const name = connection.escape(request.body.name);
         const address = connection.escape(request.body.address);
         const zipCode = connection.escape(request.body.zipCode);
         const phone = connection.escape(request.body.phone);
         //compile sql statement
         var sql = `INSERT INTO SITE (SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES (${name}, ${address}, ${zipCode}, ${phone});`;
+
+        //debugging - prints to terminal
+        console.log(request.body);
+        console.log(sql);
+
+        //attempt to execute sql
+        connection.query(sql, function (err, result) {
+            //print error if something went wrong
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+
+            response.statusCode = 204; //do not leave web page
+            response.end();
+        });
+    });
+
+    app.post("/addpatientinfo", function (request, response) {
+        //get values from form "name=" with request.body
+        const firstName = connection.escape(request.body.firstName);
+        const lastName = connection.escape(request.body.lastName);
+        const address = connection.escape(request.body.address);
+        const zipCode = connection.escape(request.body.zipCode);
+        //compile sql statement
+        var sql = `INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES (${firstName}, ${lastName}, ${address}, ${zipCode});`;
+
+        //debugging - prints to terminal
+        console.log(request.body);
+        console.log(sql);
+
+        //attempt to execute sql
+        connection.query(sql, function (err, result) {
+            //print error if something went wrong
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+
+            response.statusCode = 204; //do not leave web page
+            response.end();
+        });
+    });
+
+    app.post("/addpatientvaccination", function (request, response) {
+        //get values from form "name=" with request.body
+        const patientID = connection.escape(request.body.patientID);
+        const date = connection.escape(request.body.date);
+        const injectorID = connection.escape(request.body.injectorID);
+        const vaccinationType = connection.escape(request.body.vaccinationType);
+        const lotNumber = connection.escape(request.body.lotNumber);
+        //compile sql statement
+        var sql = `INSERT INTO PATIENT_VACCINATION (PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES (${patientID}, ${date}, ${injectorID}, ${vaccinationType}, ${lotNumber});`;
 
         //debugging - prints to terminal
         console.log(request.body);

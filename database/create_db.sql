@@ -37,3 +37,41 @@ INSERT INTO INJECTOR (FirstName, LastName, SiteID) VALUES ('Kathryn', 'Devine', 
 INSERT INTO INJECTOR (FirstName, LastName, SiteID) VALUES ('Sarah', 'Feeny', '2');
 INSERT INTO INJECTOR (FirstName, LastName, SiteID) VALUES ('Sarah', 'Higgins', '4');
 INSERT INTO INJECTOR (FirstName, LastName, SiteID) VALUES ('Roy', 'Duran', '4');
+INSERT INTO INJECTOR (FirstName, LastName) VALUES ('Emily', 'Brooks');
+INSERT INTO INJECTOR (FirstName, LastName) VALUES ('Leonardo', 'Berry');
+
+
+CREATE TABLE PATIENT_INFO(
+    PatientID int NOT NULL AUTO_INCREMENT, 
+    FirstName varchar(30) NOT NULL, 
+    LastName varchar(30) NOT NULL, 
+    PatientAddress varchar(60), 
+    ZipCode varchar(5), 
+    PRIMARY KEY (PatientID)
+);
+
+/* 
+Add dummy values using a name generator. 
+Have at least 10 entries. 
+Make sure to add duplicates of first/last names, addresses, and zip codes for more thorough testing. 
+Make sure to have fields in some entries blank as allowed by the database. 
+*/
+
+
+CREATE TABLE PATIENT_VACCINATION(
+    PatientID int NOT NULL, 
+    VaccinationDate date NOT NULL, /* In the format of YYYY-MM-DD */
+    InjectorID int NOT NULL, 
+    VaccinationType varchar(30), /* For now, choose from either "Pfizer-BioNTech", "Moderna", or "Johnson & Johnson's Janssen" */
+    LotNumber varchar(20), /* For now, let's say lot numbers are strings of 5 digits e.g. 00001, 12345, 19293 */
+    PRIMARY KEY (PatientID, VaccinationDate)
+);
+
+/* 
+Add dummy values. 
+Make sure to have at least 10 entries. 
+Make sure all PatientIDs are 0-9 and all InjectorIDs are 0-10. 
+Keep all date values between Nov 1, 2021 and Feb 20, 2022.
+Make sure to add multiple vaccinations for some but not all patients. 
+Make sure to have fields in some entries blank as allowed by the database. 
+*/

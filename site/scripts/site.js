@@ -1,10 +1,15 @@
-function listDB(request) {
+//print whole database to console (debugging purposes only)
+function listDB(database) {
     //fetch("http://localhost:8081/listinjectors")
-    fetch("http://localhost:8081/" + request)
+    fetch("http://localhost:8081/list" + database)
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => {
+            console.log(`Showing all ${database.toUpperCase()} entries:`);
+            console.log(data);
+        });
 }
 
+//deprecated
 function submitForm() {
     // @ts-ignore
     var FirstName = document.getElementById("firstName").value;

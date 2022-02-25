@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>New Injector Registration</title>
+	<link rel="stylesheet" href="styles/loginStyles.css">
+    <script type="text/javascript" src="scripts/site.js"></script>
+</head>
+
+<body>
+	<main id="main-holder">
+	<h1>Database Testing</h1>
+	<div>
+		<form action="http://localhost:8081/addsite" method="post">
+		<h2>Site Database</h2>
+			<label for="name">Site Name:</label>
+			<br>
+			<input type="text" name="name">
+			<br>
+			
+			<label for="address">Address:</label>
+			<br>
+			<input type="text" name="address">
+			<br>
+			
+			<label for="zipCode">Zip Code:</label>
+			<br>
+			<input type="number" name="zipCode">
+			<br>
+			<label for="phone">Phone Number (no spaces/dashes):</label>
+			<br>
+			<input type="tel" name="phone">
+			<br>
+
+			<input type="submit" value="Register New Site">
+		</form>
+		<button onclick="listDB('sites')">Show Site Database</button>
+	</div>
+	<div>
+		<form action="http://localhost:8081/addinjector" method="post">
+			<h2>Injector Database</h2>
+			<label for="firstName">First name:</label><br>
+			<input type="text" name="firstName"><br>
+			
+			<label for="lastName">Last name:</label><br>
+			<input type="text" name="lastName"><br>
+			
+			<label for="clinicID">Clinic ID:</label><br>
+			<input type="number" name="clinicID"><br>
+
+			<input type="submit" value="Register New Injector">
+		</form>
+		<button onclick="listDB('injectors')">Show Injector Database</button>
+	</div>
+	<div>
+		<form action="http://localhost:8081/addpatientinfo" method="post">
+			<h2>Patient Information Database</h2>
+			<label for="firstName">First name:</label><br>
+			<input type="text" name="firstName"><br>
+			
+			<label for="lastName">Last name:</label><br>
+			<input type="text" name="lastName"><br>
+			
+			<label for="address">Address:</label><br>
+			<input type="text" name="address"><br>
+
+			<label for="zipCode">Zip Code:</label><br>
+			<input type="number" name="zipCode"><br>
+
+			<input type="submit" value="Register New Patient">
+		</form>
+		<button onclick="listDB('patientinfo')">Show Patient Info Database</button>
+	</div>
+	<div>
+		<form action="http://localhost:8081/addpatientvaccination" method="post">
+			<h2>Patient Vaccination Database</h2>
+			<label for="patientID">Patient ID:</label><br>
+			<input type="number" name="patientID"><br>
+			
+			<label for="date">Vaccination Date:</label><br>
+			<input type="date" name="date"><br>
+			
+			<label for="injectorID">Injector ID:</label><br>
+			<input type="number" name="injectorID"><br>
+
+			<label for="vaccinationType">Vaccination Type: </label><br>
+			<select name="vaccinationType">
+				<option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
+				<option value="Moderna">Moderna</option>
+				<option value="Johnson & Johnson's Janssen">Johnson & Johnson's Janssen</option>
+			</select><br>
+
+			<label for="lotNumber">Lot Number:</label><br>
+			<input type="number" name="lotNumber"><br>
+
+			<input type="submit" value="Register New Vaccination">
+		</form>
+		<button onclick="listDB('patientvaccination')">Show Vaccination Database</button>
+	</div>
+	</main>
+</body>
