@@ -28,6 +28,7 @@ connection.connect((err) => {
 
     console.log('Connected to MySQL Server!');
 
+    //#region List DB
     app.get("/listInjectors", function (req, response) {
         var sql = "SELECT * FROM INJECTOR";
 
@@ -76,6 +77,9 @@ connection.connect((err) => {
         });
     });
 
+    //#endregion
+
+    //#region Add to DB
     app.post("/addinjector", function (request, response) {
         //body("firstName", "lastName").trim().isLength({ min: 1 }).escape();
         //body("siteID").trim().optional({ checkFalsy: true }).isNumeric().withMessage("Site ID must be a number.");
@@ -181,6 +185,47 @@ connection.connect((err) => {
             }
 
             response.statusCode = 204; //do not leave web page
+            response.end();
+        });
+    });
+    //#endregion
+
+    app.post("/searchsites", async function (request, response) {
+        const sql = `SELECT * FROM SITE;`; //this can be const, right?
+
+        //debugging - prints to terminal
+        console.log(request.body);
+        console.log(sql);
+
+        var resultsHTML = ""; //HTML to be displayed on web pgae
+
+        //attempt to execute sql
+        connection.query(sql, function (err, result) {
+            //print error if something went wrong
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+            
+            var table = ""; //create HTML table
+            //fill HTML table
+            for (var i = 0; i < result.length; ++i) {
+                table += `<tr><td>${result[i].SiteID}</td>
+                              <td>${result[i].SiteName}</td>
+                              <td>${result[i].SiteAddress}</td>
+                              <td>${result[i].SiteZipCode}</td>
+                              <td>${result[i].SitePhoneNumber}</td><tr>`;
+            }
+            table = "<table><tr><th>ID</th><th>Name</th><th>Address</th><th>Zip Code</th><th>Phone Number</th></th></tr>" + table + "</table>"
+            resultsHTML = `<html><head><title>Search Resluts in Sites</title></head><body>${table}</body></html>`;
+            
+            //response.setHeader("Content-Type", "text/html");
+            response.writeHead(200, {
+                "Content-Type": "text/html; charset=utf-8"
+            });
+            
+            response.write(resultsHTML);
+            //response.statusCode = 204;
             response.end();
         });
     });
