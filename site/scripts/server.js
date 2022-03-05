@@ -21,12 +21,23 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
 
+app.use(express.static("../site"));
+
 connection.connect((err) => {
     if (err) {
         throw err;
     }
 
     console.log('Connected to MySQL Server!');
+
+    //access website by going to http://localhost:8081
+    app.get("/", function (request, response) {
+        response.setHeader("Cache-Control", "no-cache"); //remove "no-cache" when website is live
+
+        //DON'T CHANGE THIS HERE - REDIRECT TO A DIFFERENT PAGE IN INDEX.HTML
+        response.sendFile("../site/index.html"); //start user on index page
+        //response.redirect("../site/login.html");
+    });
 
     //#region List DB
     app.get("/listInjectors", function (req, response) {
