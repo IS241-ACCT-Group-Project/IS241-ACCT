@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="styles/loginStyles.css">
 	<script type="text/javascript" src="scripts/site.js"></script>
 	<script type="text/javascript" src="scripts/searchSites.js"></script>
+	<script type="text/javascript" src="scripts/searchInjectors.js"></script>
 	<style>
 		div.dbGroup {
 			display: flex;
@@ -94,7 +95,6 @@
 					</tr>
 				</thead>
 			</table>
-			<!-- <table><tr><th>ID</th><th>Name</th><th>Address</th><th>Zip Code</th><th>Phone Number</th></th></tr></table> -->
 		</div>
 		<div class="dbGroup">
 			<form action="http://localhost:8081/addinjector" method="post">
@@ -113,7 +113,7 @@
 				<!-- Just for testing; please don't put this in a form -->
 				<br><br><button onclick="listDB('injectors')">Show Injector Database</button>
 			</form>
-			<form action="http://localhost:8081/searchinjectors" method="post">
+			<form id="injectorSearch">
 				<h2>Search for an Injector</h2>
 				<label for="injectorID">Injector ID:</label><br>
 				<input type="number" name="injectorID"><br>
@@ -129,6 +129,16 @@
 
 				<input type="submit" value="Search for an Injector">
 			</form>
+			<table id="injectorsTable">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Site ID</th>
+					</tr>
+				</thead>
+			</table>
 		</div>
 		<div class="dbGroup">
 			<form action="http://localhost:8081/addpatientinfo" method="post">
