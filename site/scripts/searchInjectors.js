@@ -1,9 +1,9 @@
 var form;
 
-window.onload = function () {
+window.addEventListener("load", function () {
     form = document.getElementById("injectorSearch");
     form.addEventListener("submit", searchInjectors);
-}
+});
 
 function searchInjectors(event) {
     event.preventDefault();

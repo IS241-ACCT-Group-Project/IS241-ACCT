@@ -1,9 +1,9 @@
 var form;
 
-window.onload = function () {
+window.addEventListener("load", function () {
     form = document.getElementById("siteSearch");
     form.addEventListener("submit", searchSites);
-}
+});
 
 function searchSites(event) {
     event.preventDefault();
