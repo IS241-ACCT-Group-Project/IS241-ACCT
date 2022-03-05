@@ -6,12 +6,16 @@
 	<title>New Injector Registration</title>
 	<link rel="stylesheet" href="styles/loginStyles.css">
     <script type="text/javascript" src="scripts/site.js"></script>
+	<style>
+		div.dbGroup {display: flex;}
+		div form {padding: 40px;}
+	</style>
 </head>
 
 <body>
 	<main id="main-holder">
 	<h1>Database Testing</h1>
-	<div>
+	<div class="dbGroup">
 		<form action="http://localhost:8081/addsite" method="post">
 		<h2>Site Database</h2>
 			<label for="name">Site Name:</label>
@@ -28,20 +32,51 @@
 			<br>
 			<input type="number" name="zipCode">
 			<br>
+
 			<label for="phone">Phone Number (no spaces/dashes):</label>
 			<br>
 			<input type="tel" name="phone">
 			<br>
 
 			<input type="submit" value="Register New Site">
+
+			<!-- Just for testing; please don't put this in a form -->
+			<br><br><button onclick="listDB('sites')">Show Site Database</button>
 		</form>
-		<button onclick="listDB('sites')">Show Site Database</button>
 		<form action="http://localhost:8081/searchsites" method="post">
+			<h2>Search for a Site</h2>
+			<p>Enter search criteria (blank fields will be ignored):</p>
+
+			<label for="siteID">Site ID:</label>
+			<br>
+			<input type="number" name="siteID">
+			<br>
+
+			<label for="name">Site Name:</label>
+			<br>
+			<input type="text" name="name">
+			<br>
+			
+			<label for="address">Address:</label>
+			<br>
+			<input type="text" name="address">
+			<br>
+			
+			<label for="zipCode">Zip Code:</label>
+			<br>
+			<input type="number" name="zipCode">
+			<br>
+
+			<label for="phone">Phone Number (no spaces/dashes):</label>
+			<br>
+			<input type="tel" name="phone">
+			<br>
+
 			<input type="submit" value="Search For Site">
 		</form>
 		<!-- <table><tr><th>ID</th><th>Name</th><th>Address</th><th>Zip Code</th><th>Phone Number</th></th></tr></table> -->
 	</div>
-	<div>
+	<div class="dbGroup">
 		<form action="http://localhost:8081/addinjector" method="post">
 			<h2>Injector Database</h2>
 			<label for="firstName">First name:</label><br>
@@ -54,10 +89,12 @@
 			<input type="number" name="clinicID"><br>
 
 			<input type="submit" value="Register New Injector">
+			
+			<!-- Just for testing; please don't put this in a form -->
+			<br><br><button onclick="listDB('injectors')">Show Injector Database</button>
 		</form>
-		<button onclick="listDB('injectors')">Show Injector Database</button>
 	</div>
-	<div>
+	<div class="dbGroup">
 		<form action="http://localhost:8081/addpatientinfo" method="post">
 			<h2>Patient Information Database</h2>
 			<label for="firstName">First name:</label><br>
@@ -73,10 +110,12 @@
 			<input type="number" name="zipCode"><br>
 
 			<input type="submit" value="Register New Patient">
+			
+			<!-- Just for testing; please don't put this in a form -->
+			<br><br><button onclick="listDB('patientinfo')">Show Patient Info Database</button>
 		</form>
-		<button onclick="listDB('patientinfo')">Show Patient Info Database</button>
 	</div>
-	<div>
+	<div class="dbGroup">
 		<form action="http://localhost:8081/addpatientvaccination" method="post">
 			<h2>Patient Vaccination Database</h2>
 			<label for="patientID">Patient ID:</label><br>
@@ -99,8 +138,10 @@
 			<input type="number" name="lotNumber"><br>
 
 			<input type="submit" value="Register New Vaccination">
+			
+			<!-- Just for testing; please don't put this in a form -->
+			<br><br><button onclick="listDB('patientvaccination')">Show Vaccination Database</button>
 		</form>
-		<button onclick="listDB('patientvaccination')">Show Vaccination Database</button>
 	</div>
 	</main>
 </body>

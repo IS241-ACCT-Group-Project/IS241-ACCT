@@ -89,6 +89,7 @@ connection.connect((err) => {
         const firstname = connection.escape(request.body.firstName);
         const lastname = connection.escape(request.body.lastName);
         const siteid = connection.escape(request.body.siteID);
+        //can var sql be const sql?
         var sql = `INSERT INTO INJECTOR (FirstName, LastName, SiteID) VALUES (${firstname}, ${lastname}, ${siteid});`;
 
         console.log(request.body);
@@ -190,8 +191,47 @@ connection.connect((err) => {
     });
     //#endregion
 
-    app.post("/searchsites", async function (request, response) {
-        const sql = `SELECT * FROM SITE;`; //this can be const, right?
+    //#region Search DB
+    app.post("/searchsites", function (request, response) {
+        //make these arrays for easy iteration
+        const fieldNames = [
+            "SiteID",
+            "SiteName",
+            "SiteAddress",
+            "SiteZipCode",
+            "SitePhoneNumber"
+        ];
+        //get values from form "name=" with request.body
+        const fieldData = [
+            connection.escape("%" + request.body.siteID + "%"),
+            connection.escape("%" + request.body.name + "%"),
+            connection.escape("%" + request.body.address + "%"),
+            connection.escape("%" + request.body.zipCode + "%"),
+            connection.escape("%" + request.body.phone + "%")
+        ];
+        var addAND = false; //for adding multiple search criteria
+
+        //start to build sql statement
+        var sql = `SELECT * FROM SITE WHERE (`;
+
+        const arrLength = fieldData.length;
+        for (var i = 0; i < arrLength; ++i) {
+            if (fieldData[i].length > 4) {
+                if (addAND) { //add AND because this is not the first criteria
+                    sql += " AND ";
+                }
+                else { //will add ANDs to every criteria after this
+                    addAND = true;
+                }
+
+                sql += `${fieldNames[i]} LIKE ${fieldData[i]}`;
+            }
+        }
+        sql += ");";
+
+        if (!addAND) { //if no criteria were added, show all sites instead
+            sql = "SELECT * FROM SITE;";
+        }
 
         //debugging - prints to terminal
         console.log(request.body);
@@ -216,8 +256,8 @@ connection.connect((err) => {
                               <td>${result[i].SiteZipCode}</td>
                               <td>${result[i].SitePhoneNumber}</td><tr>`;
             }
-            table = "<table><tr><th>ID</th><th>Name</th><th>Address</th><th>Zip Code</th><th>Phone Number</th></th></tr>" + table + "</table>"
-            resultsHTML = `<html><head><title>Search Resluts in Sites</title></head><body>${table}</body></html>`;
+            table = "<table><tr><th>ID</th><th>Name</th><th>Address</th><th>Zip Code</th><th>Phone Number</th></tr>" + table + "</table>"
+            resultsHTML = `<html><head><title>Search Resluts in Sites</title></head><body><h1>Search Results in SITE</h1>${table}</body></html>`;
             
             //response.setHeader("Content-Type", "text/html");
             response.writeHead(200, {
@@ -229,6 +269,7 @@ connection.connect((err) => {
             response.end();
         });
     });
+    //#endregion
 
     var server = app.listen(8081, "localhost", function () {
         var host = server.address()
