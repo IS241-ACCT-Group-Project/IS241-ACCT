@@ -209,35 +209,12 @@ connection.connect((err) => {
             connection.escape("%" + request.body.zipCode + "%"),
             connection.escape("%" + request.body.phone + "%")
         ];
-        var addAND = false; //for adding multiple search criteria
-
-        //start to build sql statement
-        var sql = `SELECT * FROM SITE WHERE (`;
-
-        const arrLength = fieldData.length;
-        for (var i = 0; i < arrLength; ++i) {
-            if (fieldData[i].length > 4) {
-                if (addAND) { //add AND because this is not the first criteria
-                    sql += " AND ";
-                }
-                else { //will add ANDs to every criteria after this
-                    addAND = true;
-                }
-
-                sql += `${fieldNames[i]} LIKE ${fieldData[i]}`;
-            }
-        }
-        sql += ");";
-
-        if (!addAND) { //if no criteria were added, show all sites instead
-            sql = "SELECT * FROM SITE;";
-        }
+        
+        const sql = buildSearchSQL("SITE", fieldNames, fieldData);
 
         //debugging - prints to terminal
         console.log(request.body);
         console.log(sql);
-
-        var resultsHTML = ""; //HTML to be displayed on web pgae
 
         //attempt to execute sql
         connection.query(sql, function (err, result) {
@@ -246,29 +223,38 @@ connection.connect((err) => {
                 console.log(err);
                 throw err;
             }
-            
-            var table = ""; //create HTML table
-            //fill HTML table
-            for (var i = 0; i < result.length; ++i) {
-                table += `<tr><td>${result[i].SiteID}</td>
-                              <td>${result[i].SiteName}</td>
-                              <td>${result[i].SiteAddress}</td>
-                              <td>${result[i].SiteZipCode}</td>
-                              <td>${result[i].SitePhoneNumber}</td><tr>`;
-            }
-            table = "<table><tr><th>ID</th><th>Name</th><th>Address</th><th>Zip Code</th><th>Phone Number</th></tr>" + table + "</table>"
-            resultsHTML = `<html><head><title>Search Resluts in Sites</title></head><body><h1>Search Results in SITE</h1>${table}</body></html>`;
-            
-            //response.setHeader("Content-Type", "text/html");
-            response.writeHead(200, {
-                "Content-Type": "text/html; charset=utf-8"
-            });
-            
-            response.write(resultsHTML);
-            //response.statusCode = 204;
+
+            response.setHeader("Content-Type", "application/json");
+            response.write(JSON.stringify(result));
             response.end();
         });
     });
+
+    function buildSearchSQL(db, names, data) {
+        var sql = `SELECT * FROM ${db} WHERE(`;
+        var addAND = false; //for adding multiple search criteria
+
+        const arrLength = data.length;
+        for (var i = 0; i < arrLength; ++i) {
+            if (data[i].length > 4) {
+                if (addAND) { //add AND because this is not the first criteria
+                    sql += " AND ";
+                }
+                else { //will add ANDs to every criteria after this
+                    addAND = true;
+                }
+
+                sql += `${names[i]} LIKE ${data[i]}`;
+            }
+        }
+        sql += ");";
+
+        if (!addAND) { //if no criteria were added, show all sites instead
+            sql = `SELECT * FROM ${db};`;
+        }
+
+        return sql;
+    }
 
     app.post("/searchinjectors", function (request, response) {
         //make these arrays for easy iteration
