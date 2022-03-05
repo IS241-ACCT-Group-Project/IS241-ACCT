@@ -269,6 +269,81 @@ connection.connect((err) => {
             response.end();
         });
     });
+
+    app.post("/searchinjectors", function (request, response) {
+        //make these arrays for easy iteration
+        const fieldNames = [
+            "InjectorID",
+            "FirstName",
+            "LastName",
+            "SiteID"
+        ];
+        //get values from form "name=" with request.body
+        const fieldData = [
+            connection.escape("%" + request.body.injectorID + "%"),
+            connection.escape("%" + request.body.firstName + "%"),
+            connection.escape("%" + request.body.lastName + "%"),
+            connection.escape("%" + request.body.clinicID + "%"),
+        ];
+        var addAND = false; //for adding multiple search criteria
+
+        //start to build sql statement
+        var sql = `SELECT * FROM INJECTOR WHERE (`;
+
+        const arrLength = fieldData.length;
+        for (var i = 0; i < arrLength; ++i) {
+            if (fieldData[i].length > 4) {
+                if (addAND) { //add AND because this is not the first criteria
+                    sql += " AND ";
+                }
+                else { //will add ANDs to every criteria after this
+                    addAND = true;
+                }
+
+                sql += `${fieldNames[i]} LIKE ${fieldData[i]}`;
+            }
+        }
+        sql += ");";
+
+        if (!addAND) { //if no criteria were added, show all sites instead
+            sql = "SELECT * FROM INJECTOR;";
+        }
+
+        //debugging - prints to terminal
+        console.log(request.body);
+        console.log(sql);
+
+        var resultsHTML = ""; //HTML to be displayed on web pgae
+
+        //attempt to execute sql
+        connection.query(sql, function (err, result) {
+            //print error if something went wrong
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+            
+            var table = ""; //create HTML table
+            //fill HTML table
+            for (var i = 0; i < result.length; ++i) {
+                table += `<tr><td>${result[i].InjectorID}</td>
+                              <td>${result[i].FirstName}</td>
+                              <td>${result[i].LastName}</td>
+                              <td>${result[i].SiteID}</td><tr>`;
+            }
+            table = "<table><tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Site ID</th></tr>" + table + "</table>"
+            resultsHTML = `<html><head><title>Search Resluts in Injectors</title></head><body><h1>Search Results in SITE</h1>${table}</body></html>`;
+            
+            //response.setHeader("Content-Type", "text/html");
+            response.writeHead(200, {
+                "Content-Type": "text/html; charset=utf-8"
+            });
+            
+            response.write(resultsHTML);
+            //response.statusCode = 204;
+            response.end();
+        });
+    });
     //#endregion
 
     var server = app.listen(8081, "localhost", function () {

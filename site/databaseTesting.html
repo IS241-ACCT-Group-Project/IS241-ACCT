@@ -93,6 +93,22 @@
 			<!-- Just for testing; please don't put this in a form -->
 			<br><br><button onclick="listDB('injectors')">Show Injector Database</button>
 		</form>
+		<form action="http://localhost:8081/searchinjectors" method="post">
+			<h2>Search for an Injector</h2>
+			<label for="injectorID">Injector ID:</label><br>
+			<input type="number" name="injectorID"><br>
+
+			<label for="firstName">First name:</label><br>
+			<input type="text" name="firstName"><br>
+			
+			<label for="lastName">Last name:</label><br>
+			<input type="text" name="lastName"><br>
+			
+			<label for="clinicID">Clinic ID:</label><br>
+			<input type="number" name="clinicID"><br>
+
+			<input type="submit" value="Search for an Injector">
+		</form>
 	</div>
 	<div class="dbGroup">
 		<form action="http://localhost:8081/addpatientinfo" method="post">
