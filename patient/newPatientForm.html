@@ -16,10 +16,10 @@
 		<h2>Patient Demographics</h2>
 			<form>
 				<label for="firstNamePatient">First name:</label><br>
-				<input type="text" id="firstNamePatient" name="firstNamePatient"><br>
+				<input type="text" id="firstNamePatient" name="firstNamePatient" required><br>
 				
 				<label for="lastNamePatient">Last name:</label><br>
-				<input type="text" id="lastNamePatient" name="lastNamePatient"><br>
+				<input type="text" id="lastNamePatient" name="lastNamePatient" required><br>
 				
 				<label for="middleNamePatient">Middle name:</label><br>
 				<input type="text" id="middleNamePatient" name="middleNamePatient"><br>
@@ -59,7 +59,7 @@
 				<input type="text" id="languagePatient" name="languagePatient"><br>
                                 
                                 <label for="dateBirthPatient">Date of Birth:</label><br>
-				<input type="date" id="dobPatient" name="dobPatient"><br>
+				<input type="date" id="dobPatient" name="dobPatient" required><br>
                                         
 		<h2>Patient Contact Information</h2>
 
@@ -70,10 +70,10 @@
 				<input type="text" id="countyPatient" name="countyPatient" title="eg. Jefferson, Franklin, St Louis County, Saint Louis City"><br>
                                 
 				<label for="address">Street Address:</label><br>
-				<input type="text" id="addressPatient" name="addressPatient"><br>
+				<input type="text" id="addressPatient" name="addressPatient" required><br>
 
 				<label for="city">City:</label><br>
-				<input type="text" id="cityPatient" name="cityPatient"><br>
+				<input type="text" id="cityPatient" name="cityPatient" required><br>
 				
 				<label for="state">State:</label><br>
 				<input type="text" id="statePatient" name="statePatient" value="Missouri"><br>
@@ -81,7 +81,7 @@
 				<label for="zip">Zip Code:</label><br>
 				<input type="text" id="zipPatient" name="zipPatient"
                                        pattern="[0-9]{5}"
-                                       title="Enter five digit zip code"><br>
+                                       title="Enter five digit zip code" required><br>
 
 				<label for="phonePatient">Phone Number:</label><br>
 				<input type="tel" id="phonePatient" name="phonePatient" 
