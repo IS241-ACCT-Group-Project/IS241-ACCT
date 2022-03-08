@@ -14,8 +14,7 @@
 
 		<form id="newPatientForm">
 		<h2>Patient Demographics</h2>
-			<form>
-				<label for="firstNamePatient">First name*:</label><br>
+			    <label for="firstNamePatient">First name*:</label><br>
 				<input type="text" id="firstNamePatient" name="firstNamePatient" required><br>
 				
 				<label for="lastNamePatient">Last name*:</label><br>
@@ -25,7 +24,7 @@
 				<input type="text" id="middleNamePatient" name="middleNamePatient"><br>
 
 				<label for="sexAtBirthPatient">Sex assigned at birth :</label><br>
-					<select name="genderPatient" id="genderPatient">
+					<select name="sexAtBirthPatient" id="sexAtBirthPatient">
 						<option value="male">Male</option>
 
 						<option value="female">Female</option>
@@ -53,12 +52,12 @@
 					</select><br>
                                         
 				<label for="racePatient">Race:</label><br>
-				<input type="text" id="Race" name="middleNamePatient"><br>
+				<input type="text" id="racePatient" name="racePatient"><br>
 
 				<label for="languagePatient">Primary language:</label><br>
 				<input type="text" id="languagePatient" name="languagePatient"><br>
                                 
-                                <label for="dateBirthPatient">Date of Birth:</label><br>
+                <label for="dobPatient">Date of Birth:</label><br>
 				<input type="date" id="dobPatient" name="dobPatient"><br>
                                         
 		<h2>Patient Contact Information</h2>
@@ -69,16 +68,16 @@
 				<label for="countyPatient">County</label><br>
 				<input type="text" id="countyPatient" name="countyPatient" title="eg. Jefferson, Franklin, St Louis County, Saint Louis City"><br>
                                 
-				<label for="address">Street Address*:</label><br>
+				<label for="addressPatient">Street Address*:</label><br>
 				<input type="text" id="addressPatient" name="addressPatient" required><br>
 
-				<label for="city">City*:</label><br>
+				<label for="cityPatient">City*:</label><br>
 				<input type="text" id="cityPatient" name="cityPatient" required><br>
 				
-				<label for="state">State*:</label><br>
+				<label for="statePatient">State*:</label><br>
 				<input type="text" id="statePatient" name="statePatient" value="Missouri" required><br>
 
-				<label for="zip">Zip Code*:</label><br>
+				<label for="zipPatient">Zip Code*:</label><br>
 				<input type="text" id="zipPatient" name="zipPatient" required
                                        pattern="[0-9]{5}"
                                        title="Enter five digit zip code" ><br>
@@ -106,7 +105,7 @@
                                 <label for="emailPatient">Patient Email:</label><br>
 				<input type="email" id="emailPatient" name="emailPatient"><br>
                                 <h3>(*required field)</h3>
-		<input type="submit" value="Register" id="newPatientForm">
+		<input type="submit" value="Register" id="newPatientRegister">
 		</form>
 	</main>
 </body>
