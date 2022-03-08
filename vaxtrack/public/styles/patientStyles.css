@@ -1,0 +1,19 @@
+#patient-holder {
+  width: 50%;
+  height: 100%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 0px 0px 5px 2px black;
+}
+
+input:invalid {
+  border: 2px solid red;
+}
+
+input:invalid:required {
+  border: 1px solid red;  
+}
+
