@@ -20,7 +20,8 @@ Choose 'Development Computer' and keep the default connectivity settings.
 #### Authentication Method
 Use strong password encryption for authentication.
 #### Accounts and Roles
-I made a user in addition to the root user, but I don't think it's required.
+Make a user in addition to the root user. This will be the user that logs into the database. 
+**Please don't have any special characters in your username or password!**
 
 At this point, create a `mysql_login.txt` file with the username and password you created. Put this file in the database folder. This file will be ignored in the git repository and will be used locally to log you in later.
 
@@ -80,7 +81,19 @@ Batch files only work on Windows, so Mac/Linux users will have to create a `.sh`
 ```batch
 ./create_db.bat
 ```
-You should now have a vaccinator database with dummy data created and able to be modified from HTML. 
+You should now have a vaccinator database with dummy data created and able to be modified from HTML. If this worked, you can continue on to [Testing the Database](#testing-the-database)
+
+<br>
+
+If this didn't work, your account may not have the privileges to edit the database. Another way to give your account privileges is to create the database for the first time in MySQL and give your user elevated privileges from there. This will have to be redone if the database name is later changed, so it's not ideal.
+
+Open MySQL Workbench. On the home screen, double click the `Local instance MySQL80` button. On the left side of MySQL Workbench, there is a panel called `Navigator`. On the bottom of this panel there are tabs for `Administration` and `Schemas`. Click the Schemas tab. If there is not a `vaxtest2` database listed, right click in the blank space and select `Create Schema...`. Create a schema called `vaxtest2` with all the default settings. 
+
+Back in the Navigator panel, double click any other schema and then double click `vaxtest2` to reload it. Now, in the `Query` window in the center of MySQL Workbench, write the following command:
+```sql
+GRANT ALL PRIVILEGES ON vaxtest2.* TO 'YOUR_USERNAME'@'localhost';
+```
+Lastly, click the lightning bolt icon just below `Query1` to execute the SQL command. The output of this command, found below Query1, should not show any errors. Retry running `create_db.bat`.
 
 ### Testing the Database
 To make sure everything is working, open `site/index.html` in a web browser. 
