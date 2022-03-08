@@ -12,7 +12,8 @@ This is a school project to create a website that tracks dummy vaccination data 
 ### MySQL
 This project uses MySQL. You can download it here: https://dev.mysql.com/downloads/ 
 
-If given the choice, select the 'community' option and not 'web community.' It's not necessary to create an account; there should be a skip button at the bottom. 
+If on Windows, click `MySQL Installer for Windows`.
+On the next page, if given the choice, select the 'community' option and not 'web community.' It's not necessary to create an account; there should be a skip button at the bottom. 
 
 Select the 'Developer Default' setup type. You may also have to download Python. 
 #### Type and Networking
