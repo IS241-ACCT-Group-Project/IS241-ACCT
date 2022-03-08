@@ -1,0 +1,43 @@
+ <!DOCTYPE html>
+<!--this page is for registering a new patient vaccination-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registration</title>
+	<link rel="stylesheet" href="styles/loginStyles.css">
+
+
+</head>
+<body>
+	<main id="main-holder">
+	<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System</h1>				
+
+		<form id="newVaccinationForm" action="http://localhost:8081/addpatientvaccination" method="post">
+		<h2>Record New Vaccination:</h2>
+		
+			<label for="patientID">Patient ID:</label><br>
+			<input type="number" id="patientID" name="patientID"  min="1" maxlength="1" pattern="[1-9]" required/><br>
+
+			<label for="date">Vaccination Date:</label><br>
+			<input type="date" id="date" name="date" required/
+				placeholder="dd-mm-yyyy" value=""
+				min="2021-11-01" max="2022-02-20">
+				<br />
+
+			<label for="injectorID">Injector ID:</label><br>
+			<input type="number" id="injectorID" name="injectorID" min="01" maxlength="2" pattern="[0-10]" required/><br>
+
+			<label for="vaccinationType">VaccinationType:</label><br>
+				<select name="vaccinationType" id="vaccinationType" required/>
+					<option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
+					<option value="Moderna">Moderna</option>
+					<option value="Johnson & Johnson's Janssen">Johnson & Johnson's Janssen</option>
+				</select>
+			<br />
+
+			<label for="lotNumber">LotNumber:</label><br>
+			<input type="number" id="lotNumber" name="lotNumber" min="0" maxlength="5" pattern="{5}"><br>		    
+		<input type="submit" value="register" id="newVaccinationForm">
+		</form>
+	</main>
+</body>
