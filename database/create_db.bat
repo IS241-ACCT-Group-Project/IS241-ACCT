@@ -10,7 +10,7 @@ for /f "tokens=*" %%x in (mysql_login.txt) do (
     set var[!count!]=%%x
 )
 
-:: echo %var[1]% %var[2]%
+echo %var[1]% %var[2]%
 
 :: Create a database using the sql commands in create_db.sql
 mysqlsh --sql --host=localhost --user=%var[1]% --password=%var[2]% --file create_db.sql
