@@ -14,24 +14,17 @@
 	<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System</h1>		
 		<h2>Vaccination Site Information</h2>
 			<form id="newSiteForm" action="http://localhost:8081/addsite" method="post">
-				<label for="organizationName">Site name:</label><br>
-				<input type="text" id="organizationName" name="name"><br>
+				<label for="name">Site name:</label><br>
+				<input type="text" id="name" name="name"><br>
 				
 				<label for="address">Address:</label><br>
 				<input type="text" id="address" name="address"><br>
-				
 
-				<label for="city">City:</label><br>
-				<input type="text" id="city" name="city"><br>
-				
-				<label for="state">State:</label><br>
-				<input type="text" id="state" name="state"><br>
+				<label for="zipCode">Zip:</label><br>
+				<input type="text" id="zipCode" name="zipCode"><br>
 
-				<label for="zip">Zip:</label><br>
-				<input type="text" id="zip" name="zipCode"><br>
-
-				<label for="zip">Phone Number:</label><br>
-				<input type="text" id="zip" name="phone"><br>
+				<label for="phone">Phone Number:</label><br>
+				<input type="tel" id="phone" name="phone"><br>
 				
 				<input type="submit" value="register" id="newSiteForm">
 
