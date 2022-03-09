@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <!--this page is for registering a new injector-->
 <head>
 	<meta charset="UTF-8">
@@ -10,31 +11,33 @@
 </head>
 <body>
 	<main id="main-holder">
-	<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System</h1>				
+		<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System</h1>
 
-	<form id="newInjectorForm" action="http://localhost:8081/addinjector" method="post">
-		<h2>Injector Information</h2>
-		<label for="firstName">First name:</label><br>
-		<input type="text" id="firstName" name="firstName" required /><br>
+		<form id="newInjectorForm" action="http://localhost:8081/addinjector" method="post">
+			<h2>Injector Information</h2>
+			<label for="firstName">First name:</label><br>
+			<input type="text" id="firstName" name="firstName" required /><br>
 
-		<label for="lastName">Last name:</label><br>
-		<input type="text" id="lastName" name="lastName" required /><br>
+			<label for="lastName">Last name:</label><br>
+			<input type="text" id="lastName" name="lastName" required /><br>
 
-		<label for="clinicID">Clinic ID:</label><br>
-		<input type="number" id="clinicID" name="clinicID" min="1" /><br>
+			<label for="clinicID">Clinic ID:</label><br>
+			<input type="number" id="clinicID" name="clinicID" min="1" /><br>
 
-		<input type="submit" value="register" id="newInjectorForm">
-	</form>
+			<input type="submit" value="register" id="newInjectorFormSubmit">
+		</form>
 
-		<h2>Documents
+		<h2>
+			Documents
 		</h2>
-		    <form action="/action_page.php" 
-		        enctype="multipart/form-data">
-		          
-		        <label for="myfile">Select a file:</label>
-		        <input type="file" id="myfile" name="myfile" />
-		        <br /><br />
-			</form>
-		    
+		<form action="/action_page.php"
+			  enctype="multipart/form-data">
+
+			<label for="myfile">Select a file:</label>
+			<input type="file" id="myfile" name="myfile" />
+			<br /><br />
+		</form>
+
 	</main>
 </body>
+</html>
