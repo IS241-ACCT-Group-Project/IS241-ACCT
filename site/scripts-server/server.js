@@ -307,8 +307,9 @@ connection.connect((err) => {
     }
     //#endregion
 
-    var server = app.listen(8081, "localhost", function () {
+    var server = app.listen(8081, function () {
         var host = server.address()
-        console.log("Example app listening at http://%s", host)
+        console.log("Example app listening on port " + host.port)
+        // console.log(JSON.stringify(host))
     })
 });
