@@ -1,5 +1,5 @@
 #!/bin/bash
-# Do not print commands being executed - this does not work lolol !
+# Do not print commands being executed - this does not work !
 #/dev/null
 
 # replace localhost with IP address in browser-side files
@@ -17,23 +17,9 @@ do
 done
 
 # Read lines of mysql_login.txt into an array that server.js can use
-#setlocal enabledelayedexpansion
-#COUNT=0
-#
-#while IFS='' read -r LineFromFile || [[ -n"{LineFromFile}" ]]; do
-#
-#    ((Counter++))
-#    echo "Accessing line $COUNT: ${LineFromFile}"
-#    var[$COUNT]=${LineFromFile}
-#
-#done < "$1"
+PASS=`cat mysql_login.txt`
 
-#for /f "tokens=*" %%x in (mysql_login.txt) do (
-#    set /a COUNT+=1
-#    set var[!COUNT!]=%%x
-#)
-
-# echo %var[1]% %var[2]%
+# echo $PASS
 
 # change IP address back to localhost
 function onEnd(){
@@ -55,7 +41,7 @@ function onEnd(){
 trap onEnd SIGINT
 
 # Create a database using the sql commands in create_db.sql
-mysql --host=localhost --user='ACCT-remote' --password='kMJRbSNIKZaZ6bN5RE9z!' < create_db.sql #--sql
+mysql --host=localhost --user='ACCT-remote' --password=$PASS < create_db.sql #--sql
 
 # Start server.js with the login credentials. server.js will stay running as long as the terminal is open
-node ../site/scripts-server/server.js ACCT-remote kMJRbSNIKZaZ6bN5RE9z!
+node ../site/scripts-server/server.js ACCT-remote $PASS
