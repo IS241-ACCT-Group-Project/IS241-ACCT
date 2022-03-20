@@ -25,12 +25,22 @@ app.use(express.static("../site"));
 
 var http = require('http');
 var https = require('https');
-var privateKey  = fs.readFileSync('../site/scripts-server/key.pem', 'utf8');
-var certificate = fs.readFileSync('../site/scripts-server/cert.pem', 'utf8');
-var credentials = { key: privateKey, cert: certificate };
+var privateKey  = "";
+var certificate = "";
+var credentials;
 
 var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
+var httpsCreated = true;
+try {
+    privateKey  = fs.readFileSync('../site/scripts-server/key.pem', 'utf8');
+    certificate = fs.readFileSync('../site/scripts-server/cert.pem', 'utf8');
+    credentials = { key: privateKey, cert: certificate };
+    
+    var httpsServer = https.createServer(credentials, app);
+}
+catch {
+    httpsCreated = false;
+}
 
 connection.connect((err) => {
     if (err) {
@@ -323,10 +333,12 @@ connection.connect((err) => {
     //    // console.log(JSON.stringify(host))
     //})
 
-    httpsServer.listen(8081);
-    // , function () {
-    //    var host = httpsServer.address()
-    //    console.log("Example app listening on port " + host.port)
-    //    // console.log(JSON.stringify(host))
-    // })
+    if (httpsCreated) {
+        httpsServer.listen(8081);
+        // , function () {
+        //    var host = httpsServer.address()
+        //    console.log("Example app listening on port " + host.port)
+        //    // console.log(JSON.stringify(host))
+        // })
+    }
 });
