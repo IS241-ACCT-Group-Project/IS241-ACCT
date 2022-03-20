@@ -16,7 +16,7 @@ function searchSites(event) {
 
     console.log(value);
 
-    fetch("http://localhost:8081/searchsites", {
+    fetch("https://localhost:8081/searchsites", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

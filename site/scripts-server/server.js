@@ -14,7 +14,7 @@ const connection = mysql.createConnection({
 //from https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm
 var express = require('express');
 var app = express();
-//var fs = require("fs");
+var fs = require("fs");
 const cors = require("cors");
 //const { body, validationResult } = require('express-validator');
 app.use(cors());
@@ -22,6 +22,15 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.use(express.static("../site"));
+
+var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('../site/scripts-server/key.pem', 'utf8');
+var certificate = fs.readFileSync('../site/scripts-server/cert.pem', 'utf8');
+var credentials = { key: privateKey, cert: certificate };
+
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
 
 connection.connect((err) => {
     if (err) {
@@ -307,8 +316,17 @@ connection.connect((err) => {
     }
     //#endregion
 
-    var server = app.listen(8081, "localhost", function () {
-        var host = server.address()
-        console.log("Example app listening at http://%s", host)
-    })
+    httpServer.listen(8080);
+    //, function () {
+    //    var host = httpServer.address()
+    //    console.log("Example app listening on port " + host.port)
+    //    // console.log(JSON.stringify(host))
+    //})
+
+    httpsServer.listen(8081);
+    // , function () {
+    //    var host = httpsServer.address()
+    //    console.log("Example app listening on port " + host.port)
+    //    // console.log(JSON.stringify(host))
+    // })
 });

@@ -16,4 +16,4 @@ for /f "tokens=*" %%x in (mysql_login.txt) do (
 mysqlsh --sql --host=localhost --user=%var[1]% --password=%var[2]% --file create_db.sql
 
 :: Start server.js with the login credentials. server.js will stay running as long as the terminal is open
-node ../site/scripts/server.js %var[1]% %var[2]%
+node ../site/scripts-server/server.js %var[1]% %var[2]%

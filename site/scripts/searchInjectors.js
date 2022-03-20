@@ -16,7 +16,7 @@ function searchInjectors(event) {
 
     console.log(value);
 
-    fetch("http://localhost:8081/searchinjectors", {
+    fetch("https://localhost:8081/searchinjectors", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
