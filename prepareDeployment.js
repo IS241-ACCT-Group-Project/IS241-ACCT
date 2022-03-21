@@ -18,8 +18,8 @@ var spawnSync = require('child_process').spawnSync;
 //         if (err) {
 //             return console.log(err);
 //         }
-//         // var result = data.replace("134.209.47.143", "localhost");
-//         var result = data.replace("localhost", "134.209.47.143");
+//         // var result = data.replace("server.acct-vaxtest.me", "localhost:8081");
+//         var result = data.replace("localhost:8081", "server.acct-vaxtest.me");
 
 //         fs.writeFile("./site/scripts/" + filePath, result, 'utf8', function (err) {
 //             if (err) return console.log(err);
@@ -30,8 +30,8 @@ var spawnSync = require('child_process').spawnSync;
 function replace(filePath) {
     var str = fs.readFileSync("./site/scripts/" + filePath, 'utf8');
 
-    // var result = str.replace("134.209.47.143", "localhost");
-    var result = str.replace("localhost", "134.209.47.143");
+    // var result = str.replace("server.acct-vaxtest.me", "localhost:8081");
+    var result = str.replace("localhost:8081", "server.acct-vaxtest.me");
 
     fs.writeFileSync("./site/scripts/" + filePath, result, 'utf8');
 }
@@ -74,6 +74,9 @@ if (!execProcess("git", ["commit", "-m", "Deploy Main branch"])) {
     return;
 }
 if (!execProcess("git", ["push", "-f", "--set-upstream", "origin", "deployment"])) {
+    return;
+}
+if (!execProcess("git", ["switch", "main"])) {
     return;
 }
 console.log("\nSuccessfully pushed to deployment.");
