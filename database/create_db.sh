@@ -7,13 +7,13 @@ HTMLFILES="../site/*.html"
 for f in $HTMLFILES
 do
     # echo $f
-    sed -i "s/localhost/134.209.47.143/" $f
+    sed -i "s/localhost:8081/server.acct-vaxtracker.me/" $f
 done
 
 SCRIPTFILES="../site/scripts/*.js"
 for f in $SCRIPTFILES
 do
-    sed -i "s/localhost/134.209.47.143/" $f
+    sed -i "s/localhost:8081/server.acct-vaxtracker.me/" $f
 done
 
 # Read lines of mysql_login.txt into an array that server.js can use
@@ -21,17 +21,17 @@ PASS=`cat mysql_login.txt`
 
 # echo $PASS
 
-# change IP address back to localhost
+# change IP address back to localhost:8081
 function onEnd(){
     for f in $HTMLFILES
     do
         # echo $f
-        sed -i "s/134.209.47.143/localhost/" $f
+        sed -i "s/server.acct-vaxtracker.me/localhost:8081/" $f
     done
 
     for f in $SCRIPTFILES
     do
-        sed -i "s/134.209.47.143/localhost/" $f
+        sed -i "s/server.acct-vaxtracker.me/localhost:8081/" $f
     done
 
     #echo "pwease mr pwesident! don't kill me! i'll do anything!"
