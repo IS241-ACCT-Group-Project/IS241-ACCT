@@ -27,13 +27,22 @@ var spawnSync = require('child_process').spawnSync;
 //     });
 // }
 
-function replace(filePath) {
+function replaceDomain(filePath) {
     var str = fs.readFileSync("./site/scripts/" + filePath, 'utf8');
 
-    // var result = str.replace("server.acct-vaxtracker.me", "localhost:8081");
     var result = str.replace("localhost:8081", "server.acct-vaxtracker.me");
+    // var result = str.replace("server.acct-vaxtracker.me", "localhost:8081");
 
     fs.writeFileSync("./site/scripts/" + filePath, result, 'utf8');
+}
+
+function replaceHTTP(filePath) {
+    var str = fs.readFileSync("./site/" + filePath, "utf8");
+
+    var result = str.replace("http://", "https://");
+    // var result = str.replace("https://", "http://");
+
+    fs.writeFileSync("./site/" + filePath, result, 'utf8');
 }
 
 function execProcess(command, args) {
@@ -58,14 +67,28 @@ if (!execProcess("git", ["switch", "-c", "deployment"])) {
     return;
 }
 if (true) {
-    const dir = fs.opendirSync('./site/scripts/')
-    let dirent
-    while ((dirent = dir.readSync()) !== null) {
-        // console.log(dirent.name)
-        var file = dirent.name
-        replace(file);
+    {
+        let dir = fs.opendirSync('./site/scripts/');
+        let dirent;
+        while ((dirent = dir.readSync()) !== null) {
+            // console.log(dirent.name);
+            var file = dirent.name;
+            replaceDomain(file);
+        }
+        dir.closeSync();
     }
-    dir.closeSync()
+    {
+        let dir = fs.opendirSync('./site/');
+        let dirent;
+        while ((dirent = dir.readSync()) !== null) {
+            console.log(dirent.name);
+            if (dirent.name.endsWith(".html")) {
+                var file = dirent.name;
+                replaceHTTP(file);
+            }
+        }
+        dir.closeSync();
+    }
 }
 if (!execProcess("git", ["add", "-A"])) {
     return;
