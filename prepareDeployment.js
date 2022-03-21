@@ -27,20 +27,26 @@ var spawnSync = require('child_process').spawnSync;
 //     });
 // }
 
-function replaceDomain(filePath) {
+function replaceScripts(filePath) {
     var str = fs.readFileSync("./site/scripts/" + filePath, 'utf8');
 
-    var result = str.replace("localhost:8081", "server.acct-vaxtracker.me");
-    // var result = str.replace("server.acct-vaxtracker.me", "localhost:8081");
+    var str2 = str.replaceAll("localhost:8081", "server.acct-vaxtracker.me");
+    // var str2 = str.replaceAll("server.acct-vaxtracker.me", "localhost:8081");
+
+    var result = str2.replaceAll("http://", "https://");
+    // var result = str.replaceAll("https://", "http://");
 
     fs.writeFileSync("./site/scripts/" + filePath, result, 'utf8');
 }
 
-function replaceHTTP(filePath) {
+function replaceHTML(filePath) {
     var str = fs.readFileSync("./site/" + filePath, "utf8");
 
-    var result = str.replace("http://", "https://");
-    // var result = str.replace("https://", "http://");
+    var str2 = str.replaceAll("localhost:8081", "server.acct-vaxtracker.me");
+    // var str2 = str.replaceAll("server.acct-vaxtracker.me", "localhost:8081");
+
+    var result = str2.replaceAll("http://", "https://");
+    // var result = str.replaceAll("https://", "http://");
 
     fs.writeFileSync("./site/" + filePath, result, 'utf8');
 }
@@ -73,7 +79,7 @@ if (true) {
         while ((dirent = dir.readSync()) !== null) {
             // console.log(dirent.name);
             var file = dirent.name;
-            replaceDomain(file);
+            replaceScripts(file);
         }
         dir.closeSync();
     }
@@ -84,7 +90,7 @@ if (true) {
             console.log(dirent.name);
             if (dirent.name.endsWith(".html")) {
                 var file = dirent.name;
-                replaceHTTP(file);
+                replaceHTML(file);
             }
         }
         dir.closeSync();
