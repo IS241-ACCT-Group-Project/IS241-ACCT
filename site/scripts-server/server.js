@@ -6,10 +6,11 @@ const myArgs = process.argv.slice(2);
 
 const mysql = require('mysql');
 const connection = mysql.createConnection({
-    host: 'localhost',
+    host: '127.0.0.1',
     user: myArgs[0], //username from database/mysql_login.txt
     password: myArgs[1], //password from database/mysql_login.txt
-    database: 'VaxTest2'
+    database: 'VaxTest2',
+    port: 3306
 });
 
 
@@ -46,7 +47,7 @@ app.use(express.static("../site"));
 
 //connection.connect((err) => {
 //    if (err) {
-//        throw err;
+////        throw err;
 //    }
 
     console.log('Connected to MySQL Server!');
@@ -66,7 +67,8 @@ app.use(express.static("../site"));
 
         connection.query(sql, function (err, result) {
             if (err) {
-                throw err;
+                //throw err;
+                return;
             }
 
             response.end(JSON.stringify(result));
@@ -78,7 +80,8 @@ app.use(express.static("../site"));
 
         connection.query(sql, function (err, result) {
             if (err) {
-                throw err;
+                //throw err;
+                return;
             }
 
             response.end(JSON.stringify(result));
@@ -90,7 +93,8 @@ app.use(express.static("../site"));
 
         connection.query(sql, function (err, result) {
             if (err) {
-                throw err;
+                //throw err;
+                return;
             }
 
             response.end(JSON.stringify(result));
@@ -102,7 +106,8 @@ app.use(express.static("../site"));
 
         connection.query(sql, function (err, result) {
             if (err) {
-                throw err;
+                //throw err;
+                return;
             }
 
             response.end(JSON.stringify(result));
@@ -130,7 +135,8 @@ app.use(express.static("../site"));
         connection.query(sql, function (err, result) {
             if (err) {
                 console.log(err);
-                throw err;
+                //throw err;
+                return;
             }
 
             //response.append("Link", ["index.html"]);
@@ -161,7 +167,8 @@ app.use(express.static("../site"));
             //print error if something went wrong
             if (err) {
                 console.log(err);
-                throw err;
+                //throw err;
+                return;
             }
 
             response.statusCode = 204; //do not leave web page
@@ -187,7 +194,8 @@ app.use(express.static("../site"));
             //print error if something went wrong
             if (err) {
                 console.log(err);
-                throw err;
+                //throw err;
+                return;
             }
 
             response.statusCode = 204; //do not leave web page
@@ -214,7 +222,8 @@ app.use(express.static("../site"));
             //print error if something went wrong
             if (err) {
                 console.log(err);
-                throw err;
+                //throw err;
+                return;
             }
 
             response.statusCode = 204; //do not leave web page
@@ -253,7 +262,8 @@ app.use(express.static("../site"));
             //print error if something went wrong
             if (err) {
                 console.log(err);
-                throw err;
+                //// throw err;
+                return;
             }
 
             response.setHeader("Content-Type", "application/json");
@@ -293,7 +303,8 @@ app.use(express.static("../site"));
             //print error if something went wrong
             if (err) {
                 console.log(err);
-                throw err;
+                //throw err;
+                return;
             }
 
             response.setHeader("Content-Type", "application/json");
