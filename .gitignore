@@ -11,3 +11,5 @@ mysql_login.txt
 
 #server exclusive things
 *.pem
+greenlock.d/
+.greenlockrc

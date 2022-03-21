@@ -44,4 +44,4 @@ trap onEnd SIGINT
 mysql --host=localhost --user='ACCT-remote' --password=$PASS < create_db.sql #--sql
 
 # Start server.js with the login credentials. server.js will stay running as long as the terminal is open
-node ../site/scripts-server/server.js ACCT-remote $PASS
+sudo node ../site/scripts-server/encryption.js ACCT-remote $PASS

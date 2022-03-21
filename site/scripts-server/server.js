@@ -1,3 +1,5 @@
+"use strict";
+
 const myArgs = process.argv.slice(2);
 
 //console.log(myArgs[0] + myArgs[1]);
@@ -23,29 +25,29 @@ app.use(express.urlencoded());
 
 app.use(express.static("../site"));
 
-var http = require('http');
-var https = require('https');
-var privateKey  = "";
-var certificate = "";
-var credentials;
+//var http = require('http');
+//var https = require('https');
+//var privateKey  = "";
+//var certificate = "";
+//var credentials;
+//
+//var httpServer = http.createServer(app);
+//var httpsCreated = true;
+//try {
+//    privateKey  = fs.readFileSync('../site/scripts-server/key.pem', 'utf8');
+//    certificate = fs.readFileSync('../site/scripts-server/cert.pem', 'utf8');
+//    credentials = { key: privateKey, cert: certificate };
+//    
+//    var httpsServer = https.createServer(credentials, app);
+//}
+//catch {
+//    httpsCreated = false;
+//}
 
-var httpServer = http.createServer(app);
-var httpsCreated = true;
-try {
-    privateKey  = fs.readFileSync('../site/scripts-server/key.pem', 'utf8');
-    certificate = fs.readFileSync('../site/scripts-server/cert.pem', 'utf8');
-    credentials = { key: privateKey, cert: certificate };
-    
-    var httpsServer = https.createServer(credentials, app);
-}
-catch {
-    httpsCreated = false;
-}
-
-connection.connect((err) => {
-    if (err) {
-        throw err;
-    }
+//connection.connect((err) => {
+//    if (err) {
+//        throw err;
+//    }
 
     console.log('Connected to MySQL Server!');
 
@@ -326,19 +328,21 @@ connection.connect((err) => {
     }
     //#endregion
 
-    httpServer.listen(8080);
-    //, function () {
-    //    var host = httpServer.address()
-    //    console.log("Example app listening on port " + host.port)
-    //    // console.log(JSON.stringify(host))
-    //})
+    // httpServer.listen(8080);
+    // //, function () {
+    // //    var host = httpServer.address()
+    // //    console.log("Example app listening on port " + host.port)
+    // //    // console.log(JSON.stringify(host))
+    // //})
 
-    if (httpsCreated) {
-        httpsServer.listen(8081);
-        // , function () {
-        //    var host = httpsServer.address()
-        //    console.log("Example app listening on port " + host.port)
-        //    // console.log(JSON.stringify(host))
-        // })
-    }
-});
+    // if (httpsCreated) {
+    //     httpsServer.listen(8081);
+    //     // , function () {
+    //     //    var host = httpsServer.address()
+    //     //    console.log("Example app listening on port " + host.port)
+    //     //    // console.log(JSON.stringify(host))
+    //     // })
+    // }
+//});
+
+module.exports = app;
