@@ -18,8 +18,8 @@ var spawnSync = require('child_process').spawnSync;
 //         if (err) {
 //             return console.log(err);
 //         }
-//         // var result = data.replace("server.acct-vaxtest.me", "localhost:8081");
-//         var result = data.replace("localhost:8081", "server.acct-vaxtest.me");
+//         // var result = data.replace("server.acct-vaxtracker.me", "localhost:8081");
+//         var result = data.replace("localhost:8081", "server.acct-vaxtracker.me");
 
 //         fs.writeFile("./site/scripts/" + filePath, result, 'utf8', function (err) {
 //             if (err) return console.log(err);
@@ -30,8 +30,8 @@ var spawnSync = require('child_process').spawnSync;
 function replace(filePath) {
     var str = fs.readFileSync("./site/scripts/" + filePath, 'utf8');
 
-    // var result = str.replace("server.acct-vaxtest.me", "localhost:8081");
-    var result = str.replace("localhost:8081", "server.acct-vaxtest.me");
+    // var result = str.replace("server.acct-vaxtracker.me", "localhost:8081");
+    var result = str.replace("localhost:8081", "server.acct-vaxtracker.me");
 
     fs.writeFileSync("./site/scripts/" + filePath, result, 'utf8');
 }
