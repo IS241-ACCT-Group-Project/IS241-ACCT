@@ -50,12 +50,17 @@ CREATE TABLE PATIENT_INFO(
     PRIMARY KEY (PatientID)
 );
 
-/* 
-Add dummy values using a name generator. 
-Have at least 10 entries. 
-Make sure to add duplicates of first/last names, addresses, and zip codes for more thorough testing. 
-Make sure to have fields in some entries blank as allowed by the database. 
-*/
+ 
+INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Gonzalez', 'Jose', '1234 Main St, Webster Groves, MO', '63119');
+INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Gonzalez', 'Maria', '1234 Main St, Webster Groves, MO', '63119');
+INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Gonzalez', 'Naomi', '1234 Main St, Webster Groves, MO', '63119');
+INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Gonzalez', 'Guillermo', '1234 Main St, Webster Groves, MO', '63119');
+INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Gonzalez', 'Fernando Valentin Romero Moctezuma', '1234 Main St, Webster Groves, MO', '63119');
+INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Rodriguez', 'Jose', ' ', '63119');
+INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Rodriguez', 'Federico', '1234 Main St, Webster Groves, MO', ' ');
+INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Rodriguez', 'Jose', '1234 Main St, Webster Groves, MO', 'abcde');
+INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Rodriguez', 'Jose', '1234 Main St, Webster Groves, MO', '63119');
+INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Rodriguez', 'Jose', '1234 Main St, Webster Groves, MO', '63119');
 
 
 CREATE TABLE PATIENT_VACCINATION(
