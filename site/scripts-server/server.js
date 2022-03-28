@@ -52,7 +52,7 @@ app.use(express.static("../site"));
 
     console.log('Connected to MySQL Server!');
 
-    //access website by going to http://localhost:8081
+    //access local website by going to http://localhost:8081
     app.get("/", function (request, response) {
         response.setHeader("Cache-Control", "no-cache"); //remove "no-cache" when website is live
 
@@ -287,7 +287,7 @@ app.use(express.static("../site"));
             connection.escape("%" + request.body.injectorID + "%"),
             connection.escape("%" + request.body.firstName + "%"),
             connection.escape("%" + request.body.lastName + "%"),
-            connection.escape("%" + request.body.clinicID + "%"),
+            connection.escape("%" + request.body.siteID + "%"),
         ];
 
         const sql = buildSearchSQL("INJECTOR", fieldNames, fieldData);
