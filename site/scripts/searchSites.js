@@ -8,15 +8,15 @@ window.addEventListener("load", function () {
 function searchSites(event) {
     event.preventDefault();
 
-    console.log(JSON.stringify(form));
+    //console.log(JSON.stringify(form));
 
     //from https://www.learnwithjason.dev/blog/get-form-values-as-json
     const data = new FormData(event.target);
     const value = Object.fromEntries(data.entries());
 
-    console.log(value);
+    //console.log(value);
 
-    fetch("https://localhost:8081/searchsites", {
+    fetch("http://localhost:8081/searchsites", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -24,11 +24,11 @@ function searchSites(event) {
             body: JSON.stringify(value)
         })
         .then(function (response) {
-            console.log(response);
+            //console.log(response);
             return response.json();
         })
         .then(function(data) {
-            console.log(data);
+            //console.log(data);
 
             var table = "<tbody>"; //create HTML table
             //fill HTML table

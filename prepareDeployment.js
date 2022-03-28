@@ -4,29 +4,6 @@ const {
 var fs = require('fs')
 var spawnSync = require('child_process').spawnSync;
 
-// const dir = fs.opendirSync('./site/scripts/')
-// let dirent
-// while ((dirent = dir.readSync()) !== null) {
-//     console.log(dirent.name)
-//     var file = dirent.name
-//     replace(file);
-// }
-// dir.closeSync()
-
-// function replace(filePath) {
-//     fs.readFile("./site/scripts/" + filePath, 'utf8', function (err, data) {
-//         if (err) {
-//             return console.log(err);
-//         }
-//         // var result = data.replace("server.acct-vaxtracker.me", "localhost:8081");
-//         var result = data.replace("localhost:8081", "server.acct-vaxtracker.me");
-
-//         fs.writeFile("./site/scripts/" + filePath, result, 'utf8', function (err) {
-//             if (err) return console.log(err);
-//         });
-//     });
-// }
-
 function replaceScripts(filePath) {
     var str = fs.readFileSync("./site/scripts/" + filePath, 'utf8');
 
