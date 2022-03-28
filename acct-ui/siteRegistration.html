@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registration</title>
+	<link rel="stylesheet" href="mycss/loginStyles.css">
+<!--this page is for registering a new vaccination site-->
+
+</head>
+<body>
+	<!--a main holder contains the page contents, which are forms with data fields that will connect to the database on button click-->
+	<main id="main-holder">
+	<h1 class="text-center" id="welcome-banner">Missouri Immunization Information System</h1>
+	<div class="bg-white">
+	<h2 class="text-center">Vaccination Site Information</h2>
+			<form id="newSiteForm" action="http://localhost:8081/addsite" method="post">
+				<label for="organizationName">Site name:</label><br>
+				<input type="text" id="organizationName" name="name"><br>
+				
+				<label for="address">Address:</label><br>
+				<input type="text" id="address" name="address"><br>
+				
+
+				<label for="city">City:</label><br>
+				<input type="text" id="city" name="city"><br>
+				
+				<label for="state">State:</label><br>
+				<input type="text" id="state" name="state"><br>
+
+				<label for="zip">Zip:</label><br>
+				<input type="text" id="zip" name="zipCode"><br>
+
+				<label for="zip">Phone Number:</label><br>
+				<input type="text" id="zip" name="phone"><br>
+				
+				<input type="submit" value="register" id="newSiteForm">
+
+			</form>
+
+		<h2 class="text-center">
+			Documents
+		</h2>
+		    <form action="/action_page.php" 
+		        enctype="multipart/form-data">
+		          
+		        <label for="myfile">Select a file:</label>
+		        <input type="file" id="myfile" name="myfile" />
+		        <br /><br />
+		  </form>
+		    
+		</form>
+	</div>
+	</main>
+</body>
