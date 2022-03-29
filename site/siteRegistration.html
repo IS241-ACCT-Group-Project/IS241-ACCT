@@ -17,14 +17,18 @@
 			<label for="name">Site name:</label><br>
 			<input type="text" id="name" name="name" required /><br>
 
-			<label for="address">Address:</label><br>
+			<label for="address">Address, City, State:</label><br>
 			<input type="text" id="address" name="address" required /><br>
 
 			<label for="zipCode">Zip:</label><br>
-			<input type="text" id="zipCode" name="zipCode" pattern="[0-9]{5}" required /> <br>
+			<input type="text" id="zipCode" name="zipCode" pattern="[0-9]{5}" required 
+			title="Enter five digit zip code"/> <br>
 
 			<label for="phone">Phone Number:</label><br>
-			<input type="tel" id="phone" name="phone" required /><br>
+			<input type="tel" id="phone" name="phone" required 
+				placeholder="999-999-9999"
+				pattern="\d{3}[\-]\d{3}[\-]\d{4}"
+				title="Must be 999-999-9999"><br><br>
 
 			<input type="submit" value="register" id="newSiteFormSubmit">
 
