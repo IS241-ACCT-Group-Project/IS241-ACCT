@@ -13,8 +13,27 @@ form.addEventListener('submit', (e) => {
 
 	if (zipCode.value.length < 5)
 	{
-		messages.push("Password must be 5 digits.")
-    }
+		messages.push("Zipcode must be 5 digits.")
+	}
+
+	function phone(inputtxt) {
+		var phoneno = /^\d{10}$/;
+		if ((inputtxt.value.match(phoneno))
+        {
+			return true;
+		}
+		else {
+			alert("Please enter a valid 10 digit phone number with appropriate characters");
+			return false;
+		}
+	}
+
+
+	else {
+		alert("message");
+		return false;
+	}
+	
 	if (messages.length > 0)
 	{
 		e.preventDefault()
