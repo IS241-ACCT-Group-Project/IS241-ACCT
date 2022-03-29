@@ -1,6 +1,8 @@
 # IS241-ACCT
 This is a school project to create a website that tracks dummy vaccination data to report to the CDC.
 
+## [View Website](https://acct-vaxtracker.me/site/index.html)
+
 #### Table of Contents
 [Getting Set Up](#getting-set-up)
 
