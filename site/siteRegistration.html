@@ -5,13 +5,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Registration</title>
 	<link rel="stylesheet" href="styles/loginStyles.css">
+<<<<<<< Updated upstream
 
+=======
+	<script defer src="validation.js"></script>
+	<!--this page is for registering a new vaccination site-->
+>>>>>>> Stashed changes
 
 </head>
 <body>
 	<main id="main-holder">
 	<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System</h1>		
 		<h2>Vaccination Site Information</h2>
+<<<<<<< Updated upstream
 			<form>
 				<label for="organizationName">Site name:</label><br>
 				<input type="text" id="organizationName" name="organizationName"><br>
@@ -19,6 +25,14 @@
 				<label for="address">Address:</label><br>
 				<input type="text" id="address" name="address"><br>
 				
+=======
+
+		<div id = "error"></div>
+
+		<form id="newSiteForm" action="http://localhost:8081/addsite" method="post">
+			<label for="name">Site name:</label><br>
+			<input type="text" id="name" name="name" required /><br>
+>>>>>>> Stashed changes
 
 				<label for="city">City:</label><br>
 				<input type="text" id="city" name="city"><br>
@@ -38,6 +52,7 @@
 		<h2>
 			Documents
 		</h2>
+<<<<<<< Updated upstream
 		    <form action="/action_page.php" 
 		        enctype="multipart/form-data">
 		          
@@ -48,5 +63,24 @@
 		    
 		<input type="submit" value="register" id="newSiteForm">
 		</form>
+=======
+		<form action="/action_page.php"
+			  enctype="multipart/form-data">
+
+			<label for="myfile">Select a file:</label>
+			<input type="file" id="myfile" name="myfile" />
+			<br /><br />
+		</form> -->
+
+
+		<script>
+			var form = document.getElementById("newSiteForm");
+			form.addEventListener("submit", function ()
+			{
+				alert("Success!");
+			}
+			);
+		</script>
+>>>>>>> Stashed changes
 	</main>
 </body>
