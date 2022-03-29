@@ -50,20 +50,12 @@ CREATE TABLE PATIENT_INFO(
     PRIMARY KEY (PatientID)
 );
 
-/* 
-Add dummy values using a name generator. 
-Have at least 10 entries. 
-Make sure to add duplicates of first/last names, addresses, and zip codes for more thorough testing. 
-Make sure to have fields in some entries blank as allowed by the database. 
-
-This data cannot have errors! Inserting data this way bypasses all error checking!
-*/
-
+ 
 INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Gonzalez', 'Jose', '1234 Main St, Webster Groves, MO', '63119');
 INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Gonzalez', 'Maria', '1234 Main St, Webster Groves, MO', '63119');
 INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Gonzalez', 'Naomi', '1234 Main St, Webster Groves, MO', '63119');
 INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Gonzalez', 'Guillermo', '1234 Main St, Webster Groves, MO', '63119');
--- INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Gonzalez', 'Fernando Valentin Romero Moctezuma', '1234 Main St, Webster Groves, MO', '63119');
+INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Gonzalez', 'Fernando Valentin Romero Moctezuma', '1234 Main St, Webster Groves, MO', '63119');
 INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Rodriguez', 'Jose', ' ', '63119');
 INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Rodriguez', 'Federico', '1234 Main St, Webster Groves, MO', ' ');
 INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES ('Rodriguez', 'Jose', '1234 Main St, Webster Groves, MO', 'abcde');
@@ -83,10 +75,8 @@ CREATE TABLE PATIENT_VACCINATION(
 /* 
 Add dummy values. 
 Make sure to have at least 10 entries. 
-Make sure all PatientIDs are 0-9 and all InjectorIDs are 0-10 so we know the ID exists. 
-Keep all date values between Nov 1, 2021 and yesterday (no future vaccinations).
+Make sure all PatientIDs are 0-9 and all InjectorIDs are 0-10. 
+Keep all date values between Nov 1, 2021 and Feb 20, 2022.
 Make sure to add multiple vaccinations for some but not all patients. 
 Make sure to have fields in some entries blank as allowed by the database. 
-
-This data cannot have errors! Inserting data this way bypasses all error checking!
 */
