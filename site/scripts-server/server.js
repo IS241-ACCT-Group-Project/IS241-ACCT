@@ -26,31 +26,17 @@ app.use(express.urlencoded());
 
 app.use(express.static("../site"));
 
-//var http = require('http');
-//var https = require('https');
-//var privateKey  = "";
-//var certificate = "";
-//var credentials;
-//
-//var httpServer = http.createServer(app);
-//var httpsCreated = true;
-//try {
-//    privateKey  = fs.readFileSync('../site/scripts-server/key.pem', 'utf8');
-//    certificate = fs.readFileSync('../site/scripts-server/cert.pem', 'utf8');
-//    credentials = { key: privateKey, cert: certificate };
-//    
-//    var httpsServer = https.createServer(credentials, app);
-//}
-//catch {
-//    httpsCreated = false;
-//}
-
-//connection.connect((err) => {
-//    if (err) {
-////        throw err;
-//    }
+connection.connect((err) => {
+   if (err) {
+       console.log(err);
+       //throw err;
+   }
 
 console.log('Connected to MySQL Server!');
+
+//separate files added here
+var accounts = require("./routes/accounts");
+accounts(app);
 
 //access local website by going to http://localhost:8081
 app.get("/", function (request, response) {
