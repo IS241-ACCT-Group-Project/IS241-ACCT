@@ -1,5 +1,10 @@
 # Visual Studio cache directory
 .vs/
+
+# VSCode cache directory
+.vscode
+
+# Local Node packages
 node_modules/
 
 # MySQL Credentials
