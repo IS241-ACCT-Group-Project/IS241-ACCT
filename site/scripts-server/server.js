@@ -22,15 +22,16 @@ const cors = require("cors");
 //const { body, validationResult } = require('express-validator');
 app.use(cors());
 app.use(express.json());
+app.use(express.text());
 app.use(express.urlencoded());
 
 app.use(express.static("../site"));
 
-connection.connect((err) => {
-   if (err) {
-       console.log(err);
-       //throw err;
-   }
+//connection.connect((err) => {
+//   if (err) {
+//       console.log(err);
+//       //throw err;
+//   }
 
 console.log('Connected to MySQL Server!');
 
@@ -419,3 +420,4 @@ function buildSearchSQL(db, names, data) {
 //});
 
 module.exports = app;
+//});

@@ -59,20 +59,25 @@ Forms that search the database need:
 
 			<label for="password-1">Password:</label>
 			<br>
-			<input type="text" name="password-1">
+			<input type="text" name="password_1">
 			<br>
 
 			<label for="password-2">Confirm Password:</label>
 			<br>
-			<input type="text" name="password-2">
+			<input type="text" name="password_2">
 			<br>
 
 			<label for="accountType">Account Type:</label>
 			<br>
-			<input type="radio" name="accountType">
+				<input type="radio" value="site" name="accountType">
+				<label for="site">Site</label>
+				<input type="radio" value="injector" name="accountType">
+				<label for="injector">Injector</label>
+				<input type="radio" value="CDC" name="accountType">
+				<label for="CDC">CDC</label>
 			<br>
 
-			<input type="submit" value="Create New Account">
+			<input type="submit" value="Create New Account" id="registerAccountButton">
 		</form>
 		<div class="dbGroup">
 			<form action="http://localhost:8081/addsite" method="post">
