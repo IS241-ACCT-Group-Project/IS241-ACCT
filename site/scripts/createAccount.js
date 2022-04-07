@@ -1,22 +1,3 @@
-//var form;
-//
-//window.addEventListener("load", function () {
-//    form = document.getElementById("createAccount");
-//    form.addEventListener("submit", createAccount);
-//});
-//
-//function createAccount(event) {
-//    event.preventDefault();
-//
-//    //console.log(JSON.stringify(form));
-//
-//    const data = new FormData(event.target);
-//    const value = Object.fromEntries(data.entries());
-//
-//    //console.log(value);
-//
-//    fetch("http://localhost:8081/createAccount"
-
 var username, password_1, password_2, submitButton;
 var usernameValid = false;
 var passwordValid = false;

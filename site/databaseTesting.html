@@ -27,7 +27,7 @@ Forms that search the database need:
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>New Injector Registration</title>
 	<link rel="stylesheet" href="styles/loginStyles.css">
-	<script type="text/javascript" src="scripts/createAccount.js"></script>
+	<!-- <script type="text/javascript" src="scripts/createAccount.js"></script> -->
 	<script type="text/javascript" src="scripts/site.js"></script>
 	<script type="text/javascript" src="scripts/searchSites.js"></script>
 	<script type="text/javascript" src="scripts/searchInjectors.js"></script>
@@ -49,35 +49,19 @@ Forms that search the database need:
 <body>
 	<main id="main-holder">
 		<h1>Database Testing</h1>
-		<form action="http://localhost:8081/createAccount" method="post">
-			<h2>Create a New Account</h2>
-			
-			<label for="username">Username:</label>
+		<form action="http://localhost:8081/login" method="post">
+			<h2>Log In</h2>
+			<label for="username">Username: </label>
 			<br>
 			<input type="text" name="username">
 			<br>
 
-			<label for="password-1">Password:</label>
+			<label for="password">Password: </label>
 			<br>
-			<input type="text" name="password_1">
-			<br>
-
-			<label for="password-2">Confirm Password:</label>
-			<br>
-			<input type="text" name="password_2">
+			<input type="text" name="password">
 			<br>
 
-			<label for="accountType">Account Type:</label>
-			<br>
-				<input type="radio" value="site" name="accountType">
-				<label for="site">Site</label>
-				<input type="radio" value="injector" name="accountType">
-				<label for="injector">Injector</label>
-				<input type="radio" value="CDC" name="accountType">
-				<label for="CDC">CDC</label>
-			<br>
-
-			<input type="submit" value="Create New Account" id="registerAccountButton">
+			<input type="submit" value="Log In">
 		</form>
 		<div class="dbGroup">
 			<form action="http://localhost:8081/addsite" method="post">

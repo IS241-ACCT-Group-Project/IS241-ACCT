@@ -4,14 +4,15 @@ const myArgs = process.argv.slice(2);
 
 //console.log(myArgs[0] + myArgs[1]);
 
-const mysql = require('mysql');
-const connection = mysql.createConnection({
-    host: '127.0.0.1',
-    user: myArgs[0], //username from database/mysql_login.txt
-    password: myArgs[1], //password from database/mysql_login.txt
-    database: 'VaxTest2',
-    port: 3306
-});
+// const mysql = require('mysql');
+// const connection = mysql.createConnection({
+//     host: '127.0.0.1',
+//     user: myArgs[0], //username from database/mysql_login.txt
+//     password: myArgs[1], //password from database/mysql_login.txt
+//     database: 'VaxTest2',
+//     port: 3306
+// });
+const db = require("./db");
 
 
 //from https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm
@@ -27,7 +28,7 @@ app.use(express.urlencoded());
 
 app.use(express.static("../site"));
 
-//connection.connect((err) => {
+//db.connect((err) => {
 //   if (err) {
 //       console.log(err);
 //       //throw err;
@@ -52,7 +53,7 @@ app.get("/", function (request, response) {
 app.get("/listInjectors", function (req, response) {
     var sql = "SELECT * FROM INJECTOR";
 
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         if (err) {
             //throw err;
             return;
@@ -65,7 +66,7 @@ app.get("/listInjectors", function (req, response) {
 app.get("/listsites", function (request, response) {
     var sql = "SELECT * FROM SITE";
 
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         if (err) {
             //throw err;
             return;
@@ -78,7 +79,7 @@ app.get("/listsites", function (request, response) {
 app.get("/listpatientinfo", function (request, response) {
     var sql = "SELECT * FROM PATIENT_INFO";
 
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         if (err) {
             //throw err;
             return;
@@ -91,7 +92,7 @@ app.get("/listpatientinfo", function (request, response) {
 app.get("/listpatientvaccination", function (request, response) {
     var sql = "SELECT * FROM PATIENT_VACCINATION";
 
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         if (err) {
             //throw err;
             return;
@@ -110,16 +111,16 @@ app.post("/addinjector", function (request, response) {
     //validationResult(req)=> {
     //}
 
-    const firstname = connection.escape(request.body.firstName);
-    const lastname = connection.escape(request.body.lastName);
-    const siteid = connection.escape(request.body.siteID);
+    const firstname = db.escape(request.body.firstName);
+    const lastname = db.escape(request.body.lastName);
+    const siteid = db.escape(request.body.siteID);
     //can var sql be const sql?
     var sql = `INSERT INTO INJECTOR (FirstName, LastName, SiteID) VALUES (${firstname}, ${lastname}, ${siteid});`;
 
     console.log(request.body);
     console.log(sql);
 
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         if (err) {
             console.log(err);
             //throw err;
@@ -138,10 +139,10 @@ app.post("/addinjector", function (request, response) {
 
 app.post("/addsite", function (request, response) {
     //get values from form "name=" with request.body
-    const name = connection.escape(request.body.name);
-    const address = connection.escape(request.body.address);
-    const zipCode = connection.escape(request.body.zipCode);
-    const phone = connection.escape(request.body.phone);
+    const name = db.escape(request.body.name);
+    const address = db.escape(request.body.address);
+    const zipCode = db.escape(request.body.zipCode);
+    const phone = db.escape(request.body.phone);
     //compile sql statement
     var sql = `INSERT INTO SITE (SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES (${name}, ${address}, ${zipCode}, ${phone});`;
 
@@ -150,7 +151,7 @@ app.post("/addsite", function (request, response) {
     console.log(sql);
 
     //attempt to execute sql
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         //print error if something went wrong
         if (err) {
             console.log(err);
@@ -165,10 +166,10 @@ app.post("/addsite", function (request, response) {
 
 app.post("/addpatientinfo", function (request, response) {
     //get values from form "name=" with request.body
-    const firstName = connection.escape(request.body.firstName);
-    const lastName = connection.escape(request.body.lastName);
-    const address = connection.escape(request.body.address);
-    const zipCode = connection.escape(request.body.zipCode);
+    const firstName = db.escape(request.body.firstName);
+    const lastName = db.escape(request.body.lastName);
+    const address = db.escape(request.body.address);
+    const zipCode = db.escape(request.body.zipCode);
     //compile sql statement
     var sql = `INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES (${firstName}, ${lastName}, ${address}, ${zipCode});`;
 
@@ -177,7 +178,7 @@ app.post("/addpatientinfo", function (request, response) {
     console.log(sql);
 
     //attempt to execute sql
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         //print error if something went wrong
         if (err) {
             console.log(err);
@@ -192,11 +193,11 @@ app.post("/addpatientinfo", function (request, response) {
 
 app.post("/addpatientvaccination", function (request, response) {
     //get values from form "name=" with request.body
-    const patientID = connection.escape(request.body.patientID);
-    const date = connection.escape(request.body.date);
-    const injectorID = connection.escape(request.body.injectorID);
-    const type = connection.escape(request.body.type);
-    const lotNumber = connection.escape(request.body.lotNumber);
+    const patientID = db.escape(request.body.patientID);
+    const date = db.escape(request.body.date);
+    const injectorID = db.escape(request.body.injectorID);
+    const type = db.escape(request.body.type);
+    const lotNumber = db.escape(request.body.lotNumber);
     //compile sql statement
     var sql = `INSERT INTO PATIENT_VACCINATION (PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES (${patientID}, ${date}, ${injectorID}, ${type}, ${lotNumber});`;
 
@@ -205,7 +206,7 @@ app.post("/addpatientvaccination", function (request, response) {
     console.log(sql);
 
     //attempt to execute sql
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         //print error if something went wrong
         if (err) {
             console.log(err);
@@ -231,11 +232,11 @@ app.post("/searchsites", function (request, response) {
     ];
     //get values from form "name=" with request.body
     const fieldData = [
-        connection.escape("%" + request.body.siteID + "%"),
-        connection.escape("%" + request.body.name + "%"),
-        connection.escape("%" + request.body.address + "%"),
-        connection.escape("%" + request.body.zipCode + "%"),
-        connection.escape("%" + request.body.phone + "%")
+        db.escape("%" + request.body.siteID + "%"),
+        db.escape("%" + request.body.name + "%"),
+        db.escape("%" + request.body.address + "%"),
+        db.escape("%" + request.body.zipCode + "%"),
+        db.escape("%" + request.body.phone + "%")
     ];
 
     const sql = buildSearchSQL("SITE", fieldNames, fieldData);
@@ -245,7 +246,7 @@ app.post("/searchsites", function (request, response) {
     console.log(sql);
 
     //attempt to execute sql
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         //print error if something went wrong
         if (err) {
             console.log(err);
@@ -259,8 +260,6 @@ app.post("/searchsites", function (request, response) {
     });
 });
 
-
-
 app.post("/searchinjectors", function (request, response) {
     //make these arrays for easy iteration
     const fieldNames = [
@@ -271,10 +270,10 @@ app.post("/searchinjectors", function (request, response) {
     ];
     //get values from form "name=" with request.body
     const fieldData = [
-        connection.escape("%" + request.body.injectorID + "%"),
-        connection.escape("%" + request.body.firstName + "%"),
-        connection.escape("%" + request.body.lastName + "%"),
-        connection.escape("%" + request.body.siteID + "%"),
+        db.escape("%" + request.body.injectorID + "%"),
+        db.escape("%" + request.body.firstName + "%"),
+        db.escape("%" + request.body.lastName + "%"),
+        db.escape("%" + request.body.siteID + "%"),
     ];
 
     const sql = buildSearchSQL("INJECTOR", fieldNames, fieldData);
@@ -284,7 +283,7 @@ app.post("/searchinjectors", function (request, response) {
     console.log(sql);
 
     //attempt to execute sql
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         //print error if something went wrong
         if (err) {
             console.log(err);
@@ -309,11 +308,11 @@ app.post("/searchpatientinfo", function (request, response) {
     ];
     //get values from form "name=" with request.body
     const fieldData = [
-        connection.escape("%" + request.body.patientID + "%"),
-        connection.escape("%" + request.body.firstName + "%"),
-        connection.escape("%" + request.body.lastName + "%"),
-        connection.escape("%" + request.body.address + "%"),
-        connection.escape("%" + request.body.zipCode + "%"),
+        db.escape("%" + request.body.patientID + "%"),
+        db.escape("%" + request.body.firstName + "%"),
+        db.escape("%" + request.body.lastName + "%"),
+        db.escape("%" + request.body.address + "%"),
+        db.escape("%" + request.body.zipCode + "%"),
     ];
 
     const sql = buildSearchSQL("PATIENT_INFO", fieldNames, fieldData);
@@ -323,7 +322,7 @@ app.post("/searchpatientinfo", function (request, response) {
     console.log(sql);
 
     //attempt to execute sql
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         //print error if something went wrong
         if (err) {
             console.log(err);
@@ -348,11 +347,11 @@ app.post("/searchpatientvaccination", function (request, response) {
     ];
     //get values from form "name=" with request.body
     const fieldData = [
-        connection.escape("%" + request.body.patientID + "%"),
-        connection.escape("%" + request.body.date + "%"),
-        connection.escape("%" + request.body.injectorID + "%"),
-        connection.escape("%" + request.body.type + "%"),
-        connection.escape("%" + request.body.lotNumber + "%"),
+        db.escape("%" + request.body.patientID + "%"),
+        db.escape("%" + request.body.date + "%"),
+        db.escape("%" + request.body.injectorID + "%"),
+        db.escape("%" + request.body.type + "%"),
+        db.escape("%" + request.body.lotNumber + "%"),
     ];
 
     const sql = buildSearchSQL("PATIENT_VACCINATION", fieldNames, fieldData);
@@ -362,7 +361,7 @@ app.post("/searchpatientvaccination", function (request, response) {
     console.log(sql);
 
     //attempt to execute sql
-    connection.query(sql, function (err, result) {
+    db.query(sql, function (err, result) {
         //print error if something went wrong
         if (err) {
             console.log(err);

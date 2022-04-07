@@ -101,4 +101,4 @@ CREATE TABLE ACCOUNT(
     PRIMARY KEY (AccountID)
 );
 
-INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("injector", 1, "injector1", "$2b$10$T612RUY3E42znQdt26RYGukTVF6EFv4ith008QnWQbt6ZikRTusfG"); --PW: password
+INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("injector", 1, "injector1", "$2b$10$T612RUY3E42znQdt26RYGukTVF6EFv4ith008QnWQbt6ZikRTusfG"); /* PW: password */
