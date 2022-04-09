@@ -1,4 +1,4 @@
-var username, password_1, password_2, submitButton;
+var username, password_1, password_2, accountTypes, submitButton;
 var usernameValid = false;
 var passwordValid = false;
 
@@ -17,6 +17,12 @@ window.addEventListener("load", function () {
         password_2.addEventListener("propertychange", validatePasswords);
     }
 
+    if (accountTypes = document.getElementsByName("accountType")) {
+        accountTypes.forEach(function (radioButton) {
+            radioButton.addEventListener("click", checkAllValid);
+        });
+    }
+
     if (submitButton = document.getElementById("registerAccountButton")) {
         submitButton.disabled = true; //only enable button when input is valid
     }
@@ -25,7 +31,7 @@ window.addEventListener("load", function () {
 function validateUsername() {
     var input = username.value;
     // console.log("input is " + input);
-    var usernameValid = false;
+    usernameValid = false;
 
     if (input == "") {
         checkAllValid();
@@ -48,21 +54,27 @@ function validateUsername() {
         body: input
     })
     .then(function (response) {
-        //console.log(response);
+        // console.log(response);
         return response.json();
-    }).then(function (data) {
-        //console.log(data);
+    })
+    .then(function (matches) {
+        // console.log("DATA TO COMPARE: " + JSON.stringify(matches));
 
-        if (data.exists) {
+        if (matches.length > 0) {
             //set username as taken here
-            console.log("Username " + username.text + " is taken.");
+            console.log("Username " + input + " is taken.");
+
+            checkAllValid();
         }
-        else {
+        else if (matches.length == 0) {
             //set username as available here
-            console.log("Username " + username.text + " is available.");
+            console.log("Username " + input + " is available.");
 
             usernameValid = true;
             checkAllValid();
+        }
+        else {
+            console.log("Error checking if username exists");
         }
     });
 }
@@ -70,7 +82,7 @@ function validateUsername() {
 function validatePasswords() {
     passwordValid = false;
 
-    console.log("Password field 1 contains: " + password_1.value);
+    // console.log("Password field 1 contains: " + password_1.value);
 
     const pwText_1 = password_1.value.trim();
     const pwText_2 = password_2.value.trim();
@@ -86,6 +98,7 @@ function validatePasswords() {
     }
     else if (hasRequiredCharacters(pwText_1)) {
         //messages handled in hasRequiredCharacters
+        console.log("Passwords match and contain required characters.");
         passwordValid = true;
     }
 
@@ -135,12 +148,35 @@ function hasRequiredCharacters(password) {
     return isValid;
 }
 
+function isAccountTypeSelected() {
+    var isSelected = false;
+
+    accountTypes.forEach(function (radioButton) {
+        // console.log("Is radio button checked: " + radioButton.checked);
+        if (radioButton.checked) {
+            isSelected = true;
+        }
+    });
+
+    return isSelected;
+}
+
 //check if form is filled out correctly and disable/enable button accordingly
 function checkAllValid() {
-    if (usernameValid && passwordValid) {
-        submitButton.disabled = true;
-    }
-    else {
+    var disabled = submitButton.disabled;
+    var accountSelected = isAccountTypeSelected();
+    // console.log("Is account type selected: " + accountSelected);
+
+    if (disabled && usernameValid && passwordValid && accountSelected) {
+        console.log("Submit button is enabled.");
         submitButton.disabled = false;
     }
+    else if (!disabled && (!usernameValid || !passwordValid || !accountSelected)) {
+        console.log("Submit button is disabled.");
+        submitButton.disabled = true;
+    }
+    // else {
+    //     console.log("Username valid: " + usernameValid);
+    //     console.log("Password valid: " + passwordValid);
+    // }
 }

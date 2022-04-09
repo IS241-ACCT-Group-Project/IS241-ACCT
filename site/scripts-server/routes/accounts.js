@@ -9,12 +9,34 @@ module.exports = function (app) {
 }
 
 function checkUsernameExists(request, response) {
-    const plaintextPassword = request.body;
-    console.log("Check username exists recieved request for: " + plaintextPassword);
+    const username = db.escape(request.body);
+    console.log("Check username exists recieved request for: " + username);
+
+    response.setHeader("Content-Type", "application/json");
+
+    var sql = `SELECT 1 FROM ACCOUNT WHERE AccountUsername = ${username};`;
+
+    db.query(sql, function (err, result) {
+        if (err) {
+            console.log(err);
+            //throw err;
+            return;
+        }
+
+        //if (result && result.length > 0) {
+        //    console.log(`Username ${username} is TAKEN`);
+        //}
+        //else {
+        //    console.log(`Username ${username} is available!`);
+        //}
+
+        response.write(JSON.stringify(result));
+        response.end();
+    });
 
     //temporary for getting starting database entries
-    //bcrypt.hash(plaintextPassword, saltRounds, function (err, hash) {
-    //    console.log("Hash of password " + plaintextPassword + ": \n" + hash);
+    //bcrypt.hash(username, saltRounds, function (err, hash) {
+    //    console.log("Hash of password " + username + ": \n" + hash);
     //    //store hash
     //});
 }
@@ -31,7 +53,7 @@ function logIn(request, response) {
     const password = request.body.password;
 
     var sql = `SELECT AccountPassword FROM ACCOUNT WHERE AccountUsername = ${username};`;
-    console.log(sql);
+    // console.log(sql);
 
     //attempt to execute sql
     db.query(sql, function (err, result) {
@@ -41,19 +63,25 @@ function logIn(request, response) {
             return;
         }
 
-        const hash = result[0].AccountPassword;
+        if (result.length > 0) {
 
-        bcrypt.compare(password, hash, function (err, result) {
-            if (result) { //if password matches hash
-                console.log(`Log in user ${username}: Success!`);
-            }
-            else {
-                console.log(`Log in user ${username}: FAILED!`);
-            }
-        });
+            const hash = result[0].AccountPassword;
 
-        response.setHeader("Content-Type", "application/json");
-        // response.write(JSON.stringify());
-        response.end();
+            bcrypt.compare(password, hash, function (err, result) {
+                if (result) { //if password matches hash
+                    console.log(`Log in user ${username}: Success!`);
+                }
+                else {
+                    console.log(`Log in user ${username}: FAILED!`);
+                }
+            });
+
+            response.setHeader("Content-Type", "application/json");
+            // response.write(JSON.stringify());
+            response.end();
+        }
+        else {
+            //no account with username exists
+        }
     });
 }
