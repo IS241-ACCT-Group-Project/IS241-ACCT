@@ -4,7 +4,7 @@ const loginButton = document.getElementById("login-form-submit");
 const loginErrorMsg = document.getElementById("login-error-msg");
 
 loginButton.addEventListener("click", (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const username = loginForm.username.value;
     const password = loginForm.password.value;
 
@@ -12,6 +12,6 @@ loginButton.addEventListener("click", (e) => {
         alert("You have successfully logged in.");
         location.reload();
     } else {
-        loginErrorMsg.style.opacity = 1;
+        // loginErrorMsg.style.opacity = 1;
     }
 })
