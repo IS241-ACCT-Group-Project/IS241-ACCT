@@ -40,6 +40,9 @@ console.log('Connected to MySQL Server!');
 var accounts = require("./routes/accounts");
 accounts(app);
 
+var modifyDB = require("./routes/modify-db");
+modifyDB(app);
+
 //access local website by going to http://localhost:8081
 app.get("/", function (request, response) {
     response.setHeader("Cache-Control", "no-cache"); //remove "no-cache" when website is live
@@ -102,122 +105,6 @@ app.get("/listpatientvaccination", function (request, response) {
     });
 });
 
-//#endregion
-
-//#region Add to DB
-app.post("/addinjector", function (request, response) {
-    //body("firstName", "lastName").trim().isLength({ min: 1 }).escape();
-    //body("siteID").trim().optional({ checkFalsy: true }).isNumeric().withMessage("Site ID must be a number.");
-    //validationResult(req)=> {
-    //}
-
-    const firstname = db.escape(request.body.firstName);
-    const lastname = db.escape(request.body.lastName);
-    const siteid = db.escape(request.body.siteID);
-    //can var sql be const sql?
-    var sql = `INSERT INTO INJECTOR (FirstName, LastName, SiteID) VALUES (${firstname}, ${lastname}, ${siteid});`;
-
-    console.log(request.body);
-    console.log(sql);
-
-    db.query(sql, function (err, result) {
-        if (err) {
-            console.log(err);
-            //throw err;
-            return;
-        }
-
-        //response.append("Link", ["index.html"]);
-        //response.end(JSON.stringify("Executed SQL " + sql));
-
-        //response.setHeader("Content-Type", "text/html");
-        //response.write('<html><body><h1>Hello, World!</h1></body></html>');
-        response.statusCode = 204;
-        response.end();
-    });
-});
-
-app.post("/addsite", function (request, response) {
-    //get values from form "name=" with request.body
-    const name = db.escape(request.body.name);
-    const address = db.escape(request.body.address);
-    const zipCode = db.escape(request.body.zipCode);
-    const phone = db.escape(request.body.phone);
-    //compile sql statement
-    var sql = `INSERT INTO SITE (SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES (${name}, ${address}, ${zipCode}, ${phone});`;
-
-    //debugging - prints to terminal
-    console.log(request.body);
-    console.log(sql);
-
-    //attempt to execute sql
-    db.query(sql, function (err, result) {
-        //print error if something went wrong
-        if (err) {
-            console.log(err);
-            //throw err;
-            return;
-        }
-
-        response.statusCode = 204; //do not leave web page
-        response.end();
-    });
-});
-
-app.post("/addpatientinfo", function (request, response) {
-    //get values from form "name=" with request.body
-    const firstName = db.escape(request.body.firstName);
-    const lastName = db.escape(request.body.lastName);
-    const address = db.escape(request.body.address);
-    const zipCode = db.escape(request.body.zipCode);
-    //compile sql statement
-    var sql = `INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES (${firstName}, ${lastName}, ${address}, ${zipCode});`;
-
-    //debugging - prints to terminal
-    console.log(request.body);
-    console.log(sql);
-
-    //attempt to execute sql
-    db.query(sql, function (err, result) {
-        //print error if something went wrong
-        if (err) {
-            console.log(err);
-            //throw err;
-            return;
-        }
-
-        response.statusCode = 204; //do not leave web page
-        response.end();
-    });
-});
-
-app.post("/addpatientvaccination", function (request, response) {
-    //get values from form "name=" with request.body
-    const patientID = db.escape(request.body.patientID);
-    const date = db.escape(request.body.date);
-    const injectorID = db.escape(request.body.injectorID);
-    const type = db.escape(request.body.type);
-    const lotNumber = db.escape(request.body.lotNumber);
-    //compile sql statement
-    var sql = `INSERT INTO PATIENT_VACCINATION (PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES (${patientID}, ${date}, ${injectorID}, ${type}, ${lotNumber});`;
-
-    //debugging - prints to terminal
-    console.log(request.body);
-    console.log(sql);
-
-    //attempt to execute sql
-    db.query(sql, function (err, result) {
-        //print error if something went wrong
-        if (err) {
-            console.log(err);
-            //throw err;
-            return;
-        }
-
-        response.statusCode = 204; //do not leave web page
-        response.end();
-    });
-});
 //#endregion
 
 //#region Search DB

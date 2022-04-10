@@ -1,12 +1,12 @@
-const bcrypt = require("bcrypt");
-const db = require("./../db");
-const saltRounds = 10;
-
 module.exports = function (app) {
     app.post("/checkUsernameExists", checkUsernameExists);
     app.post("/createAccount", createAccount);
     app.post("/login", logIn);
 }
+
+const bcrypt = require("bcrypt");
+const db = require("./../db");
+const saltRounds = 10;
 
 function checkUsernameExists(request, response) {
     const username = db.escape(request.body);
