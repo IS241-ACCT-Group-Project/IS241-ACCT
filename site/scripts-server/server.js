@@ -46,6 +46,9 @@ modifyDB(app);
 var searchDB = require("./routes/search-db");
 searchDB(app);
 
+var listDB = require("./routes/list-db");
+listDB(app);
+
 //access local website by going to http://localhost:8081
 app.get("/", function (request, response) {
     response.setHeader("Cache-Control", "no-cache"); //remove "no-cache" when website is live
@@ -54,61 +57,6 @@ app.get("/", function (request, response) {
     response.sendFile("../site/index.html"); //start user on index page
     //response.redirect("../site/login.html");
 });
-
-//#region List DB
-app.get("/listInjectors", function (req, response) {
-    var sql = "SELECT * FROM INJECTOR";
-
-    db.query(sql, function (err, result) {
-        if (err) {
-            //throw err;
-            return;
-        }
-
-        response.end(JSON.stringify(result));
-    });
-});
-
-app.get("/listsites", function (request, response) {
-    var sql = "SELECT * FROM SITE";
-
-    db.query(sql, function (err, result) {
-        if (err) {
-            //throw err;
-            return;
-        }
-
-        response.end(JSON.stringify(result));
-    });
-});
-
-app.get("/listpatientinfo", function (request, response) {
-    var sql = "SELECT * FROM PATIENT_INFO";
-
-    db.query(sql, function (err, result) {
-        if (err) {
-            //throw err;
-            return;
-        }
-
-        response.end(JSON.stringify(result));
-    });
-});
-
-app.get("/listpatientvaccination", function (request, response) {
-    var sql = "SELECT * FROM PATIENT_VACCINATION";
-
-    db.query(sql, function (err, result) {
-        if (err) {
-            //throw err;
-            return;
-        }
-
-        response.end(JSON.stringify(result));
-    });
-});
-
-//#endregion
 
 // httpServer.listen(8080);
 // //, function () {

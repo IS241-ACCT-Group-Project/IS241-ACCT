@@ -1,4 +1,4 @@
-module.exports=function(app){
+module.exports = function (app) {
     app.post("/searchsites", searchSites);
     app.post("/searchinjectors", searchInjector);
     app.post("/searchpatientinfo", searchPatientInfo);
