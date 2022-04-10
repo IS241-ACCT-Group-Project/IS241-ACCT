@@ -42,7 +42,7 @@ function addSite(request, response) {
     const zipCode = db.escape(request.body.zipCode);
     const phone = db.escape(request.body.phone);
     //create sql statement
-    var sql = `INSERT INTO SITE (SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES (${name}, ${address}, ${zipCode}, ${phone});`;
+    const sql = `INSERT INTO SITE (SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES (${name}, ${address}, ${zipCode}, ${phone});`;
 
     //debugging - prints to terminal
     //console.log(request.body);
@@ -70,7 +70,7 @@ function addPatientInfo(request, response) {
     const address = db.escape(request.body.address);
     const zipCode = db.escape(request.body.zipCode);
     //create sql statement
-    var sql = `INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES (${firstName}, ${lastName}, ${address}, ${zipCode});`;
+    const sql = `INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES (${firstName}, ${lastName}, ${address}, ${zipCode});`;
 
     //debugging - prints to terminal
     //console.log(request.body);
@@ -99,7 +99,7 @@ function addPatientVaccination(request, response) {
     const type = db.escape(request.body.type);
     const lotNumber = db.escape(request.body.lotNumber);
     //create sql statement
-    var sql = `INSERT INTO PATIENT_VACCINATION (PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES (${patientID}, ${date}, ${injectorID}, ${type}, ${lotNumber});`;
+    const sql = `INSERT INTO PATIENT_VACCINATION (PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES (${patientID}, ${date}, ${injectorID}, ${type}, ${lotNumber});`;
 
     //debugging - prints to terminal
     //console.log(request.body);
