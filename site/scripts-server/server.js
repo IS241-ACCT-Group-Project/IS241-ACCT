@@ -1,40 +1,16 @@
 "use strict";
 
-const myArgs = process.argv.slice(2);
-
-//console.log(myArgs[0] + myArgs[1]);
-
-// const mysql = require('mysql');
-// const connection = mysql.createConnection({
-//     host: '127.0.0.1',
-//     user: myArgs[0], //username from database/mysql_login.txt
-//     password: myArgs[1], //password from database/mysql_login.txt
-//     database: 'VaxTest2',
-//     port: 3306
-// });
-const db = require("./db");
-
-
 //from https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm
 var express = require('express');
 var app = express();
-var fs = require("fs");
+// var fs = require("fs");
 const cors = require("cors");
-//const { body, validationResult } = require('express-validator');
 app.use(cors());
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded());
 
 app.use(express.static("../site"));
-
-//db.connect((err) => {
-//   if (err) {
-//       console.log(err);
-//       //throw err;
-//   }
-
-console.log('Connected to MySQL Server!');
 
 //separate files added here
 var accounts = require("./routes/accounts");
@@ -58,22 +34,4 @@ app.get("/", function (request, response) {
     //response.redirect("../site/login.html");
 });
 
-// httpServer.listen(8080);
-// //, function () {
-// //    var host = httpServer.address()
-// //    console.log("Example app listening on port " + host.port)
-// //    // console.log(JSON.stringify(host))
-// //})
-
-// if (httpsCreated) {
-//     httpsServer.listen(8081);
-//     // , function () {
-//     //    var host = httpsServer.address()
-//     //    console.log("Example app listening on port " + host.port)
-//     //    // console.log(JSON.stringify(host))
-//     // })
-// }
-//});
-
 module.exports = app;
-//});
