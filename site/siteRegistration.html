@@ -13,19 +13,19 @@
 	<main id="main-holder">
 		<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System</h1>
 		<h2>Vaccination Site Information</h2>
-		<form id="newSiteForm" action="http://localhost:8081/addsite" method="post">
+		<form id="newSiteForm" action="http://localhost:8081/addsite" method="post" onsubmit="return validateForm()">
 			<label for="name">Site name:</label><br>
-			<input type="text" id="name" name="name" required /><br>
+			<input type="text" id="name" name="name"  /><br>
 
 			<label for="address">Address, City, State:</label><br>
-			<input type="text" id="address" name="address" required /><br>
+			<input type="text" id="address" name="address"  /><br>
 
 			<label for="zipCode">Zip:</label><br>
-			<input type="text" id="zipCode" name="zipCode" pattern="[0-9]{5}" required 
+			<input type="text" id="zipCode" name="zipCode" pattern="[0-9]{5}"  
 			title="Enter five digit zip code"/> <br>
 
 			<label for="phone">Phone Number:</label><br>
-			<input type="tel" id="phone" name="phone" required 
+			<input type="tel" id="phone" name="phone"  
 				placeholder="999-999-9999"
 				pattern="\d{3}[\-]\d{3}[\-]\d{4}"
 				title="Must be 999-999-9999"><br><br>
@@ -47,10 +47,55 @@
 		</form> -->
 
 		<script>
-			var form = document.getElementById("newSiteForm");
-    		form.addEventListener("submit", function(){
-				alert("Success!");
-			});
+			//var form = document.getElementById("newSiteForm");
+			//form.addEventListener("submit", function () {
+			//	alert("Success!");
+			//});
+
+			function validateForm() {
+				var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+                const name = document.forms["newSiteForm"]["name"].value;
+                if (name == "") {
+					alert("Name must be filled out");
+					return false;
+				}
+                if (!name.match(regName)){
+                    alert("Please enter a valid phone number");
+                    return false;
+				}
+				//should i also validate for is the site name exists in the system
+
+
+                const address = document.forms["newSiteForm"]["address"].value;
+                if (address == "") {
+                    alert("Address must be filled out");
+					return false;
+				}
+				//tricky which characters should be allowed
+
+
+                var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test("90210");
+				const zipCode = document.forms["newSiteForm"]["zipCode"].value;
+                if (zipCode == "") {
+                    alert("zipCode must be filled out");
+					return false;
+				}
+				if (!zipcode.match(isValidZip)) {
+                    alert("Please enter a valid zip code");
+                    return false;
+                }
+
+
+                const phone = document.forms["newSiteForm"]["phone"].value;
+                if (phone == "") {
+                    alert("Phone must be filled out");
+                    return false;
+				}
+                if (!phone.match(phoneno)){
+					alert("Please enter a valid phone number");
+					return false;
+                }
+			}
 		</script>
 	</main>
 </body>
