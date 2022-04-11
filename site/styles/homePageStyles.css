@@ -56,3 +56,11 @@
   text-align: center;
   margin-bottom: 30px;
 }
+
+input:invalid {
+  border: 2px solid red;
+}
+
+input:invalid:required {
+  border: 1px solid red;  
+}

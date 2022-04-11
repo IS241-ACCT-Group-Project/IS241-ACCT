@@ -4,15 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Registration</title>
-	<link rel="stylesheet" href="styles/loginStyles.css">
-
-
+	<title>Injector Registration</title>
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/homePageStyles.css">
 </head>
 <body>
-	<main id="main-holder">
-		<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System</h1>
 
+	<div class="container"> 
 		<form id="newInjectorForm" action="http://localhost:8081/addinjector" method="post" onsubmit="return validateForm()">
 			<h2>Injector Information</h2>
 			<label for="firstName">First name:</label><br>
@@ -23,22 +21,11 @@
 
 			<label for="clinicID">Clinic ID:</label><br>
 			<input type="number" id="clinicID" name="clinicID" min="1" /><br>
-
+			<br><br>
 			<input type="submit" value="register" id="newInjectorFormSubmit">
 		</form>
+	</div>
 		
-		<!-- Commented out for week 4 survey -->
-		<!-- <h2>
-			Documents
-		</h2>
-		<form action="/action_page.php"
-			  enctype="multipart/form-data">
-
-			<label for="myfile">Select a file:</label>
-			<input type="file" id="myfile" name="myfile" />
-			<br /><br />
-		</form> -->
-
 		<script>
 			// commented out for javascript validation testing  
 	
@@ -79,6 +66,5 @@
             }
 			
 		</script>
-	</main>
 </body>
 </html>

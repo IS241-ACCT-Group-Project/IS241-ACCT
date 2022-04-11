@@ -3,15 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Registration</title>
-	<link rel="stylesheet" href="styles/loginStyles.css">
-	<!--this page is for registering a new vaccination site-->
-
+	<title>New Site Registration</title>
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/homePageStyles.css">
 </head>
 <body>
-	<!--a main holder contains the page contents, which are forms with data fields that will connect to the database on button click-->
-	<main id="main-holder">
-		<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System</h1>
+	<div class="container"> 
 		<h2>Vaccination Site Information</h2>
 		<form id="newSiteForm" action="http://localhost:8081/addsite" method="post" onsubmit="return validateForm()">
 			<label for="name">Site name:</label><br>
@@ -33,18 +30,7 @@
 			<input type="submit" value="register" id="newSiteFormSubmit">
 
 		</form>
-
-		<!-- Commented out for week 4 survey -->
-		<!-- <h2>
-			Documents
-		</h2>
-		<form action="/action_page.php"
-			  enctype="multipart/form-data">
-
-			<label for="myfile">Select a file:</label>
-			<input type="file" id="myfile" name="myfile" />
-			<br /><br />
-		</form> -->
+	</div>
 
 		<script>
 			//var form = document.getElementById("newSiteForm");
@@ -97,6 +83,5 @@
                 }
 			}
 		</script>
-	</main>
 </body>
 </html>
