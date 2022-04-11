@@ -26,7 +26,8 @@ Forms that search the database need:
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>New Injector Registration</title>
-	<link rel="stylesheet" href="styles/loginStyles.css">
+	<!-- <link rel="stylesheet" href="styles/loginStyles.css"> -->
+	<!-- <script type="text/javascript" src="scripts/createAccount.js"></script> -->
 	<script type="text/javascript" src="scripts/site.js"></script>
 	<script type="text/javascript" src="scripts/searchSites.js"></script>
 	<script type="text/javascript" src="scripts/searchInjectors.js"></script>
@@ -42,12 +43,33 @@ Forms that search the database need:
 			margin: auto;
 			padding: 40px;
 		}
+		h3, p{
+			display:inline;
+			padding:0;
+		}
 	</style>
 </head>
 
 <body>
 	<main id="main-holder">
 		<h1>Database Testing</h1>
+		<div>
+			<h3>Logged in as: </h3><p id="username">NOT LOGGED IN</p>
+			<form action="http://localhost:8081/login" method="post">
+				<h2>Log In</h2>
+				<label for="username">Username: </label>
+				<br>
+				<input type="text" name="username">
+				<br>
+				
+				<label for="password">Password: </label>
+				<br>
+				<input type="text" name="password">
+				<br>
+				
+				<input type="submit" value="Log In">
+			</form>
+		</div>
 		<div class="dbGroup">
 			<form action="http://localhost:8081/addsite" method="post">
 				<h2>Site Database</h2>
@@ -72,10 +94,9 @@ Forms that search the database need:
 				<br>
 
 				<input type="submit" value="Register New Site">
-
-				<!-- Just for testing; please don't put this in a form -->
-				<!-- <br><br><button onclick="listDB('sites')">Show Site Database</button> -->
 			</form>
+			<!-- Just for testing; please don't put this in a form -->
+			<!-- <br><br><button onclick="listDB('sites')">Show Site Database</button> -->
 			<form id="siteSearch">
 				<!-- <form action="http://localhost:8081/searchsites" method="post"> -->
 				<h2>Search for a Site</h2>
@@ -133,10 +154,9 @@ Forms that search the database need:
 				<input type="number" name="siteID"><br>
 
 				<input type="submit" value="Register New Injector">
-
-				<!-- Just for testing; please don't put this in a form -->
-				<br><br><button onclick="listDB('injectors')">Show Injector Database</button>
 			</form>
+			<!-- Just for testing; please don't put this in a form -->
+			<!-- <br><br><button onclick="listDB('injectors')">Show Injector Database</button> -->
 			<form id="injectorSearch">
 				<h2>Search for an Injector</h2>
 				<label for="injectorID">Injector ID:</label><br>
@@ -180,10 +200,9 @@ Forms that search the database need:
 				<input type="number" name="zipCode"><br>
 
 				<input type="submit" value="Register New Patient">
-
-				<!-- Just for testing; please don't put this in a form -->
-				<!-- <br><br><button onclick="listDB('patientinfo')">Show Patient Info Database</button> -->
 			</form>
+			<!-- Just for testing; please don't put this in a form -->
+			<!-- <br><br><button onclick="listDB('patientinfo')">Show Patient Info Database</button> -->
 			<form id="patientInfoSearch" method="post">
 				<h2>Search Patient Information</h2>
 				<label for="patientID">Patient ID:</label><br>
@@ -238,10 +257,9 @@ Forms that search the database need:
 				<input type="number" name="lotNumber"><br>
 
 				<input type="submit" value="Register New Vaccination">
-
+			</form>
 				<!-- Just for testing; please don't put this in a form -->
 				<!-- <br><br><button onclick="listDB('patientvaccination')">Show Vaccination Database</button> -->
-			</form>
 			<form id="patientVaccinationSearch">
 				<h2>Search Patient Vaccination</h2>
 				<label for="patientID">Patient ID:</label><br>

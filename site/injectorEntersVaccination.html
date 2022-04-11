@@ -13,7 +13,7 @@
  	<main id="main-holder">
  		<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System</h1>
 
- 		<form id="injectorEntersVaccination" action="http://localhost:8081/addpatientvaccination" method="post">
+ 		<form id="injectorEntersVaccination" action="http://localhost:8081/addpatientvaccination" method="post" onsubmit="return validateForm()">
  			<h2>Record New Vaccination:</h2>
 
  			<label for="patientID">Patient ID:</label><br>
