@@ -98,7 +98,7 @@ function logIn(request, response) {
                 }
             });
 
-            response.end("<p>done</p>");
+            //async bad!!!!!!
 
             //response.setHeader("Content-Type", "application/json");
             //response.write(JSON.stringify());
@@ -106,6 +106,7 @@ function logIn(request, response) {
         }
         else {
             //no account with username exists
+            response.end(`<h1>Login failed.</h1>`);
         }
     });
 }
