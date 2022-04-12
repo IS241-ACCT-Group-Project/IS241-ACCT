@@ -45,15 +45,14 @@
           <label>Password</label>
         </div>
 
-        <button type="submit" class="btn" id="login-form-submit">Login</button>
-
+		<form id="login-form" action="/login" method="post">
+	      <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+	      <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
+	      <input type="submit" value="Log In" id="login-form-submit">
+    	</form>
         <p class="text">Don't have an account? <a href="registrationType.html">Register</a> </p>
         <p class="text">Powered by ACCT</p>
-      </form>
-    </div>
-  </body>
-</html>
-
+  	</main>
 </body>
 
 </html>
