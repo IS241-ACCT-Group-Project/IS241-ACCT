@@ -46,6 +46,7 @@ CREATE TABLE PATIENT_INFO(
     FirstName varchar(30) NOT NULL, 
     LastName varchar(30) NOT NULL, 
     PatientAddress varchar(60), 
+    PatientDOB  date NOT NULL,
     ZipCode varchar(5), 
     PRIMARY KEY (PatientID)
 );
