@@ -18,10 +18,16 @@
 		<form id="newPatientForm">
 			<h2>Patient Demographics</h2>
 			<label for="FirstName">First Name*:</label><br>
-			<input type="text" id="FirstName" name="FirstName" maxlength="30" required><br>
+			<input type="text" id="FirstName" name="FirstName" maxlength="30" ><br>
 
 			<label for="LastName">Last Name*:</label><br>
-			<input type="text" id="LastName" name="LastName" maxlength="30" required><br>
+			<input type="text" id="LastName" name="LastName" maxlength="30" ><br>
+
+            <label for="PatientDOB">Patient DOB</label><br />
+            <input type="date" id="PatientDOB" name="PatientDOB" 
+					value=""
+					min="1922-01-01" max="2016-12-31" />
+ 			<br />
 
 			<h2>Patient Contact Information</h2>
 
@@ -74,6 +80,16 @@
                     return false;
                 }
 
+                var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+                if (dateformat.test(PatientDOB)) {
+                    alert("Please enter the date in MM / DD / YYYY format");
+                    return false;
+                }
+
+                if (PatientDOB == "") {
+                    alert("Date must be filled out");
+                    return false;
+                }
 
                 var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test("90210");
                 const ZipCode = document.forms["newPatientForm"]["ZipCode"].value;
