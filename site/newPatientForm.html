@@ -9,7 +9,12 @@
 </head>
 
 <body>
+<<<<<<< Updated upstream
 	<div class="container">
+=======
+	<main id="patient-holder"  method="post" onsubmit="return validateForm()">
+
+>>>>>>> Stashed changes
 		<form id="newPatientForm">
 			<h2>Patient Demographics</h2>
 			<label for="FirstName">First Name*:</label><br>
@@ -25,13 +30,66 @@
 
 			<label for="ZipCode">Zip Code (5-digit):</label><br>
 			<input type="text" id="ZipCode" name="ZipCode" maxlength="5"
-			pattern="[0-9]{5}" title="Enter five digit zip code"><br>
+				   pattern="[0-9]{5}" title="Enter five digit zip code"><br>
 
 			<h3>(*required field)</h3>
 			<input type="submit" value="Register" id="newPatientRegister">
 		</form>
+<<<<<<< Updated upstream
 	</div>
 		
 		
+=======
+
+		<script>
+            function validateForm() {
+
+                var regName = /^[A-Za-z\s]+$/;
+                const FirstName = document.forms["newPatientForm"]["FirstName"].value;
+                if (FirstName == "") {
+                    alert("Name must be filled out");
+                    return false;
+                }
+                if (!regName.test(FirstName)) {
+                    alert("Invalid first name given");
+                }
+
+                const LastName = document.forms["newPatientForm"]["LastName"].value;
+                if (LastName == "") {
+                    alert("Name must be filled out");
+                    return false;
+                }
+                if (!regName.test(LastName)) {
+                    alert("Invalid last name given");
+                }
+
+                var isValidAddress = /^[a-zA-Z0-9\s,.'-]{3,}$/;
+                const PatientAddress = document.forms["newPatientForm"]["PatientAddress"].value;
+                if (PatientAddress == "") {
+                    alert("Address must be filled out.");
+                    return false;
+                }
+                if (!PatientAddress.match(isValidAddress)) {
+                    alert("Please enter a valid address.");
+                    return false;
+                }
+
+
+                var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test("90210");
+                const ZipCode = document.forms["newPatientForm"]["ZipCode"].value;
+                if (ZipCode == "") {
+                    alert("Zip code must be filled out");
+                    return false;
+                }
+                if (!Zipcode.match(isValidZip)) {
+                    alert("Please enter a valid zip code.");
+                    return false;
+                }
+
+            }
+		</script>
+		
+	</main>
+>>>>>>> Stashed changes
 </body>
 </html>
