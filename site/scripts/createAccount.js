@@ -107,8 +107,46 @@ function validatePasswords() {
 
 //validate password here
 //doesn't currently work; needs to be fixed
-function hasRequiredCharacters(password) {
-    return true; //skipping everything because this doesn't work
+function hasRequiredCharacters() {
+
+    const password1 = password_1.value.trim();
+    // If password not entered
+    if (password1 == '') {
+        alert("Please enter Password");
+        return false
+    }
+    //Length Check
+    if (password1.length < 8) {
+        alert("Invalid Password. Password must be at least 8 characters long.");
+        return false;
+    }
+    //Contains Number Check
+    var numbers = /[0-9]/g;
+    if (!password1.match(numbers)) {
+        alert("Invalid Password. Password must contain at least one number (0-9).");
+        return false;
+    }
+    //Contains Capital Letter
+    var uppercase = /[A-Z]/g;
+    if (!password1.match(uppercase)) {
+        alert("Invalid Password. Password must contain at least one upper case letter (A-Z).");
+        return false;
+    }
+    //Contains Lowercase Letter
+    var lowercase = /[a-z]/g;
+    if (!password1.match(lowercase)) {
+        alert("Invalid Password. Password must contain at least one lower case letter (a-z).");
+        return false;
+    }
+    // If same return True.
+    else {
+        alert("Passwords Match!");
+        return true;
+    }
+}
+    /*
+     * 
+     * return true; //skipping everything because this doesn't work
 
     const length = 8;
     const lowerLetter = "/^[a-z]$/";
@@ -146,7 +184,12 @@ function hasRequiredCharacters(password) {
     }
 
     return isValid;
-}
+    
+    */
+ 
+
+
+
 
 function isAccountTypeSelected() {
     var isSelected = false;
@@ -160,6 +203,9 @@ function isAccountTypeSelected() {
 
     return isSelected;
 }
+
+
+
 
 //check if form is filled out correctly and disable/enable button accordingly
 function checkAllValid() {
@@ -175,6 +221,11 @@ function checkAllValid() {
         console.log("Submit button is disabled.");
         submitButton.disabled = true;
     }
+
+
+
+
+
     // else {
     //     console.log("Username valid: " + usernameValid);
     //     console.log("Password valid: " + passwordValid);
