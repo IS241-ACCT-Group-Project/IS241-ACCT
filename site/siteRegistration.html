@@ -39,7 +39,7 @@
 			//});
 
 			function validateForm() {
-				var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+                var regName = /^[A-Za-z\s]+$/;
                 const name = document.forms["newSiteForm"]["name"].value;
                 if (name == "") {
 					alert("Name must be filled out");
