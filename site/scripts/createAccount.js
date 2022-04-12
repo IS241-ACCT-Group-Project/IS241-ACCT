@@ -6,6 +6,7 @@ window.addEventListener("load", function () {
     if (username = document.getElementsByName("username")[0]) {
         username.addEventListener("input", validateUsername);
         username.addEventListener("propertychange", validateUsername);
+        // console.log("Username listeners added.");
     }
 
     if (password_1 = document.getElementsByName("password_1")[0]) {
