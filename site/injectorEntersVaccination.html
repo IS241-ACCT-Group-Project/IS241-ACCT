@@ -9,47 +9,45 @@
 	<link rel="stylesheet" href="styles/homePageStyles.css">
  </head>
  <body>
-	<div class="container"> 
- 		<form id="injectorEntersVaccination" action="http://localhost:8081/addpatientvaccination" method="post" onsubmit="return validateForm()">
- 			<h2>Record New Vaccination:</h2>
+     <main>
+     <div class="container">
+         <form id="injectorEntersVaccination" action="http://localhost:8081/addpatientvaccination" method="post" onsubmit="return validateForm()">
+             <h2>Record New Vaccination:</h2>
 
- 			<label for="patientID">Patient ID:</label><br>
- 			<input type="number" id="patientID" name="patientID" 
-					min="1" max="9" />
- 			<br>
+             <label for="patientID">Patient ID:</label><br>
+             <input type="number" id="patientID" name="patientID"
+                    min="1" max="9" />
+             <br>
 
- 			<label for="date">Vaccination Date:</label><br>
- 			<input type="date" id="date" name="date" 
-					value=""
-					min="2021-11-01" max="2022-02-20" />
- 			<br />
+             <label for="date">Vaccination Date:</label><br>
+             <input type="date" id="date" name="date"
+                    value=""
+                    min="2021-11-01" max="2022-02-20" />
+             <br />
 
- 			<label for="injectorID">Injector ID:</label><br>
- 			<input type="number" id="injectorID" name="injectorID"
-					min="01"
-					max="10"
-					 />
- 			<!-- pattern="[0-10]" -->
+             <label for="injectorID">Injector ID:</label><br>
+             <input type="number" id="injectorID" name="injectorID"
+                    min="01"
+                    max="10" />
+             <!-- pattern="[0-10]" -->
 
- 			<br>
+             <br>
 
- 			<label for="vaccinationType">VaccinationType:</label><br>
- 			<select name="vaccinationType" id="vaccinationType" >
- 				<option value="">Choose</option>
- 				<option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
- 				<option value="Moderna">Moderna</option>
- 				<option value="Johnson & Johnson's Janssen">Johnson & Johnson's Janssen</option>
- 			</select>
- 			<br />
+             <label for="vaccinationType">VaccinationType:</label><br>
+             <select name="vaccinationType" id="vaccinationType">
+                 <option value="">Choose</option>
+                 <option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
+                 <option value="Moderna">Moderna</option>
+                 <option value="Johnson & Johnson's Janssen">Johnson & Johnson's Janssen</option>
+             </select>
+             <br />
 
- 			<label for="lotNumber">LotNumber:</label><br>
- 			<input type="number" id="lotNumber" name="lotNumber" min="00001" max="99999" />
- 			<br><br>
- 			<input type="submit" value="register" id="newVaccinationForm">
- 		</form>
-<<<<<<< Updated upstream
-	</div>
-=======
+             <label for="lotNumber">LotNumber:</label><br>
+             <input type="number" id="lotNumber" name="lotNumber" min="00001" max="99999" />
+             <br><br>
+             <input type="submit" value="register" id="newVaccinationForm">
+         </form>
+
          <script>
              function validateForm() {
                  const patientID = document.forms["injectorEntersVaccination"]["patientID"].value;
@@ -112,7 +110,7 @@
                  }
              }
          </script>
+     </div>
  	</main>
->>>>>>> Stashed changes
  </body>
 </html>
