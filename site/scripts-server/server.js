@@ -61,11 +61,11 @@ router.get("/", function (request, response) {
 });
 
 //log in
-router.post("/login", function (request, response) {
-    sess = request.session;
-    sess.username = request.body.username;
-    response.end("done");
-});
+//router.post("/login", function (request, response) {
+//    sess = request.session;
+//    sess.username = request.body.username;
+//    response.end("done");
+//});
 
 //go to page that can only be accessed if user is logged in
 router.get("/admin", function (request, response) {

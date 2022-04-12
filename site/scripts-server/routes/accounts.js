@@ -46,6 +46,21 @@ function createAccount(request, response) {
 
     const username = db.escape(request.body.username);
     const password = db.escape(request.body.password_1);
+    const type = db.escape(request.body.accountType);
+
+    const sql = `INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES (${type}, ${4}, ${username}, ${password});`
+    
+    db.query(sql, function (err, result) {
+        if (err) {
+            console.log(err);
+            //throw err;
+            return;
+        }
+
+        //response.sendFile("../site/login.html");
+        response.statusCode = 204; //do not leave page
+        response.end();
+    });
 }
 
 function logIn(request, response) {
@@ -67,18 +82,27 @@ function logIn(request, response) {
 
             const hash = result[0].AccountPassword;
 
+            response.setHeader("Content-Type", "text/html");
+
             bcrypt.compare(password, hash, function (err, result) {
                 if (result) { //if password matches hash
                     console.log(`Log in user ${username}: Success!`);
+                    //response.write(`<h3>Logged in as: ${username}</h3>`);
+                    response.end(`<h3>Logged in as: ${username}</h3>`);
+                    // response.sendFile("./site/injectorHomePage.html");
                 }
                 else {
                     console.log(`Log in user ${username}: FAILED!`);
+                    //response.write(`<h1>You are not logged in.</h1>`);
+                    response.end(`<h1>Login failed.</h1>`);
                 }
             });
 
-            response.setHeader("Content-Type", "application/json");
-            // response.write(JSON.stringify());
-            response.end();
+            response.end("<p>done</p>");
+
+            //response.setHeader("Content-Type", "application/json");
+            //response.write(JSON.stringify());
+            //response.end();
         }
         else {
             //no account with username exists

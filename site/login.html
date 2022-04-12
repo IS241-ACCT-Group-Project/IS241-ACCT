@@ -34,7 +34,7 @@
 	  <!-- <div id="login-error-msg-holder">
 		<p id="login-error-msg">Username or password incorrect</p>
 	</div> -->
-      <form id="login-form">
+      <form id="login-form" action="/login" method="post">
         <div class="form-control">
             <input type="text" name="username" required>
           <label>Username</label>
@@ -45,11 +45,15 @@
           <label>Password</label>
         </div>
 
-		<form id="login-form" action="/login" method="post">
+        <button type="submit" class="btn" id="login-form-submit">Log In</button>
+    	</form>
+
+		<!-- <form id="login-form" action="/login" method="post">
 	      <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
 	      <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
 	      <input type="submit" value="Log In" id="login-form-submit">
-    	</form>
+        <button type="submit" class="btn" id="login-form-submit">Log In</button>
+    	</form> -->
         <p class="text">Don't have an account? <a href="registrationType.html">Register</a> </p>
         <p class="text">Powered by ACCT</p>
   	</main>
