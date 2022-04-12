@@ -35,10 +35,10 @@
 			//});
 
 			function validateForm() {
-                var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+                var regName = /^[A-Za-z\s]+$/;
                 const firstName = document.forms["newInjectorForm"]["firstName"].value;
                 if (firstName == "") {
-                    alert("Name must be filled out");
+                    alert("First name must be filled out");
                     return false;
 				}
 				if (!regName.test(firstName)) {
@@ -47,7 +47,7 @@
 
                 const lastName = document.forms["newInjectorForm"]["lastName"].value;
 				if (lastName == "") {
-					alert("Name must be filled out");
+					alert("Last name must be filled out");
 					return false;
 				}
 				if (!regName.test(lastName)) {
@@ -56,11 +56,11 @@
 
                 const clinicID = document.forms["newInjectorForm"]["clinicID"].value;
 				if (clinicID == "") {
-					alert("Name must be filled out");
+					alert("ClinicID must be filled out");
 					return false;
 				}
                 if (clinicID.match(/\D/.test(clinicID))){
-					alert("Please only enter numeric characters only for your Age! (Allowed input:0-9)");
+					alert("Please only enter numeric characters only for your ClinicID");
 					return false;
 				}
             }

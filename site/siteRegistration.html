@@ -12,20 +12,20 @@
 		<h2>Vaccination Site Information</h2>
 		<form id="newSiteForm" action="http://localhost:8081/addsite" method="post" onsubmit="return validateForm()">
 			<label for="name">Site name:</label><br>
-			<input type="text" id="name" name="name"  /><br>
+			<input type="text" id="name" name="name" /><br>
 
 			<label for="address">Address, City, State:</label><br>
-			<input type="text" id="address" name="address"  /><br>
+			<input type="text" id="address" name="address" /><br>
 
 			<label for="zipCode">Zip:</label><br>
-			<input type="text" id="zipCode" name="zipCode" pattern="[0-9]{5}"  
-			title="Enter five digit zip code"/> <br>
+			<input type="text" id="zipCode" name="zipCode" pattern="[0-9]{5}"
+				   title="Enter five digit zip code" /> <br>
 
 			<label for="phone">Phone Number:</label><br>
-			<input type="tel" id="phone" name="phone"  
-				placeholder="999-999-9999"
-				pattern="\d{3}[\-]\d{3}[\-]\d{4}"
-				title="Must be 999-999-9999"><br><br>
+			<input type="tel" id="phone" name="phone"
+				   placeholder="999-999-9999"
+				   pattern="\d{3}[\-]\d{3}[\-]\d{4}"
+				   title="Must be 999-999-9999"><br><br>
 
 			<input type="submit" value="register" id="newSiteFormSubmit">
 
@@ -46,38 +46,46 @@
 					return false;
 				}
                 if (!name.match(regName)){
-                    alert("Please enter a valid phone number");
+                    alert("Please enter a valid phone number.");
                     return false;
 				}
-				//should i also validate for is the site name exists in the system
+				//should i also validate for is the site name already exists in the system?
 
-
+				var isValidAddress = /^[a-zA-Z0-9\s,.'-]{3,}$/;
                 const address = document.forms["newSiteForm"]["address"].value;
                 if (address == "") {
-                    alert("Address must be filled out");
+                    alert("Address must be filled out.");
+					return false;
+				}
+                if (!address.match(isValidAddress)) {
+                    alert("Please enter a valid address.");
 					return false;
 				}
 				//tricky which characters should be allowed
+				//the address could still be a nonsense string, maybe validate if the address is real? address doesn't do anything so this could be an overcomplication
 
 
                 var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test("90210");
 				const zipCode = document.forms["newSiteForm"]["zipCode"].value;
                 if (zipCode == "") {
-                    alert("zipCode must be filled out");
+                    alert("Zip code must be filled out");
 					return false;
 				}
 				if (!zipcode.match(isValidZip)) {
-                    alert("Please enter a valid zip code");
+                    alert("Please enter a valid zip code.");
                     return false;
-                }
+				}
 
+
+				//var phoneno = /^\d{3}[\-]\d{3}[\-]\d{4}$/;
+                var phoneno = /^\([0-9]{3})\[-]?([0-9]{3})[-]?([0-9]{4})$/;
 
                 const phone = document.forms["newSiteForm"]["phone"].value;
                 if (phone == "") {
                     alert("Phone must be filled out");
                     return false;
 				}
-                if (!phone.match(phoneno)){
+                if (!phoneno.test(phone)){
 					alert("Please enter a valid phone number");
 					return false;
                 }

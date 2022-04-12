@@ -26,7 +26,6 @@ form.addEventListener('submit', (e) => {
 
 	if (username.value === '' || username.value == null) {
 		messages.push('Username is required')
-
 	}
 
 	if (password.value === '' || password.value == null) {
