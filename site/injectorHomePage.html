@@ -4,37 +4,33 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Registration</title>
-	<link rel="stylesheet" href="styles/loginStyles.css">
-	<link rel="stylesheet" href="styles/injectorHomePageStyles.css">	
+	<title>Injector Home Page</title>
+    <link rel="stylesheet" href="styles/style.css" />
+	<link rel="stylesheet" href="styles/homePageStyles.css">	
 	<script defer src="scripts/injectorHomePage.js"></script>	
 </head>
 
 <body>
-	<main id="main-holder">
-		<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System	
-		</h1>
-		<h2 style="text-align: center">Injector Home Page</h2>
+		<h1>Missouri Immunization Information System</h1>
+	    <div class="container">
+			<h2>Injector Home Page</h2>
 
-		<p id="injector-info-holder">Injectors are site staff members who inject vaccines into patient's arms.  
-		They also play an important role in entering data into the vaccine tracking system.  
-		Injectors enter the three main forms: site, patient, and vaccine records.  
-		Injectors choose which form to enter by clicking the Form Entry button below. <br> 
-		Note: register a new injector on <a href="injectorRegistration.html">Injector Registration</a>
-		 
-		</p>
-		
-		<div class="dropdown">
-		  <button onclick="myFunction()" class="dropbtn">Form Data Entry</button>
-		  <div id="myDropdown" class="dropdown-content">
-			<a href="newClinicForm.html">Site</a>
-			<a href="newPatientForm.html">Patient</a>
-			<a href="injectorEntersVaccination.html">Vaccine</a>
-		  </div>
+			<p>Injectors are site staff members who inject vaccines into patient's arms.  
+			They also play an important role in entering data into the vaccine tracking system.  
+			Injectors enter two forms: patient and vaccine records.  
+			Injectors choose which form to enter by clicking the Form Entry button below.
+			</p>
+			
+			<div class="dropdown">
+			  <button onclick="myFunction()" class="dropbtn">Form Data Entry</button>
+			  <div id="myDropdown" class="dropdown-content">
+				<a href="newPatientForm.html">Patient</a>
+				<a href="injectorEntersVaccination.html">Vaccine</a>
+			  </div>
+			</div>
+			
+			<p>Powered by ACCT</p>
 		</div>
-		
-		<p2>Powered by ACCT</p2>
-  	</main>
 </body>
 
 </html>

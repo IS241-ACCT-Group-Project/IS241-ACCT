@@ -4,35 +4,98 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>New Patient Registration</title>
-	<link rel="stylesheet" href="styles/loginStyles.css">
-	<link rel="stylesheet" href="styles/patientStyles.css">
-
-
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/homePageStyles.css">	
 </head>
 
-
 <body>
-	<main id="patient-holder">
+    <div class="container">
+        <main id="patient-holder" method="post" onsubmit="return validateForm()">
+            <form id="newPatientForm">
+                <h2>Patient Demographics</h2>
+                <label for="FirstName">First Name*:</label><br>
+                <input type="text" id="FirstName" name="FirstName" maxlength="30"><br>
 
-		<form id="newPatientForm">
-			<h2>Patient Demographics</h2>
-			<label for="FirstName">First Name*:</label><br>
-			<input type="text" id="FirstName" name="FirstName" maxlength="30" required><br>
+                <label for="LastName">Last Name*:</label><br>
+                <input type="text" id="LastName" name="LastName" maxlength="30"><br>
 
-			<label for="LastName">Last Name*:</label><br>
-			<input type="text" id="LastName" name="LastName" maxlength="30" required><br>
+                <label for="PatientDOB">Patient DOB</label><br />
+                <input type="date" id="PatientDOB" name="PatientDOB"
+                       value=""
+                       min="1922-01-01" max="2016-12-31" />
+                <br />
 
-			<h2>Patient Contact Information</h2>
+                <h2>Patient Contact Information</h2>
 
-			<label for="PatientAddress">Street Address, City, and State:</label><br>
-			<input type="text" id="PatientAddress" name="PatientAddress" maxlength="60"><br>
+                <label for="PatientAddress">Street Address, City, and State:</label><br>
+                <input type="text" id="PatientAddress" name="PatientAddress" maxlength="60"><br>
 
-			<label for="ZipCode">Zip Code (5-digit):</label><br>
-			<input type="text" id="ZipCode" name="ZipCode" maxlength="5"><br>
+                <label for="ZipCode">Zip Code (5-digit):</label><br>
+                <input type="text" id="ZipCode" name="ZipCode" maxlength="5"
+                       pattern="[0-9]{5}" title="Enter five digit zip code"><br>
 
-			<h3>(*required field)</h3>
-			<input type="submit" value="Register" id="newPatientRegister">
-		</form>
-	</main>
+                <h3>(*required field)</h3>
+                <input type="submit" value="Register" id="newPatientRegister">
+            </form>
+
+            <script>
+                function validateForm() {
+
+                    var regName = /^[A-Za-z\s]+$/;
+                    const FirstName = document.forms["newPatientForm"]["FirstName"].value;
+                    if (FirstName == "") {
+                        alert("Name must be filled out");
+                        return false;
+                    }
+                    if (!regName.test(FirstName)) {
+                        alert("Invalid first name given");
+                    }
+
+                    const LastName = document.forms["newPatientForm"]["LastName"].value;
+                    if (LastName == "") {
+                        alert("Name must be filled out");
+                        return false;
+                    }
+                    if (!regName.test(LastName)) {
+                        alert("Invalid last name given");
+                    }
+
+                    var isValidAddress = /^[a-zA-Z0-9\s,.'-]{3,}$/;
+                    const PatientAddress = document.forms["newPatientForm"]["PatientAddress"].value;
+                    if (PatientAddress == "") {
+                        alert("Address must be filled out.");
+                        return false;
+                    }
+                    if (!PatientAddress.match(isValidAddress)) {
+                        alert("Please enter a valid address.");
+                        return false;
+                    }
+
+                    var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+                    if (dateformat.test(PatientDOB)) {
+                        alert("Please enter the date in MM / DD / YYYY format");
+                        return false;
+                    }
+
+                    if (PatientDOB == "") {
+                        alert("Date must be filled out");
+                        return false;
+                    }
+
+                    var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test("90210");
+                    const ZipCode = document.forms["newPatientForm"]["ZipCode"].value;
+                    if (ZipCode == "") {
+                        alert("Zip code must be filled out");
+                        return false;
+                    }
+                    if (!Zipcode.match(isValidZip)) {
+                        alert("Please enter a valid zip code.");
+                        return false;
+                    }
+
+                }
+            </script>
+        </main>
+    </div>
 </body>
 </html>

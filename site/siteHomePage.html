@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang ="en">
+<!--On this page an injector may select the type of form to enter-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Site Home Page</title>
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/homePageStyles.css">	
+	<script defer src="scripts/injectorHomePage.js"></script>	
+</head>
+
+<body>
+		<h1>Missouri Immunization Information System</h1>
+		<div class="container">
+			<h2>Site User Home Page</h2>
+
+			<p>
+			The Site Users are site staff members who are not injectors
+			but have other adminstrative responsibilities such as DHSS admin and staff.
+			The only thing Site Users do is edit the site record, which is the purpose of this page.
+			Note: the edit function is still under development.  
+			Right now the link is to the Site Registration page.  
+			</p>
+			
+			<div class="dropdown">
+			  <button onclick="myFunction()" class="dropbtn">Edit Site</button>
+			  <div id="myDropdown" class="dropdown-content">
+				<a href="siteRegistration.html">Site</a>
+			  </div>
+			</div>
+			
+			<p>Powered by ACCT</p>
+		</div>
+</body>
+
+</html>

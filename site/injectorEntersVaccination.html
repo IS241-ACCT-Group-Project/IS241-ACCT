@@ -4,51 +4,113 @@
  <head>
  	<meta charset="UTF-8">
  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
- 	<title>Registration</title>
- 	<link rel="stylesheet" href="styles/loginStyles.css">
-
-
+ 	<title>New Vaccine Registration</title>
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/homePageStyles.css">
  </head>
  <body>
- 	<main id="main-holder">
- 		<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System</h1>
+     <main>
+     <div class="container">
+         <form id="injectorEntersVaccination" action="http://localhost:8081/addpatientvaccination" method="post" onsubmit="return validateForm()">
+             <h2>Record New Vaccination:</h2>
 
- 		<form id="injectorEntersVaccination" action="http://localhost:8081/addpatientvaccination" method="post">
- 			<h2>Record New Vaccination:</h2>
+             <label for="patientID">Patient ID:</label><br>
+             <input type="number" id="patientID" name="patientID"
+                    min="1" max="9" />
+             <br>
 
- 			<label for="patientID">Patient ID:</label><br>
- 			<input type="number" id="patientID" name="patientID" required
-					min="1" max="9" />
- 			<br>
+             <label for="date">Vaccination Date:</label><br>
+             <input type="date" id="date" name="date"
+                    value=""
+                    min="2021-11-01" max="2022-02-20" />
+             <br />
 
- 			<label for="date">Vaccination Date:</label><br>
- 			<input type="date" id="date" name="date" required
-					value=""
-					min="2021-11-01" max="2022-02-20" />
- 			<br />
+             <label for="injectorID">Injector ID:</label><br>
+             <input type="number" id="injectorID" name="injectorID"
+                    min="01"
+                    max="10" />
+             <!-- pattern="[0-10]" -->
 
- 			<label for="injectorID">Injector ID:</label><br>
- 			<input type="number" id="injectorID" name="injectorID"
-					min="01"
-					max="10"
-					required />
- 			<!-- pattern="[0-10]" -->
+             <br>
 
- 			<br>
+             <label for="vaccinationType">VaccinationType:</label><br>
+             <select name="vaccinationType" id="vaccinationType">
+                 <option value="">Choose</option>
+                 <option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
+                 <option value="Moderna">Moderna</option>
+                 <option value="Johnson & Johnson's Janssen">Johnson & Johnson's Janssen</option>
+             </select>
+             <br />
 
- 			<label for="vaccinationType">VaccinationType:</label><br>
- 			<select name="vaccinationType" id="vaccinationType" required>
- 				<option value="">Choose</option>
- 				<option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
- 				<option value="Moderna">Moderna</option>
- 				<option value="Johnson & Johnson's Janssen">Johnson & Johnson's Janssen</option>
- 			</select>
- 			<br />
+             <label for="lotNumber">LotNumber:</label><br>
+             <input type="number" id="lotNumber" name="lotNumber" min="00001" max="99999" />
+             <br><br>
+             <input type="submit" value="register" id="newVaccinationForm">
+         </form>
 
- 			<label for="lotNumber">LotNumber:</label><br>
- 			<input type="number" id="lotNumber" name="lotNumber" min="00001" max="99999" />
- 			<br>
- 			<input type="submit" value="register" id="newVaccinationForm">
- 		</form>
+         <script>
+             function validateForm() {
+                 const patientID = document.forms["injectorEntersVaccination"]["patientID"].value;
+                 if (patientID == "") {
+                     alert("patientID must be filled out");
+                     return false;
+                 }
+                 if (patientID.match(/\D/.test(patientID))) {
+                     alert("Please only enter numeric characters only for your patientID");
+                     return false;
+                 }
+
+                 const injectorID = document.forms["injectorEntersVaccination"]["injectorID"].value;
+                 if (injectorID == "") {
+                     alert("injectorID must be filled out");
+                     return false;
+                 }
+                 if (injectorID.match(/\D/.test(injectorID))) {
+                     alert("Please only enter numeric characters only for your injectorID");
+                     return false;
+                 }
+
+
+                 const date = document.forms["injectorEntersVaccination"]["date"].value;
+
+                 //date = new Date(vaccinationDate.value),
+                 //    dateEntered = date.getTime(),
+                 //        earliestDate = new Date('11/01/2021').getTime(),
+                 //        latestDate = new Date('02/20/2022').getTime();
+
+                 //if (dateEntered > earliestDate || dateEntered < latestDate) {
+                 //    return true;
+                 //} else {
+                 //    alert("Date is not in the valid range")
+                 //}
+
+                 var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+                 if (dateformat.test(date)) {
+                     alert("Please enter the date in MM / DD / YYYY format");
+                     return false;
+                 }
+
+                 if (date == "") {
+                     alert("Date must be filled out");
+                     return false;
+                 }
+
+                 var isValidLot = /(^\d{5}?$)/;
+                 const lotNumber = document.forms["injectorEntersVaccination"]["lotNumber"].value;
+                 if (!isValidLot.match(lotNumber)) {
+                     alert("Please enter a valid lot number.");
+                     return false;
+                 }
+
+
+                 var vaccinationType = document.forms["injectorEntersVaccination"]["vaccinationType"].value;
+                 if (vaccinationType == "") {
+                     alert("Please select a vaccination type.");
+                     return false;
+                 }
+             }
+         </script>
+     </div>
  	</main>
  </body>
+</html>

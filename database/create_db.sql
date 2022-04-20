@@ -46,6 +46,7 @@ CREATE TABLE PATIENT_INFO(
     FirstName varchar(30) NOT NULL, 
     LastName varchar(30) NOT NULL, 
     PatientAddress varchar(60), 
+    PatientDOB  date, /* NOT NULL,*/
     ZipCode varchar(5), 
     PRIMARY KEY (PatientID)
 );
@@ -90,3 +91,15 @@ Make sure to have fields in some entries blank as allowed by the database.
 
 This data cannot have errors! Inserting data this way bypasses all error checking!
 */
+
+
+CREATE TABLE ACCOUNT(
+    AccountID int NOT NULL AUTO_INCREMENT, 
+    AssociatedType varchar(10) NOT NULL, /* choose from "site", "injector", "CDC" */
+    AssociatedID int, 
+    AccountUsername varchar(30) NOT NULL, 
+    AccountPassword varchar(100) NOT NULL, /* HOW LONG SHOULD THIS BE */
+    PRIMARY KEY (AccountID)
+);
+
+INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("injector", 1, "injector1", "$2b$10$T612RUY3E42znQdt26RYGukTVF6EFv4ith008QnWQbt6ZikRTusfG"); /* PW: password */

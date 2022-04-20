@@ -3,32 +3,59 @@
 <!-- this page is the log in page for injectors to log in or register their site or themselves. Login functionality is not fully developed, it is out of scope for the current user story. The pages purpose is to be a landing page where they can begin the registration processes. -->
 	
 <!--- heading -->
-<head>
+<!--
+	<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Login</title>
 	<link rel="stylesheet" href="styles/loginStyles.css">
 	<script defer src="scripts/loginVax.js"></script>
 </head>
+
+
+
+-->
+
 <!-- body with main holder for pages contents -->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <script defer src="scripts/script.js"></script>
+	<script defer src="scripts/loginVax.js"></script>
+    <title>Login Page</title>
+  </head>
 
 <body>
-	<main id="main-holder">
-		<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System
-		</h1>
+    <h1>Missouri Immunization Information System</h1>
+    <div class="container">
 
-		<p>Please log in below or <a href="registrationType.html">request a user account.</a> </p>
+      <h1>Please Login</h1>
+	  <!-- <div id="login-error-msg-holder">
+		<p id="login-error-msg">Username or password incorrect</p>
+	</div> -->
+      <form id="login-form" action="/login" method="post">
+        <div class="form-control">
+            <input type="text" name="username" required>
+          <label>Username</label>
+        </div>
 
-		<div id="login-error-msg-holder">
-			<p id="login-error-msg">Username or password incorrect</p>
-		</div>
+        <div class="form-control">
+			<input type="password" name="password" required>
+          <label>Password</label>
+        </div>
 
-		<form id="login-form">
+        <button type="submit" class="btn" id="login-form-submit">Log In</button>
+    	</form>
+
+		<!-- <form id="login-form" action="/login" method="post">
 	      <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
 	      <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
-	      <input type="submit" value="Login" id="login-form-submit">
-    	</form>
-		<p2>Powered by ACCT</p2>
+	      <input type="submit" value="Log In" id="login-form-submit">
+        <button type="submit" class="btn" id="login-form-submit">Log In</button>
+    	</form> -->
+        <p class="text">Don't have an account? <a href="registrationType.html">Register</a> </p>
+        <p class="text">Powered by ACCT</p>
   	</main>
 </body>
 

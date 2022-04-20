@@ -5,21 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="mycss/style.css" />
     <script defer src="scripts/script.js"></script>
-    <title>Form Input Wave</title>
+    <title>Login Input Wave</title>
   </head>
   <body>
     <h1>Missouri Immunization Information System</h1>
     <div class="container">
 
       <h1>Please Login</h1>
-      <form>
+      
+		<div id="login-error-msg-holder">
+			<p id="login-error-msg">Username or password incorrect</p>
+		</div>
+    <form>
         <div class="form-control">
-          <input type="text" required>
+          <input type="text" name="username" required>
           <label>Username</label>
         </div>
 
         <div class="form-control">
-          <input type="password" required>
+          <input type="password" name="password" required>
           <label>Password</label>
         </div>
 

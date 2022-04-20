@@ -5,25 +5,28 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Registration</title>
-	<link rel="stylesheet" href="styles/loginStyles.css">
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/homePageStyles.css">
+	<script defer src="scripts/injectorHomePage.js"></script>		
 </head>
 
 <body>
-	<main id="main-holder">
-		<h1 style="text-align: center" id="welcome-banner">Missouri Immunization Information System
-		</h1>
+	<h1>Missouri Immunization Information System</h1>
 
-		<p>Please select an option below:
-		</p>
-		<p>
-			<a href="injectorRegistration.html">Injector Registration</a> 
-		</p>
-		<p>
-			<a href="siteRegistration.html">Site Registration.</a>
-		</p>
+	<div class="container"> 
+		<h2>Please select an option below:</h2>
 
-		<p2>Powered by ACCT</p2>
-  	</main>
+			<div class="dropdown">
+			  <button onclick="myFunction()" class="dropbtn">Registration</button>
+			  <div id="myDropdown" class="dropdown-content">
+				<a href="injectorRegistration.html">Injector Registration</a>
+				<a href="siteRegistration.html">Site Registration</a>
+			  </div>
+			</div>
+		<br><br>
+		<p>Powered by ACCT</p>
+
+	</div>
 </body>
 
 </html>
