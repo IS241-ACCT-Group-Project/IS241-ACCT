@@ -1,9 +1,4 @@
 module.exports = function (app) {
-    app.post("/checkUsernameExists", checkUsernameExists);
-    app.post("/createAccount", createAccount);
-    // app.post("/login", logIn);
-
-
     //from https://www.section.io/engineering-education/session-management-in-nodejs-using-expressjs-and-express-session/
     var session = require("express-session");
     const miliseconds = 1000 * 60 * 5; //five minutes
@@ -16,12 +11,21 @@ module.exports = function (app) {
         },
         resave: false
     }));
+
+    var cookieParser = require("cookie-parser");
+    app.use(cookieParser("SHHH! NOT SO LOUD!"));
+
+
+    app.post("/checkUsernameExists", checkUsernameExists);
+    app.post("/createAccount", createAccount);
+    app.post("/login", logIn);
 }
 
 const bcrypt = require("bcrypt");
 const db = require("./../db");
 const saltRounds = 10;
 var sess; //temporary
+
 
 function checkUsernameExists(request, response) {
     const username = db.escape(request.body);
@@ -97,7 +101,7 @@ function logIn(request, response) {
 
             const hash = result[0].AccountPassword;
 
-            response.setHeader("Content-Type", "text/html");
+            // response.setHeader("Content-Type", "text/html");
 
             bcrypt.compare(password, hash, function (err, result) {
                 if (result) { //if password matches hash
@@ -107,20 +111,23 @@ function logIn(request, response) {
                     sess.userid = request.body.username;
                     console.log(request.session);
 
-                    response.redirect("/homelanding");
+                    console.log(__dirname);
+                    // response.redirect("injectorHomePage.html", { root: path.resolve(__dirname, "../../") });
+                    // response.sendFile("injectorHomePage.html", { root: path.resolve(__dirname, "../../") });
+                    response.redirect("/injectorhome");
                 } else {
                     console.log(`Log in user ${username}: FAILED!`);
                     //response.write(`<h1>You are not logged in.</h1>`);
-                    response.end(`<h1>Login failed.</h1>`);
+                    // response.end(`<h1>Login failed.</h1>`);
                 }
             });
 
-            response.setHeader("Content-Type", "application/json");
+            // response.setHeader("Content-Type", "application/json");
             // response.write(JSON.stringify());
-            response.end();
+            // response.end();
         } else {
             //no account with username exists
-            response.end(`<h1>Login failed.</h1>`);
+            // response.end(`<h1>Login failed.</h1>`);
         }
     });
 }

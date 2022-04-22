@@ -30,8 +30,8 @@ const aPassword = "uwu";
 //    resave: false
 //}));
 
-var cookieParser = require("cookie-parser");
-app.use(cookieParser());
+// var cookieParser = require("cookie-parser");
+// app.use(cookieParser());
 
 //separate files added here
 var accounts = require("./routes/accounts");
@@ -45,6 +45,9 @@ searchDB(app);
 
 var listDB = require("./routes/list-db");
 listDB(app);
+
+const injector = require("./routes/injector");
+injector(app);
 
 //access local website by going to http://localhost:8081
 //app.get("/", function (request, response) {
@@ -67,18 +70,18 @@ app.get("/", function (request, response) {
 });
 
 //log in
-app.post("/login", function (request, response) {
-    if (request.body.username == aUsername && request.body.password == aPassword) {
-        sess = request.session;
-        sess.userid = request.body.username;
-        console.log(request.session);
-        // response.end("done");
-        response.redirect("/admin");
-    }
-    else {
-        response.send("Invalid username or password");
-    }
-});
+//app.post("/login", function (request, response) {
+//    if (request.body.username == aUsername && request.body.password == aPassword) {
+//        sess = request.session;
+//        sess.userid = request.body.username;
+//        console.log(request.session);
+//        // response.end("done");
+//        response.redirect("/admin");
+//    }
+//    else {
+//        response.send("Invalid username or password");
+//    }
+//});
 
 //go to page that can only be accessed if user is logged in
 app.get("/admin", function (request, response) {
