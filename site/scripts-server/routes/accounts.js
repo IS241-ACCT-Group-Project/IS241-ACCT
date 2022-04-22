@@ -6,14 +6,15 @@ module.exports = function (app) {
     app.use(session({
         secret: "SHHH! NOT SO LOUD!",
         saveUninitialized: true,
+        store: db.sessionStore, 
         cookie: {
             maxAge: miliseconds
         },
         resave: false
     }));
 
-    var cookieParser = require("cookie-parser");
-    app.use(cookieParser("SHHH! NOT SO LOUD!"));
+    // var cookieParser = require("cookie-parser");
+    // app.use(cookieParser("SHHH! NOT SO LOUD!"));
 
 
     app.post("/checkUsernameExists", checkUsernameExists);
@@ -28,14 +29,14 @@ var sess; //temporary
 
 
 function checkUsernameExists(request, response) {
-    const username = db.escape(request.body);
+    const username = db.pool.escape(request.body);
     console.log("Check username exists recieved request for: " + username);
 
     response.setHeader("Content-Type", "application/json");
 
     var sql = `SELECT 1 FROM ACCOUNT WHERE AccountUsername = ${username};`;
 
-    db.query(sql, function (err, result) {
+    db.pool.query(sql, function (err, result) {
         if (err) {
             console.log(err);
             //throw err;
@@ -63,13 +64,13 @@ function checkUsernameExists(request, response) {
 function createAccount(request, response) {
     console.log("CREATE ACCOUNT");
 
-    const username = db.escape(request.body.username);
-    const password = db.escape(request.body.password_1);
-    const type = db.escape(request.body.accountType);
+    const username = db.pool.escape(request.body.username);
+    const password = db.pool.escape(request.body.password_1);
+    const type = db.pool.escape(request.body.accountType);
 
     const sql = `INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES (${type}, ${4}, ${username}, ${password});`
     
-    db.query(sql, function (err, result) {
+    db.pool.query(sql, function (err, result) {
         if (err) {
             console.log(err);
             //throw err;
@@ -83,14 +84,14 @@ function createAccount(request, response) {
 }
 
 function logIn(request, response) {
-    const username = db.escape(request.body.username);
+    const username = db.pool.escape(request.body.username);
     const password = request.body.password;
 
-    var sql = `SELECT AccountPassword FROM ACCOUNT WHERE AccountUsername = ${username};`;
+    var sql = `SELECT AccountID, AssociatedType, AssociatedID, AccountPassword FROM ACCOUNT WHERE AccountUsername = ${username};`;
     // console.log(sql);
 
     //attempt to execute sql
-    db.query(sql, function (err, result) {
+    db.pool.query(sql, function (err, result) {
         if (err) {
             console.log(err);
             //throw err;
@@ -100,6 +101,9 @@ function logIn(request, response) {
         if (result.length > 0) {
 
             const hash = result[0].AccountPassword;
+            const accountID = result[0].AccountID;
+            const associatedType = result[0].AssociatedType;
+            const associatedID = result[0].AssociatedID;
 
             // response.setHeader("Content-Type", "text/html");
 
@@ -107,13 +111,13 @@ function logIn(request, response) {
                 if (result) { //if password matches hash
                     console.log(`Log in user ${username}: Success!`);
 
-                    sess = request.session;
-                    sess.userid = request.body.username;
+                    request.session.accountID = accountID;
+                    request.session.associatedType = associatedType;
+                    request.session.associatedID = associatedID;
+                    request.session.username = request.body.username;
+                    
                     console.log(request.session);
 
-                    console.log(__dirname);
-                    // response.redirect("injectorHomePage.html", { root: path.resolve(__dirname, "../../") });
-                    // response.sendFile("injectorHomePage.html", { root: path.resolve(__dirname, "../../") });
                     response.redirect("/injectorhome");
                 } else {
                     console.log(`Log in user ${username}: FAILED!`);

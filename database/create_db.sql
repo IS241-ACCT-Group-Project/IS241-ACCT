@@ -105,11 +105,11 @@ CREATE TABLE ACCOUNT(
 INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("injector", 1, "injector1", "$2b$10$T612RUY3E42znQdt26RYGukTVF6EFv4ith008QnWQbt6ZikRTusfG"); /* PW: password */
 
 
-CREATE SESSION(
-    SessionID int NOT NULL AUTO_INCREMENT, 
-    CurrentPath varchar(100), 
-    Expires int, 
-    UserID int, 
-    Username varchar(50), 
-    PRIMARY KEY (SessionID)
-);
+-- CREATE TABLE ACTIVESESSIONS(
+--     SessionID int NOT NULL AUTO_INCREMENT, 
+--     CurrentPath varchar(100), 
+--     Expires int, 
+--     UserID int, 
+--     Username varchar(50), 
+--     PRIMARY KEY (SessionID)
+-- );

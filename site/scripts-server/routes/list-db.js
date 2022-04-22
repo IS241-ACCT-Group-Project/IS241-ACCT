@@ -10,7 +10,7 @@ const db = require("./../db");
 function listInjectors(req, response) {
     var sql = "SELECT * FROM INJECTOR";
 
-    db.query(sql, function (err, result) {
+    db.pool.query(sql, function (err, result) {
         if (err) {
             //throw err;
             return;
@@ -23,7 +23,7 @@ function listInjectors(req, response) {
 function listSites(request, response) {
     var sql = "SELECT * FROM SITE";
 
-    db.query(sql, function (err, result) {
+    db.pool.query(sql, function (err, result) {
         if (err) {
             //throw err;
             return;
@@ -36,7 +36,7 @@ function listSites(request, response) {
 function listPatientInfo(request, response) {
     var sql = "SELECT * FROM PATIENT_INFO";
 
-    db.query(sql, function (err, result) {
+    db.pool.query(sql, function (err, result) {
         if (err) {
             //throw err;
             return;
@@ -49,7 +49,7 @@ function listPatientInfo(request, response) {
 function listPatientVaccination(request, response) {
     var sql = "SELECT * FROM PATIENT_VACCINATION";
 
-    db.query(sql, function (err, result) {
+    db.pool.query(sql, function (err, result) {
         if (err) {
             //throw err;
             return;

@@ -18,11 +18,11 @@ function searchSites(request, response) {
     ];
     //get values from form "name=" with request.body
     const fieldData = [
-        db.escape("%" + request.body.siteID + "%"),
-        db.escape("%" + request.body.name + "%"),
-        db.escape("%" + request.body.address + "%"),
-        db.escape("%" + request.body.zipCode + "%"),
-        db.escape("%" + request.body.phone + "%")
+        db.pool.escape("%" + request.body.siteID + "%"),
+        db.pool.escape("%" + request.body.name + "%"),
+        db.pool.escape("%" + request.body.address + "%"),
+        db.pool.escape("%" + request.body.zipCode + "%"),
+        db.pool.escape("%" + request.body.phone + "%")
     ];
 
     const sql = buildSearchSQL("SITE", fieldNames, fieldData);
@@ -32,7 +32,7 @@ function searchSites(request, response) {
     console.log(sql);
 
     //attempt to execute sql
-    db.query(sql, function (err, result) {
+    db.pool.query(sql, function (err, result) {
         if (err) {
             console.log(err);
             //throw err;
@@ -55,10 +55,10 @@ function searchInjector(request, response) {
     ];
     //get values from form "name=" with request.body
     const fieldData = [
-        db.escape("%" + request.body.injectorID + "%"),
-        db.escape("%" + request.body.firstName + "%"),
-        db.escape("%" + request.body.lastName + "%"),
-        db.escape("%" + request.body.siteID + "%"),
+        db.pool.escape("%" + request.body.injectorID + "%"),
+        db.pool.escape("%" + request.body.firstName + "%"),
+        db.pool.escape("%" + request.body.lastName + "%"),
+        db.pool.escape("%" + request.body.siteID + "%"),
     ];
 
     const sql = buildSearchSQL("INJECTOR", fieldNames, fieldData);
@@ -68,7 +68,7 @@ function searchInjector(request, response) {
     console.log(sql);
 
     //attempt to execute sql
-    db.query(sql, function (err, result) {
+    db.pool.query(sql, function (err, result) {
         if (err) {
             console.log(err);
             //throw err;
@@ -92,11 +92,11 @@ function searchPatientInfo(request, response) {
     ];
     //get values from form "name=" with request.body
     const fieldData = [
-        db.escape("%" + request.body.patientID + "%"),
-        db.escape("%" + request.body.firstName + "%"),
-        db.escape("%" + request.body.lastName + "%"),
-        db.escape("%" + request.body.address + "%"),
-        db.escape("%" + request.body.zipCode + "%"),
+        db.pool.escape("%" + request.body.patientID + "%"),
+        db.pool.escape("%" + request.body.firstName + "%"),
+        db.pool.escape("%" + request.body.lastName + "%"),
+        db.pool.escape("%" + request.body.address + "%"),
+        db.pool.escape("%" + request.body.zipCode + "%"),
     ];
 
     const sql = buildSearchSQL("PATIENT_INFO", fieldNames, fieldData);
@@ -106,7 +106,7 @@ function searchPatientInfo(request, response) {
     console.log(sql);
 
     //attempt to execute sql
-    db.query(sql, function (err, result) {
+    db.pool.query(sql, function (err, result) {
         if (err) {
             console.log(err);
             //throw err;
@@ -130,11 +130,11 @@ function searchPatientVaccination(request, response) {
     ];
     //get values from form "name=" with request.body
     const fieldData = [
-        db.escape("%" + request.body.patientID + "%"),
-        db.escape("%" + request.body.date + "%"),
-        db.escape("%" + request.body.injectorID + "%"),
-        db.escape("%" + request.body.type + "%"),
-        db.escape("%" + request.body.lotNumber + "%"),
+        db.pool.escape("%" + request.body.patientID + "%"),
+        db.pool.escape("%" + request.body.date + "%"),
+        db.pool.escape("%" + request.body.injectorID + "%"),
+        db.pool.escape("%" + request.body.type + "%"),
+        db.pool.escape("%" + request.body.lotNumber + "%"),
     ];
 
     const sql = buildSearchSQL("PATIENT_VACCINATION", fieldNames, fieldData);
@@ -144,7 +144,7 @@ function searchPatientVaccination(request, response) {
     console.log(sql);
 
     //attempt to execute sql
-    db.query(sql, function (err, result) {
+    db.pool.query(sql, function (err, result) {
         if (err) {
             console.log(err);
             //throw err;
