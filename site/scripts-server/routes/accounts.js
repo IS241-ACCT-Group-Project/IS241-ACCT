@@ -20,10 +20,14 @@ module.exports = function (app) {
     app.post("/checkUsernameExists", checkUsernameExists);
     app.post("/createAccount", createAccount);
     app.post("/login", logIn);
+    app.get("/login", sendLogin);
+    app.get("/accounthome", accountHome);
 }
 
 const bcrypt = require("bcrypt");
 const db = require("./../db");
+const path = require("path");
+const validate = require("./validate");
 const saltRounds = 10;
 var sess; //temporary
 
@@ -118,9 +122,23 @@ function logIn(request, response) {
                     
                     console.log(request.session);
 
-                    response.redirect("/injectorhome");
+                    // response.writeHeader(201);
+                    switch (associatedType) {
+                        case "injector":
+                            response.redirect("/injectorhome");
+                            break;
+                        case "admin":
+                            response.redirect("/adminhome");
+                            break;
+                        case "site":
+                            response.redirect("/sitehome");
+                            break;
+                    }
+                    // response.redirect("/accounthome");
                 } else {
                     console.log(`Log in user ${username}: FAILED!`);
+
+                    // response.writeHead(401);
                     //response.write(`<h1>You are not logged in.</h1>`);
                     // response.end(`<h1>Login failed.</h1>`);
                 }
@@ -132,6 +150,44 @@ function logIn(request, response) {
         } else {
             //no account with username exists
             // response.end(`<h1>Login failed.</h1>`);
+            response.writeHead(404);
+            response.end();
+        }
+    });
+}
+
+function sendLogin (request, response) {
+    response.sendFile("login.html", { root: path.resolve(__dirname, "../../") });
+}
+
+function accountHome(request, response) {
+    validate(request, response, null, function (valid) {
+        if (valid) {
+            const sessionID = db.pool.escape(request.sessionID);
+            const sql = `SELECT data FROM SESSIONS WHERE session_id = ${sessionID};`;
+            
+            db.pool.query(sql, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    // throw err;
+                    return;
+                }
+
+                var userType;
+                if (userType = JSON.parse(result[0].data)) {
+                    switch (userType) {
+                        case "injector":
+                            response.redirect("/injectorhome");
+                            break;
+                        case "admin":
+                            response.redirect("/adminhome");
+                            break;
+                        case "site":
+                            response.redirect("/sitehome");
+                            break;
+                    }
+                }
+            });
         }
     });
 }

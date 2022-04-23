@@ -1,12 +1,43 @@
+var loginForm, loginButton, loginErrorMsg, errorMsgDisplay;
 
-const loginForm = document.getElementById("login-form");
-const loginButton = document.getElementById("login-form-submit");
-const loginErrorMsg = document.getElementById("login-error-msg");
+window.addEventListener("load", function () {
+    loginForm = document.getElementById("login-form");
+    loginButton = document.getElementById("login-form-submit");
+    if (loginErrorMsg = document.getElementById("login-error-msg")) {
+        errorMsgDisplay = loginErrorMsg.style.display;
+        loginErrorMsg.style.display = "none";
+    }
 
-loginButton.addEventListener("click", (e) => {
-    // e.preventDefault();
-    const username = loginForm.username.value;
-    const password = loginForm.password.value;
+    loginForm.addEventListener("submit", submitForm);
+});
+
+function submitForm (event) {
+    // event.preventDefault();
+
+    delay(500).then(function () {
+        loginErrorMsg.style.display = errorMsgDisplay;
+    });
+
+    //this can't work because it stops the server from redirecting user so they keep the same session ID
+    // console.log(JSON.stringify(loginForm));
+    //const data = new FormData(loginForm);
+    //const value = Object.fromEntries(data.entries());
+//
+    //fetch("http://localhost:8081/login", {
+    //    method: "POST",
+    //    headers: {
+    //        "Content-Type": "application/json"
+    //    },
+    //    body: JSON.stringify(value)
+    //})
+    //    .then(function (response) {
+    //        if (response.status == 201) {
+    //            console.log("OK");
+    //            location.href = "http://localhost:8081/accounthome";
+    //        }
+    //        // console.log(response.json());
+    //        // return JSON.stringify(response.json());
+    //    });
 
     //if ((username === "XiomaraAdmin" || username === "SurveyUser") && password === "somethingsafe") {
     //    alert("You have successfully logged in.");
@@ -14,4 +45,8 @@ loginButton.addEventListener("click", (e) => {
     //} else {
     //    loginErrorMsg.style.opacity = 1;
     //}
-})
+}
+
+function delay(miliseconds) {
+    return new Promise(resolve => setTimeout(resolve, miliseconds));
+}

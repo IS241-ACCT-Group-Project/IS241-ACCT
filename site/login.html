@@ -22,7 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/style.css" />
     <script defer src="scripts/script.js"></script>
-	<script defer src="scripts/loginVax.js"></script>
+    <script src="scripts/loginVax.js"></script>
     <title>Login Page</title>
   </head>
 
@@ -30,7 +30,7 @@
     <h1>Missouri Immunization Information System</h1>
     <div class="container">
 
-      <h1>Please Login</h1>
+      <h1>Please Log In</h1>
 	  <!-- <div id="login-error-msg-holder">
 		<p id="login-error-msg">Username or password incorrect</p>
 	</div> -->
@@ -47,6 +47,8 @@
 
         <button type="submit" class="btn" id="login-form-submit">Log In</button>
     	</form>
+
+      <p id="login-error-msg">Login failed. Please try again.</p>
 
 		<!-- <form id="login-form" action="/login" method="post">
 	      <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
