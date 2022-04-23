@@ -1,5 +1,5 @@
 const fs = require("fs");
-const db = require("../db");
+const db = require("./db");
 const path = require("path");
 
 module.exports = function (request, response, userType = null, callback) {
@@ -16,9 +16,10 @@ module.exports = function (request, response, userType = null, callback) {
 
         var entry;
         var message = "";
+        var data;
 
         if (entry = result[0]) {
-            const data = JSON.parse(entry.data);
+            data = JSON.parse(entry.data);
             const resultUserType = data.associatedType;
 
             const currentTime = Date.now();
@@ -44,7 +45,7 @@ module.exports = function (request, response, userType = null, callback) {
         }
 
         if (message == "") {
-            callback(true);
+            callback(data.accountID);
         }
         else {
             fs.readFile(path.resolve(__dirname, "../../permissionDenied.html"), function (err, data) {

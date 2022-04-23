@@ -27,7 +27,8 @@ module.exports = function (app) {
 const bcrypt = require("bcrypt");
 const db = require("./../db");
 const path = require("path");
-const validate = require("./validate");
+const validate = require("../validate");
+const audit = require("../audit");
 const saltRounds = 10;
 var sess; //temporary
 
@@ -114,6 +115,7 @@ function logIn(request, response) {
             bcrypt.compare(password, hash, function (err, result) {
                 if (result) { //if password matches hash
                     console.log(`Log in user ${username}: Success!`);
+                    audit(accountID, "login");
 
                     request.session.accountID = accountID;
                     request.session.associatedType = associatedType;
@@ -122,7 +124,7 @@ function logIn(request, response) {
                     
                     console.log(request.session);
 
-                    // response.writeHeader(201);
+                    // response.writeHead(201);
                     switch (associatedType) {
                         case "injector":
                             response.redirect("/injectorhome");
@@ -135,21 +137,14 @@ function logIn(request, response) {
                             break;
                     }
                     // response.redirect("/accounthome");
-                } else {
+                }
+                else {
                     console.log(`Log in user ${username}: FAILED!`);
-
-                    // response.writeHead(401);
-                    //response.write(`<h1>You are not logged in.</h1>`);
-                    // response.end(`<h1>Login failed.</h1>`);
                 }
             });
-
-            // response.setHeader("Content-Type", "application/json");
-            // response.write(JSON.stringify());
-            // response.end();
-        } else {
+        }
+        else {
             //no account with username exists
-            // response.end(`<h1>Login failed.</h1>`);
             response.writeHead(404);
             response.end();
         }

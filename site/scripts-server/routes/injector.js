@@ -5,7 +5,7 @@ module.exports = function (app) {
 }
 
 const db = require("./../db");
-const validate = require("./validate");
+const validate = require("../validate");
 
 const path = require("path");
 
