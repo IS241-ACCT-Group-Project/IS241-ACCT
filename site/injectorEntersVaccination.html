@@ -47,28 +47,26 @@
  			<br><br>
  			<input type="submit" value="register" id="newVaccinationForm">
  		</form>
-<<<<<<< Updated upstream
 	</div>
-=======
          <script>
              function validateForm() {
                  const patientID = document.forms["injectorEntersVaccination"]["patientID"].value;
                  if (patientID == "") {
-                     alert("patientID must be filled out");
+                     alert("patientID must be filled out with positive numbers 1-9.");
                      return false;
                  }
                  if (patientID.match(/\D/.test(patientID))) {
-                     alert("Please only enter numeric characters only for your patientID");
+                     alert("Please only enter numeric characters 1-9 only for your patientID.");
                      return false;
                  }
 
                  const injectorID = document.forms["injectorEntersVaccination"]["injectorID"].value;
                  if (injectorID == "") {
-                     alert("injectorID must be filled out");
+                     alert("injectorID must be filled out with positive numbers 1-10.");
                      return false;
                  }
                  if (injectorID.match(/\D/.test(injectorID))) {
-                     alert("Please only enter numeric characters only for your injectorID");
+                     alert("Please only enter numeric characters 1-10 only for your injectorID.");
                      return false;
                  }
 
@@ -93,21 +91,21 @@
                  }
 
                  if (date == "") {
-                     alert("Date must be filled out");
+                     alert("Date must be filled out. Please enter a date in MM / DD / YYYY format");
                      return false;
                  }
 
                  var isValidLot = /(^\d{5}?$)/;
                  const lotNumber = document.forms["injectorEntersVaccination"]["lotNumber"].value;
                  if (!isValidLot.match(lotNumber)) {
-                     alert("Please enter a valid lot number.");
+                     alert("Please enter a valid 5-digit lot number.");
                      return false;
                  }
 
 
                  var vaccinationType = document.forms["injectorEntersVaccination"]["vaccinationType"].value;
                  if (vaccinationType == "") {
-                     alert("Please select a vaccination type.");
+                     alert("Please select a vaccination type from the drop down menu.");
                      return false;
                  }
              }
