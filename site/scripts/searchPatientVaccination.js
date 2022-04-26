@@ -33,7 +33,7 @@ function searchPatientVaccination(event) {
             //fill HTML table
             for (var i = 0; i < Object.keys(data).length; ++i) {
                 table += `<tr><td>${data[i].PatientID}</td>
-                              <td>${data[i].VaccinationDate}</td>
+                              <td>${data[i].VaccinationDate.substring(0, 10)}</td>
                               <td>${data[i].InjectorID}</td>
                               <td>${data[i].VaccinationType}</td>
                               <td>${data[i].LotNumber}</td></tr>`;

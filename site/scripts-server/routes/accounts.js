@@ -21,6 +21,7 @@ module.exports = function (app) {
     app.post("/createAccount", createAccount);
     app.post("/login", logIn);
     app.get("/login", sendLogin);
+    app.get("/logout", logOut);
     app.get("/accounthome", accountHome);
 }
 
@@ -70,22 +71,29 @@ function createAccount(request, response) {
     console.log("CREATE ACCOUNT");
 
     const username = db.pool.escape(request.body.username);
-    const password = db.pool.escape(request.body.password_1);
     const type = db.pool.escape(request.body.accountType);
 
-    const sql = `INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES (${type}, ${4}, ${username}, ${password});`
-    
-    db.pool.query(sql, function (err, result) {
+    db.pool.escape(bcrypt.hash(request.body.password_1, saltRounds, function (err, hash) {
         if (err) {
             console.log(err);
-            //throw err;
-            return;
+            // throw err;
         }
 
-        //response.sendFile("../site/login.html");
-        response.statusCode = 204; //do not leave page
-        response.end();
-    });
+        hash = db.pool.escape(hash);
+        const sql = `INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES (${type}, ${4}, ${username}, ${hash});`;
+
+        db.pool.query(sql, function (err, result) {
+            if (err) {
+                console.log(err);
+                //throw err;
+                return;
+            }
+
+            //response.sendFile("../site/login.html");
+            response.statusCode = 204; //do not leave page
+            response.end();
+        });
+    }));
 }
 
 function logIn(request, response) {
@@ -127,13 +135,13 @@ function logIn(request, response) {
                     // response.writeHead(201);
                     switch (associatedType) {
                         case "injector":
-                            response.redirect("/injectorhome");
+                            response.redirect("/injector");
                             break;
                         case "admin":
-                            response.redirect("/adminhome");
+                            response.redirect("/admin");
                             break;
                         case "site":
-                            response.redirect("/sitehome");
+                            response.redirect("/site");
                             break;
                     }
                     // response.redirect("/accounthome");
@@ -155,6 +163,18 @@ function sendLogin (request, response) {
     response.sendFile("login.html", { root: path.resolve(__dirname, "../../") });
 }
 
+function logOut(request, response) {
+    request.session.destroy(function (err) {
+        if (err) {
+            console.log(err);
+            // throw err;
+        }
+        else {
+            response.sendFile("loggedOut.html", { root: path.resolve(__dirname, "../../") });
+        }
+    });
+}
+
 function accountHome(request, response) {
     validate(request, response, null, function (valid) {
         if (valid) {
@@ -172,13 +192,13 @@ function accountHome(request, response) {
                 if (userType = JSON.parse(result[0].data)) {
                     switch (userType) {
                         case "injector":
-                            response.redirect("/injectorhome");
+                            response.redirect("/injector");
                             break;
                         case "admin":
-                            response.redirect("/adminhome");
+                            response.redirect("/admin");
                             break;
                         case "site":
-                            response.redirect("/sitehome");
+                            response.redirect("site");
                             break;
                     }
                 }

@@ -1,5 +1,5 @@
 module.exports = function (app) {
-    app.get("/injectorhome", homepage);
+    app.get("/injector", homepage);
     app.get("/newvaccination", newVaccination);
     app.get("/newpatient", newPatient);
 }
