@@ -42,11 +42,11 @@
                 var regName = /^[A-Za-z\s]+$/;
                 const name = document.forms["newSiteForm"]["name"].value;
                 if (name == "") {
-					alert("Name must be filled out");
+                    alert("The name field is empty. Name must be filled out using capital and lowercase letters A-Z." );
 					return false;
 				}
                 if (!name.match(regName)){
-                    alert("Please enter a valid name.");
+                    alert("Please enter a valid name using capital and lowercase letters A-Z.");
                     return false;
 				}
 				//should i also validate for is the site name already exists in the system?
@@ -54,11 +54,11 @@
 				var isValidAddress = /^[a-zA-Z0-9\s,.'-]{3,}$/;
                 const address = document.forms["newSiteForm"]["address"].value;
                 if (address == "") {
-                    alert("Address must be filled out.");
+                    alert("The address field is empty. Address must be filled out using capital and lowercase letters A-Z, and “., ‘-” characters..");
 					return false;
 				}
                 if (!address.match(isValidAddress)) {
-                    alert("Please enter a valid address.");
+                    alert("Please enter a valid address using capital and lowercase letters A-Z, and “., ‘-” characters.");
 					return false;
 				}
 				//tricky which characters should be allowed
@@ -68,11 +68,11 @@
                 var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test("90210");
 				const zipCode = document.forms["newSiteForm"]["zipCode"].value;
                 if (zipCode == "") {
-                    alert("Zip code must be filled out");
+                    alert("Zip code is empty. Zip code must be filled out with digits in the format XXXXX or XXXXX-XXXX.");
 					return false;
 				}
 				if (!zipcode.match(isValidZip)) {
-                    alert("Please enter a valid zip code.");
+                    alert("Please enter a valid zip code with digits in the format XXXXX or XXXXX-XXXX.");
                     return false;
 				}
 
@@ -82,11 +82,11 @@
 
                 const phone = document.forms["newSiteForm"]["phone"].value;
                 if (phone == "") {
-                    alert("Phone must be filled out");
+                    alert("Phone is empty. Phone must be filled out using 999-999-9999 format.");
                     return false;
 				}
                 if (!phoneno.test(phone)){
-					alert("Please enter a valid phone number");
+                    alert("Please enter a valid phone number using 999-999-9999 format.");
 					return false;
                 }
 			}
