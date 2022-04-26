@@ -3200,6 +3200,14 @@ INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassw
 INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("admin", 1, "kathy", "$2b$10$BOXYJ7wBilRVnobR.6tnqeM0g4gKso3HJfLICAk5Qv6YOnOGe02k6");
 
 
+CREATE TABLE SESSIONS(
+    session_id varchar(128) NOT NULL, 
+    expires int unsigned NOT NULL, 
+    data MEDIUMTEXT, 
+    PRIMARY KEY (session_id)
+);
+
+
 CREATE TABLE LOG(
     EntryID int NOT NULL AUTO_INCREMENT, 
     AccountID int NOT NULL, 

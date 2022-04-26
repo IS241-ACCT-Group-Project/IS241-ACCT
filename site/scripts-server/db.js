@@ -14,7 +14,7 @@ const options = {
     database: 'VaxTest2',
     port: 3306,
     connectionLimit: 10,
-    createDatabaseTable: true
+    createDatabaseTable: false
 }
 
 const pool = mysql.createPool(options);
