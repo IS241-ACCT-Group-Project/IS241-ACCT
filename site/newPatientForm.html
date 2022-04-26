@@ -44,52 +44,52 @@
                     var regName = /^[A-Za-z\s]+$/;
                     const FirstName = document.forms["newPatientForm"]["FirstName"].value;
                     if (FirstName == "") {
-                        alert("Name must be filled out");
+                        alert("The First name field is empty. First Name must be filled out using capital and lowercase letters A-Z.");
                         return false;
                     }
                     if (!regName.test(FirstName)) {
-                        alert("Invalid first name given");
+                        alert("Please enter a valid first name using capital and lowercase letters A-Z.");
                     }
 
                     const LastName = document.forms["newPatientForm"]["LastName"].value;
                     if (LastName == "") {
-                        alert("Name must be filled out");
+                        alert("The Lastname field is empty. LastName must be filled out using capital and lowercase letters A-Z.");
                         return false;
                     }
                     if (!regName.test(LastName)) {
-                        alert("Invalid last name given");
+                        alert("Please enter a valid last name using capital and lowercase letters A-Z.");
                     }
 
                     var isValidAddress = /^[a-zA-Z0-9\s,.'-]{3,}$/;
                     const PatientAddress = document.forms["newPatientForm"]["PatientAddress"].value;
                     if (PatientAddress == "") {
-                        alert("Address must be filled out.");
+                        alert("The address field is empty. Address must be filled out using capital and lowercase letters A-Z, and “., ‘-” characters.");
                         return false;
                     }
                     if (!PatientAddress.match(isValidAddress)) {
-                        alert("Please enter a valid address.");
+                        alert("Please enter a valid address. Address must be filled out using capital and lowercase letters A-Z, and “., ‘-” characters.");
                         return false;
                     }
 
                     var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
                     if (dateformat.test(PatientDOB)) {
-                        alert("Please enter the date in MM / DD / YYYY format");
+                        alert("Please enter the date in MM / DD / YYYY format.");
                         return false;
                     }
 
                     if (PatientDOB == "") {
-                        alert("Date must be filled out");
+                        alert("Date must be filled out. Please enter the date in MM / DD / YYYY format");
                         return false;
                     }
 
                     var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test("90210");
                     const ZipCode = document.forms["newPatientForm"]["ZipCode"].value;
                     if (ZipCode == "") {
-                        alert("Zip code must be filled out");
+                        alert("Zip code is empty. Zip code must be filled out with digits in the format XXXXX or XXXXX-XXXX.");
                         return false;
                     }
                     if (!Zipcode.match(isValidZip)) {
-                        alert("Please enter a valid zip code.");
+                        alert("Please enter a valid zip code with digits in the format XXXXX or XXXXX-XXXX." );
                         return false;
                     }
 
