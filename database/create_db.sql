@@ -3193,7 +3193,11 @@ CREATE TABLE ACCOUNT(
     PRIMARY KEY (AccountID)
 );
 
+INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("site", 1, "site1", "$2b$10$QNdJJ7CxBZtLgVY.UqDEiO15QOpZS9p8zZGQLOCyWAdJDCoNMIANC"); /* PW: password */
 INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("injector", 1, "injector1", "$2b$10$T612RUY3E42znQdt26RYGukTVF6EFv4ith008QnWQbt6ZikRTusfG"); /* PW: password */
+INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("cdc", 1, "cdc1", "$2b$10$gSOCKLpxfH3vfTfr9xPcveIMEX3MczKZ2s6so5yp78ESmcEaa4B2S"); /* PW: password */
+INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("admin", 1, "admin1", "$2b$10$XphmgseD6BbRRvm1btmG.OAV7BnmA6XqXzjBu7o5D9s8URcM16m1S"); /* PW: password */
+INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("admin", 1, "kathy", "$2b$10$BOXYJ7wBilRVnobR.6tnqeM0g4gKso3HJfLICAk5Qv6YOnOGe02k6");
 
 
 CREATE TABLE LOG(

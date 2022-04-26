@@ -8,27 +8,33 @@ module.exports = function (app) {
 }
 
 const db = require("./../db");
+const validate = require("../validate");
 
 function vaxByMonths(request, response) {
-    var date = new Date;
-    date.setMonth(date.getMonth() - 12);
+    validate(request, response, "admin", function (isValid) {
+        if (isValid) {
 
-    const sql = `SELECT VaccinationDate, COUNT(*) AS count FROM PATIENT_VACCINATION WHERE VaccinationDate > '${date.getFullYear()}-${date.getMonth() + 1}-1' GROUP BY YEAR(VaccinationDate), MONTH(VaccinationDate) ORDER BY VaccinationDate DESC;`;
-    console.log(sql);
+            var date = new Date;
+            date.setMonth(date.getMonth() - 12);
 
-    db.pool.query(sql, function (err, result) {
-        if (err) {
-            console.log(err);
-            // throw err;
-            return;
+            const sql = `SELECT VaccinationDate, COUNT(*) AS count FROM PATIENT_VACCINATION WHERE VaccinationDate > '${date.getFullYear()}-${date.getMonth() + 1}-1' GROUP BY YEAR(VaccinationDate), MONTH(VaccinationDate) ORDER BY VaccinationDate DESC;`;
+            console.log(sql);
+
+            db.pool.query(sql, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    // throw err;
+                    return;
+                }
+
+                // console.log(result[0]);
+                // console.log(result[1]);
+
+                response.setHeader("Content-Type", "application/json");
+                response.write(JSON.stringify(result));
+                response.end();
+            });
         }
-
-        // console.log(result[0]);
-        // console.log(result[1]);
-
-        response.setHeader("Content-Type", "application/json");
-        response.write(JSON.stringify(result));
-        response.end();
     });
 }
 

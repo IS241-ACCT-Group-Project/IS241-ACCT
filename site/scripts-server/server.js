@@ -49,6 +49,9 @@ listDB(app);
 const injector = require("./routes/injector");
 injector(app);
 
+const admin = require("./routes/admin");
+admin(app);
+
 const stats = require("./routes/stats");
 stats(app);
 
@@ -87,30 +90,30 @@ app.get("/", function (request, response) {
 //});
 
 //go to page that can only be accessed if user is logged in
-app.get("/admin", function (request, response) {
-    sess = request.session;
-    if (sess.cookie) {
-        response.write(`<h3>Logged in as: ${sess.cookie}</h3>`);
-        response.end(`<a href="/logout">Log Out</a>`);
-    }
-    else {
-        response.write(`<h1>You are not logged in.</h1>`);
-        response.end(`<a href="/login">Log In</a>`);
-    }
-});
+// app.get("/admin", function (request, response) {
+//     sess = request.session;
+//     if (sess.cookie) {
+//         response.write(`<h3>Logged in as: ${sess.cookie}</h3>`);
+//         response.end(`<a href="/logout">Log Out</a>`);
+//     }
+//     else {
+//         response.write(`<h1>You are not logged in.</h1>`);
+//         response.end(`<a href="/login">Log In</a>`);
+//     }
+// });
 
-//destroy session
-app.get("/logout", function (request, response) {
-    request.session.destroy(function (err) {
-        if (err) {
-            console.log(err);
-            //throw(err);
-        }
-        else {
-            response.redirect("/");
-        }
-    });
-});
+// //destroy session
+// app.get("/logout", function (request, response) {
+//     request.session.destroy(function (err) {
+//         if (err) {
+//             console.log(err);
+//             //throw(err);
+//         }
+//         else {
+//             response.redirect("/");
+//         }
+//     });
+// });
 
 // app.use("/", router);
 
