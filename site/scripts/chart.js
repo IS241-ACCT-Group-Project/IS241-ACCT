@@ -18,12 +18,13 @@ window.onload = function () {
 
     const size = data.length - 1;
     var month = new Date;
-    for (var i = 0; i < size; ++i) {
-      monthlyValues[size - i] = data[size - i].count;
-      console.log("month: " + i + ", value: " + data[size - i].count);
 
+    for (var i = 0; i < size; ++i) {
+      monthlyValues[i] = data[i].count;
+      console.log("month: " + i + ", value: " + data[i].count);
+
+      monthNames[i] = month.toLocaleString('en-us', { month: 'short' });
       month.setMonth(month.getMonth() - 1);
-      monthNames[size-i] = month.toLocaleString('en-us', { month: 'short' });
     }
   })
   .then(function () {
@@ -43,19 +44,19 @@ window.onload = function () {
       data: [{
         type: 'line',
         dataPoints: [
-          // { label: monthNames[0], y: monthlyValues[0] },
-          { label: monthNames[1], y: monthlyValues[1] },
-          { label: monthNames[2], y: monthlyValues[2] },
-          { label: monthNames[3], y: monthlyValues[3] },
-          { label: monthNames[4], y: monthlyValues[4] },
-          { label: monthNames[5], y: monthlyValues[5] },
-          { label: monthNames[6], y: monthlyValues[6] },
-          { label: monthNames[7], y: monthlyValues[7] },
-          { label: monthNames[8], y: monthlyValues[8] },
-          { label: monthNames[9], y: monthlyValues[9] },
+          // { label: monthNames[12], y: monthlyValues[12] },
+          // { label: monthNames[11], y: monthlyValues[11] },
           { label: monthNames[10], y: monthlyValues[10] },
-          { label: monthNames[11], y: monthlyValues[11] },
-          { label: monthNames[12], y: monthlyValues[12] }
+          { label: monthNames[9], y: monthlyValues[9] },
+          { label: monthNames[8], y: monthlyValues[8] },
+          { label: monthNames[7], y: monthlyValues[7] },
+          { label: monthNames[6], y: monthlyValues[6] },
+          { label: monthNames[5], y: monthlyValues[5] },
+          { label: monthNames[4], y: monthlyValues[4] },
+          { label: monthNames[3], y: monthlyValues[3] },
+          { label: monthNames[2], y: monthlyValues[2] },
+          { label: monthNames[1], y: monthlyValues[1] },
+          // { label: monthNames[0], y: monthlyValues[0] },
         ]
       }
       ]
