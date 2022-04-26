@@ -16,19 +16,19 @@
 
              <label for="patientID">Patient ID:</label><br>
              <input type="number" id="patientID" name="patientID"
-                    min="1" max="9" />
+                    min="1" max="1000" />
              <br>
 
              <label for="date">Vaccination Date:</label><br>
              <input type="date" id="date" name="date"
                     value=""
-                    min="2021-11-01" max="2022-02-20" />
+                    min="2021-11-01" max="2022-04-26" />
              <br />
 
              <label for="injectorID">Injector ID:</label><br>
              <input type="number" id="injectorID" name="injectorID"
                     min="01"
-                    max="10" />
+                    max="50" />
              <!-- pattern="[0-10]" -->
 
              <br>
@@ -52,21 +52,21 @@
              function validateForm() {
                  const patientID = document.forms["injectorEntersVaccination"]["patientID"].value;
                  if (patientID == "") {
-                     alert("patientID must be filled out with positive numbers 1-9.");
+                     alert("patientID must be filled out with positive numbers 1-1000.");
                      return false;
                  }
                  if (patientID.match(/\D/.test(patientID))) {
-                     alert("Please only enter numeric characters 1-9 only for your patientID.");
+                     alert("Please only enter numeric characters 0-9 only for your patientID.");
                      return false;
                  }
 
                  const injectorID = document.forms["injectorEntersVaccination"]["injectorID"].value;
                  if (injectorID == "") {
-                     alert("injectorID must be filled out with positive numbers 1-10.");
+                     alert("injectorID must be filled out with positive numbers 1-50.");
                      return false;
                  }
                  if (injectorID.match(/\D/.test(injectorID))) {
-                     alert("Please only enter numeric characters 1-10 only for your injectorID.");
+                     alert("Please only enter numeric characters 0-9 only for your injectorID.");
                      return false;
                  }
 

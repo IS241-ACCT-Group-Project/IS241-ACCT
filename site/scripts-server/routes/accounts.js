@@ -59,12 +59,6 @@ function checkUsernameExists(request, response) {
         response.write(JSON.stringify(result));
         response.end();
     });
-
-    //temporary for getting starting database entries
-    //bcrypt.hash(username, saltRounds, function (err, hash) {
-    //    console.log("Hash of password " + username + ": \n" + hash);
-    //    //store hash
-    //});
 }
 
 function createAccount(request, response) {
