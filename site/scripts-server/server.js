@@ -49,6 +49,9 @@ listDB(app);
 const injector = require("./routes/injector");
 injector(app);
 
+const stats = require("./routes/stats");
+stats(app);
+
 //access local website by going to http://localhost:8081
 //app.get("/", function (request, response) {
 //    response.setHeader("Cache-Control", "no-cache"); //remove "no-cache" when website is live
