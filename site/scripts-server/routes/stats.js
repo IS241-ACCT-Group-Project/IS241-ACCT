@@ -5,6 +5,7 @@ module.exports = function (app) {
     app.get("/totalpatients", totalPatients);
     app.get("/totalvax", totalVaccinations);
     app.get("/monthvax", currentMonthVaccinations);
+
     app.get("/siteexists", siteExists);
     app.get("/injectorexists", injectorExists);
     app.get("/patientexists", patientExists);
