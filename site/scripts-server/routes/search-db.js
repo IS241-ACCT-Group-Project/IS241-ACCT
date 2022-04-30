@@ -87,6 +87,7 @@ function searchPatientInfo(request, response) {
         "PatientID",
         "FirstName",
         "LastName",
+        "PatientDOB",
         "Address",
         "ZipCode"
     ];
@@ -95,6 +96,7 @@ function searchPatientInfo(request, response) {
         db.pool.escape("%" + request.body.patientID + "%"),
         db.pool.escape("%" + request.body.firstName + "%"),
         db.pool.escape("%" + request.body.lastName + "%"),
+        db.pool.escape("%" + request.body.birthdate + "%"),
         db.pool.escape("%" + request.body.address + "%"),
         db.pool.escape("%" + request.body.zipCode + "%"),
     ];

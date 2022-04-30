@@ -35,6 +35,7 @@ function searchPatientInfo(event) {
                 table += `<tr><td>${data[i].PatientID}</td>
                               <td>${data[i].FirstName}</td>
                               <td>${data[i].LastName}</td>
+                              <td>${data[i].PatientDOB.substring(0, 10)}</td>
                               <td>${data[i].PatientAddress}</td>
                               <td>${data[i].ZipCode}</td></tr>`;
             }

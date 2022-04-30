@@ -83,10 +83,11 @@ function addPatientInfo(request, response) {
             //get values from form "name=" with request.body
             const firstName = db.pool.escape(request.body.firstName);
             const lastName = db.pool.escape(request.body.lastName);
+            const birthdate = db.pool.escape(request.body.birthdate);
             const address = db.pool.escape(request.body.address);
             const zipCode = db.pool.escape(request.body.zipCode);
             //create sql statement
-            const sql = `INSERT INTO PATIENT_INFO (FirstName, LastName, PatientAddress, ZipCode) VALUES (${firstName}, ${lastName}, ${address}, ${zipCode});`;
+            const sql = `INSERT INTO PATIENT_INFO (FirstName, LastName, PatientDOB, PatientAddress, ZipCode) VALUES (${firstName}, ${lastName}, ${birthdate}, ${address}, ${zipCode});`;
 
             //debugging - prints to terminal
             //console.log(request.body);
