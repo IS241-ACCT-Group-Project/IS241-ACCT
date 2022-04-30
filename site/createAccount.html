@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Account</title>
+    <script type="text/javascript" src="scripts/createAccount.js"></script>
+</head>
+<body>
+    <form action="http://localhost:8081/createAccount" method="post" >
+        <h2>Create a New Account</h2>
+
+        <label for="username">Username:</label>
+        <br>
+        <input type="text" name="username">
+        <br>
+
+        <label for="password-1">Password:</label>
+        <br>
+        <input type="text" name="password_1"> <!-- need to hide password -->
+        <br>
+
+        <label for="password-2">Confirm Password:</label>
+        <br>
+        <input type="text" name="password_2"> <!-- need to hide password -->
+        <br>
+
+        <label for="accountType">Account Type:</label>
+        <br>
+        <input type="radio" value="site" name="accountType">
+        <label for="site">Site</label>
+        <input type="radio" value="injector" name="accountType">
+        <label for="injector">Injector</label>
+        <input type="radio" value="CDC" name="accountType">
+        <label for="CDC">CDC</label>
+        <input type="radio" value="admin" name="accountType">
+        <label for="admin">Admin</label>
+        <br>
+
+        <input type="submit" value="Create New Account" id="registerAccountButton">
+    </form>
+</body>
