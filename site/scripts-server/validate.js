@@ -5,7 +5,7 @@ const path = require("path");
 module.exports = function (request, response, userType = null, callback) {
     const sessionID = db.pool.escape(request.sessionID);
     
-    const sql = `SELECT expires, data FROM SESSIONS WHERE session_id = ${sessionID};`;
+    const sql = `SELECT expires, data FROM sessions WHERE session_id = ${sessionID};`;
     
     db.pool.query(sql, function (err, result) {
         if (err) {

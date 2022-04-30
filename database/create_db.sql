@@ -12,12 +12,80 @@ CREATE TABLE SITE(
     PRIMARY KEY (SiteID)
 );
 
--- INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES ('The First Site', '123 Easy St', '12345', '6365551234');
--- INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES ('The Second Site', '567 Very Cool Ave', '12345', '3141592653');
--- INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode) VALUES ('Third Site', '333 Three Ln', '12345');
--- INSERT INTO SITE(SiteName, SiteZipCode) VALUES ('Site Number Four', '89012');
--- INSERT INTO SITE(SiteName, SiteAddress, SitePhoneNumber) VALUES ('Site the Fifth', '5555 Five Dr', '3145555555');
--- INSERT INTO SITE(SiteName, SiteAddress) VALUES ('Sixth Sense Site', '666 Suspisious Way');
+
+CREATE TABLE INJECTOR (
+    InjectorID int NOT NULL AUTO_INCREMENT, 
+    FirstName varchar(30) NOT NULL, 
+    LastName varchar(30) NOT NULL, 
+    SiteID int, 
+    PRIMARY KEY (InjectorID)
+);
+
+
+CREATE TABLE PATIENT_INFO(
+    PatientID int NOT NULL AUTO_INCREMENT, 
+    FirstName varchar(30) NOT NULL, 
+    LastName varchar(30) NOT NULL, 
+    PatientDOB  date, /* NOT NULL,*/
+    PatientAddress varchar(60), 
+    ZipCode varchar(5), 
+    PRIMARY KEY (PatientID)
+);
+
+
+CREATE TABLE PATIENT_VACCINATION(
+    PatientID int NOT NULL, 
+    VaccinationDate date NOT NULL, /* In the format of YYYY-MM-DD */
+    InjectorID int NOT NULL, 
+    VaccinationType varchar(30) NOT NULL, /* For now, choose from either "Pfizer-BioNTech", "Moderna", or "Johnson & Johnson''s Janssen" */
+    LotNumber varchar(20), /* For now, let's say lot numbers are strings of 5 digits e.g. 00001, 12345, 19293 */
+    PRIMARY KEY (PatientID, VaccinationDate)
+);
+
+
+CREATE TABLE ACCOUNT(
+    AccountID int NOT NULL AUTO_INCREMENT, 
+    AssociatedType varchar(10) NOT NULL, /* choose from "site", "injector", "CDC", admin */
+    AssociatedID int, 
+    AccountUsername varchar(30) NOT NULL, 
+    AccountPassword varchar(100) NOT NULL, /* HOW LONG SHOULD THIS BE */
+    PRIMARY KEY (AccountID)
+);
+
+
+CREATE TABLE sessions(
+    session_id varchar(128) NOT NULL, 
+    expires int unsigned NOT NULL, 
+    data MEDIUMTEXT, 
+    PRIMARY KEY (session_id)
+);
+
+
+CREATE TABLE LOG(
+    EntryID int NOT NULL AUTO_INCREMENT, 
+    AccountID int NOT NULL, 
+    EntryDate datetime NOT NULL, 
+    EntryType varchar(20) NOT NULL, 
+    Query varchar(300), 
+    PRIMARY KEY (EntryID)
+);
+
+/* 
+Add dummy values. 
+Make sure all PatientIDs are 0-1000 and all InjectorIDs are 0-50 so we know the ID exists. 
+Keep all date values between Nov 1, 2021 and yesterday (no future vaccinations).
+Make sure to add multiple vaccinations for some but not all patients. 
+Make sure to have fields in some entries blank as allowed by the database. 
+
+This data cannot have errors! Inserting data this way bypasses all error checking!
+*/
+
+INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES ('The First Site', '123 Easy St', '12345', '6365551234');
+INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES ('The Second Site', '567 Very Cool Ave', '12345', '3141592653');
+INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode) VALUES ('Third Site', '333 Three Ln', '12345');
+INSERT INTO SITE(SiteName, SiteZipCode) VALUES ('Site Number Four', '89012');
+INSERT INTO SITE(SiteName, SiteAddress, SitePhoneNumber) VALUES ('Site the Fifth', '5555 Five Dr', '3145555555');
+INSERT INTO SITE(SiteName, SiteAddress) VALUES ('Sixth Sense Site', '666 Suspisious Way');
 INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES('CVS Corporation', '14020 Middle Route', '63457', '6365551234');
 INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES('H E B Drug Stores', '997 Winter Avenue', '64070', '6365551234');
 INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES('Costco Pharmacies', '15760 Circus Route', '64116', '6365551234');
@@ -69,14 +137,6 @@ INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES('Me
 INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES('Giant Eagle Pharmacy', '16124 Compton Street', '63767', '6365551234');
 INSERT INTO SITE(SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES('Costco Pharmacies', '21041 Clifton Street', '64132', '6365551234');
 
-
-CREATE TABLE INJECTOR (
-    InjectorID int NOT NULL AUTO_INCREMENT, 
-    FirstName varchar(30) NOT NULL, 
-    LastName varchar(30) NOT NULL, 
-    SiteID int, 
-    PRIMARY KEY (InjectorID)
-);
 
 INSERT INTO INJECTOR (FirstName, LastName, SiteID) VALUES ('Elise', 'Berry', '1');
 INSERT INTO INJECTOR (FirstName, LastName, SiteID) VALUES ('Marcus', 'Woodley', '2');
@@ -140,25 +200,6 @@ INSERT INTO INJECTOR(FirstName, LastName, SiteID) VALUES('Jake', 'Clark', '25');
 INSERT INTO INJECTOR(FirstName, LastName, SiteID) VALUES('Amari', 'Anderson', NULL);
 INSERT INTO INJECTOR(FirstName, LastName, SiteID) VALUES('Josue', 'Williams', NULL);
 
-
-CREATE TABLE PATIENT_INFO(
-    PatientID int NOT NULL AUTO_INCREMENT, 
-    FirstName varchar(30) NOT NULL, 
-    LastName varchar(30) NOT NULL, 
-    PatientDOB  date, /* NOT NULL,*/
-    PatientAddress varchar(60), 
-    ZipCode varchar(5), 
-    PRIMARY KEY (PatientID)
-);
-
-/* 
-Add dummy values using a name generator. 
-Have at least 10 entries. 
-Make sure to add duplicates of first/last names, addresses, and zip codes for more thorough testing. 
-Make sure to have fields in some entries blank as allowed by the database. 
-
-This data cannot have errors! Inserting data this way bypasses all error checking!
-*/
 
 INSERT INTO PATIENT_INFO (FirstName, LastName, PatientDOB, PatientAddress, ZipCode) VALUES ('Kairo', 'Hill', '1961-4-4', '117 Albion Road', NULL);
 INSERT INTO PATIENT_INFO (FirstName, LastName, PatientDOB, PatientAddress, ZipCode) VALUES ('Azalea', 'Miller', '1993-8-26', '20474 Claremont Place', '63877');
@@ -1161,26 +1202,6 @@ INSERT INTO PATIENT_INFO (FirstName, LastName, PatientDOB, PatientAddress, ZipCo
 INSERT INTO PATIENT_INFO (FirstName, LastName, PatientDOB, PatientAddress, ZipCode) VALUES ('Freya', 'Martinez', '2010-11-17', '24089 Alfred Cottages', '64024');
 INSERT INTO PATIENT_INFO (FirstName, LastName, PatientDOB, PatientAddress, ZipCode) VALUES ('Legacy', 'Sanchez', '1991-2-5', '11411 Ann''s Place', NULL);
 
-
-CREATE TABLE PATIENT_VACCINATION(
-    PatientID int NOT NULL, 
-    VaccinationDate date NOT NULL, /* In the format of YYYY-MM-DD */
-    InjectorID int NOT NULL, 
-    VaccinationType varchar(30) NOT NULL, /* For now, choose from either "Pfizer-BioNTech", "Moderna", or "Johnson & Johnson''s Janssen" */
-    LotNumber varchar(20), /* For now, let's say lot numbers are strings of 5 digits e.g. 00001, 12345, 19293 */
-    PRIMARY KEY (PatientID, VaccinationDate)
-);
-
-/* 
-Add dummy values. 
-Make sure to have at least 10 entries. 
-Make sure all PatientIDs are 0-9 and all InjectorIDs are 0-10 so we know the ID exists. 
-Keep all date values between Nov 1, 2021 and yesterday (no future vaccinations).
-Make sure to add multiple vaccinations for some but not all patients. 
-Make sure to have fields in some entries blank as allowed by the database. 
-
-This data cannot have errors! Inserting data this way bypasses all error checking!
-*/
 
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('350', '2021-10-01', '41', 'Moderna', '44');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('123', '2022-01-03', '35', 'Pfizer-BioNTech', '268');
@@ -3184,35 +3205,8 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('686', '2021-04-23', '27', 'Johnson & Johnson''s Janssen', NULL);
 
 
-CREATE TABLE ACCOUNT(
-    AccountID int NOT NULL AUTO_INCREMENT, 
-    AssociatedType varchar(10) NOT NULL, /* choose from "site", "injector", "CDC" */
-    AssociatedID int, 
-    AccountUsername varchar(30) NOT NULL, 
-    AccountPassword varchar(100) NOT NULL, /* HOW LONG SHOULD THIS BE */
-    PRIMARY KEY (AccountID)
-);
-
 INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("site", 1, "site1", "$2b$10$QNdJJ7CxBZtLgVY.UqDEiO15QOpZS9p8zZGQLOCyWAdJDCoNMIANC"); /* PW: password */
 INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("injector", 1, "injector1", "$2b$10$T612RUY3E42znQdt26RYGukTVF6EFv4ith008QnWQbt6ZikRTusfG"); /* PW: password */
 INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("cdc", 1, "cdc1", "$2b$10$gSOCKLpxfH3vfTfr9xPcveIMEX3MczKZ2s6so5yp78ESmcEaa4B2S"); /* PW: password */
 INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("admin", 1, "admin1", "$2b$10$XphmgseD6BbRRvm1btmG.OAV7BnmA6XqXzjBu7o5D9s8URcM16m1S"); /* PW: password */
 INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES ("admin", 1, "kathy", "$2b$10$BOXYJ7wBilRVnobR.6tnqeM0g4gKso3HJfLICAk5Qv6YOnOGe02k6");
-
-
-CREATE TABLE SESSIONS(
-    session_id varchar(128) NOT NULL, 
-    expires int unsigned NOT NULL, 
-    data MEDIUMTEXT, 
-    PRIMARY KEY (session_id)
-);
-
-
-CREATE TABLE LOG(
-    EntryID int NOT NULL AUTO_INCREMENT, 
-    AccountID int NOT NULL, 
-    EntryDate datetime NOT NULL, 
-    EntryType varchar(20) NOT NULL, 
-    Query varchar(300), 
-    PRIMARY KEY (EntryID)
-);

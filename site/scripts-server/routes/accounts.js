@@ -173,7 +173,7 @@ function accountHome(request, response) {
     validate(request, response, null, function (valid) {
         if (valid) {
             const sessionID = db.pool.escape(request.sessionID);
-            const sql = `SELECT data FROM SESSIONS WHERE session_id = ${sessionID};`;
+            const sql = `SELECT data FROM sessions WHERE session_id = ${sessionID};`;
             
             db.pool.query(sql, function (err, result) {
                 if (err) {
