@@ -1,7 +1,7 @@
 module.exports = function (app) {
     //from https://www.section.io/engineering-education/session-management-in-nodejs-using-expressjs-and-express-session/
     var session = require("express-session");
-    const miliseconds = 1000 * 60 * 5; //five minutes
+    const miliseconds = 1000 * 60 * 10; //ten minutes
 
     app.use(session({
         secret: "SHHH! NOT SO LOUD!",
@@ -13,16 +13,14 @@ module.exports = function (app) {
         resave: false
     }));
 
-    // var cookieParser = require("cookie-parser");
-    // app.use(cookieParser("SHHH! NOT SO LOUD!"));
-
-
     app.post("/checkUsernameExists", checkUsernameExists);
     app.post("/createAccount", createAccount);
+    app.post("/editlogin", editLogin);
     app.post("/login", logIn);
     app.get("/login", sendLogin);
     app.get("/logout", logOut);
     app.get("/accounthome", accountHome);
+    app.get("/editaccount", editAccount);
 }
 
 const bcrypt = require("bcrypt");
@@ -30,8 +28,8 @@ const db = require("./../db");
 const path = require("path");
 const validate = require("../validate");
 const audit = require("../audit");
+const fs = require("fs");
 const saltRounds = 10;
-var sess; //temporary
 
 
 function checkUsernameExists(request, response) {
@@ -83,11 +81,78 @@ function createAccount(request, response) {
                 return;
             }
 
+            audit(result[0].AccountID, "add", sql.replace(hash, "****"));
+
             //response.sendFile("../site/login.html");
             response.statusCode = 204; //do not leave page
             response.end();
         });
     }));
+}
+
+function editLogin(request, response) {
+    validate(request, response, null, function (valid) {
+        if (valid) {
+            response.setHeader("Content-Type", "application/json");
+
+            var message = "success";
+            const sql = `SELECT * FROM ACCOUNT WHERE AccountID = ${valid}`;
+
+            db.pool.query(sql, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    // throw err;
+                    return;
+                }
+
+                if (result.length > 0) {
+                    const oldPassword = request.body.oldpassword;
+                    const currentHash = result[0].AccountPassword;
+                    var username = db.pool.escape(request.body.username);
+                    if (username == `''`) { username = db.pool.escape(result[0].AccountUsername); }
+                    var newPassword = request.body.password_1;
+                    if (newPassword == `''`) { newPassword = oldPassword; }
+
+                    bcrypt.compare(oldPassword, currentHash, function (err, successful) {
+                        if (successful) {
+                            db.pool.escape(bcrypt.hash(newPassword, saltRounds, function (err, newHash) {
+                                if (err) {
+                                    console.log(err);
+                                    // throw err;
+                                }
+                                
+                                const sql2 = `UPDATE ACCOUNT SET AccountUsername = ${username}, AccountPassword = '${newHash}' WHERE AccountID = ${valid};`;
+                                db.pool.query(sql2, function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                        // throw err;
+                                        return;
+                                    }
+
+                                    audit(valid, "edit", sql2.replace(newHash, "****"));
+
+                                    response.write(JSON.stringify("success"));
+                                    response.end();
+                                });
+                            }));
+                        }
+                        else {
+                            response.write(JSON.stringify("Account password is incorrect."));
+                            response.end();
+                        }
+                    });
+                }
+                else {
+                    response.write(JSON.stringify("Account not found."));
+                    response.end();
+                }
+            });
+
+            // response.setHeader("Content-Type", "application/json");
+            // response.write(JSON.stringify(message));
+            // response.end();
+        }
+    });
 }
 
 function logIn(request, response) {
@@ -135,7 +200,8 @@ function logIn(request, response) {
                             response.redirect("/admin");
                             break;
                         case "site":
-                            response.redirect("/site");
+                            // response.redirect("/site");
+                            response.redirect("/editaccount"); //not sure if site gets a homepage so take right to edit acc
                             break;
                     }
                     // response.redirect("/accounthome");
@@ -196,6 +262,100 @@ function accountHome(request, response) {
                             break;
                     }
                 }
+            });
+        }
+    });
+}
+
+function editAccount(request, response) {
+    validate(request, response, null, function (valid) {
+        if (valid) {
+            const sessionID = db.pool.escape(request.sessionID);
+            const sql = `SELECT data FROM sessions WHERE session_id = ${sessionID};`;
+            
+            db.pool.query(sql, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    // throw err;
+                    return;
+                }
+
+                fs.readFile(path.resolve(__dirname, "../../editUser.html"), function (err, file) {
+                    if (err) {
+                        response.writeHead(404);
+                        response.write("File not found.");
+                    }
+                    else {
+
+                        // var userType;// = data.associatedType;
+                        var entry;
+                        var newhtml = file.toString();
+
+                        if (entry = JSON.parse(result[0].data)) {
+                            const userType = entry.associatedType;
+
+                            newhtml = newhtml.replace(
+                                `USERNAME_HERE`,
+                                `${entry.username}`
+                            );
+
+                            if (userType == "injector") {
+                                newhtml = newhtml.replace(
+                                    `id="editSite"`,
+                                    `id="editSite" style="display:none;"`
+                                );
+
+                                const injectorSql = `SELECT * FROM INJECTOR WHERE InjectorID = ${entry.associatedID};`;
+                                db.pool.query(injectorSql, function (err, injectorData) {
+                                    newhtml = newhtml.replace(
+                                        `var profiledata;`,
+                                        `var profiledata = ${JSON.stringify(injectorData[0])};`
+                                    );
+
+                                    response.setHeader("Content-Type", "text/html");
+                                    response.write(newhtml);
+                                    response.end();
+                                });
+                            }
+                            else if (userType == "site") {
+                                newhtml = newhtml.replace(
+                                    `id="editInjector"`,
+                                    `id="editInjector" style="display:none;"`
+                                );
+
+                                const siteSql = `SELECT * FROM SITE WHERE SiteID = ${entry.associatedID};`;
+                                db.pool.query(siteSql, function (err, siteData) {
+                                    newhtml = newhtml.replace(
+                                        `var profiledata;`,
+                                        // `var profiledata = 1;`
+                                        `var profiledata = ${JSON.stringify(siteData[0])};`
+                                    );
+                                    response.setHeader("Content-Type", "text/html");
+                                    response.write(newhtml);
+                                    response.end();
+                                });
+                            }
+                            else {
+                                newhtml = newhtml.replace(
+                                    `id="editInjector"`,
+                                    `id="editInjector" style="display:none;"`
+                                );
+                                newhtml = newhtml.replace(
+                                    `id="editSite"`,
+                                    `id="editSite" style="display:none;"`
+                                );
+
+                                response.setHeader("Content-Type", "text/html");
+                                response.write(newhtml);
+                                response.end();
+                            }
+                        }
+
+                        // response.setHeader("Content-Type", "text/html");
+                        // response.write(newhtml);
+                        // response.end();
+                    }
+                });
             });
         }
     });

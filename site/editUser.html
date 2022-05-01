@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Account</title>
+    <!-- <script type="text/javascript" src="scripts/createAccount.js"></script> -->
+    <script type="text/javascript" src="scripts/editAccount.js"></script>
+</head>
+<body>
+    <script>
+        var profiledata; //this is changed on the server
+    </script>
+
+    <p><a href="http://localhost:8081/accounthome">Return to account home</a></p>
+
+    <form id="editLogin" >
+        <h2>Edit Your Login Information</h2>
+
+        <p>Your username is currently <strong>USERNAME_HERE</strong>. To change this, please enter a new username.</p>
+
+        <label for="username">New Username:</label><br>
+        <input type="text" name="username"><br>
+
+        <p>To change your password, please enter the information below.</p>
+
+        <label for="password-1">New Password:</label><br>
+        <input type="text" name="password_1"> <!-- need to hide password -->
+        <br>
+
+        <label for="password-2">Confirm New Password:</label><br>
+        <input type="text" name="password_2"> <!-- need to hide password -->
+        <br>
+        
+        <p>Enter your current password to confirm changes.</p>
+
+        <label for="oldpassword">Current Password:</label><br>
+        <input type="text" name="oldpassword" required> <!-- need to hide password -->
+        <br>
+
+        <input type="submit" value="Edit Login" id="submitAccountButton">
+    </form>
+    <p id="changeLoginMsg">Your account information was successfully changed. Please <a href="http://localhost:8081/accounthome">return to account home</a>.</p>
+
+    <form id="editSite">
+        <h2>Edit Your Site Profile</h2>
+        <label for="name">Site Name:</label><br>
+        <input type="text" name="name"><br>
+
+        <label for="address">Address:</label><br>
+        <input type="text" name="address"><br>
+
+        <label for="zipCode">Zip Code:</label><br>
+        <input type="number" name="zipCode"><br>
+
+        <label for="phone">Phone Number (no spaces/dashes):</label><br>
+        <input type="tel" name="phone"><br>
+
+        <input type="submit" value="Edit Site Information">
+        <input type="button" id="resetSite" value="Reset to Current Information">
+    </form>
+
+    <form id="editInjector">
+        <h2>Edit Your Injector Profile</h2>
+        <label for="firstName">First name:</label><br>
+        <input type="text" name="firstName"><br>
+
+        <label for="lastName">Last name:</label><br>
+        <input type="text" name="lastName"><br>
+
+        <label for="siteID">Site ID:</label><br>
+        <input type="number" name="siteID"><br>
+
+        <input type="submit" value="Register New Injector">
+        <input type="button" id="resetInjector" value="Reset to Current Information">
+    </form>
+</body>

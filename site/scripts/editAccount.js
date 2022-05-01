@@ -1,8 +1,28 @@
-var username, password_1, password_2, accountTypes, submitButton;
-var usernameValid = false;
-var passwordValid = false;
+var loginForm, siteForm, injectorForm;
+var username, password_1, password_2, accountTypes, submitButton, loginMsg, originalLoginMsg;
+var usernameValid = true;
+var passwordValid = true;
+var profileData;
 
 window.addEventListener("load", function () {
+    // @ts-ignore
+    profileData = profiledata;
+    // console.log(JSON.stringify(profileData));
+    // console.log(profileData);
+
+    if (siteForm = document.getElementById("editSite")) {
+        resetSite();
+        document.getElementById("resetSite").addEventListener("click", resetSite);
+    }
+    if (injectorForm = document.getElementById("editInjector")) {
+        resetInjector();
+        document.getElementById("resetInjector").addEventListener("click", resetInjector);
+    }
+
+    if (loginForm = document.getElementById("editLogin")) {
+        loginForm.addEventListener("submit", submitLogin);
+    }
+
     if (username = document.getElementsByName("username")[0]) {
         username.addEventListener("input", validateUsername);
         username.addEventListener("propertychange", validateUsername);
@@ -18,14 +38,14 @@ window.addEventListener("load", function () {
         password_2.addEventListener("propertychange", validatePasswords);
     }
 
-    if (accountTypes = document.getElementsByName("accountType")) {
-        accountTypes.forEach(function (radioButton) {
-            radioButton.addEventListener("click", checkAllValid);
-        });
+    if (submitButton = document.getElementById("submitAccountButton")) {
+        submitButton.disabled = false; //only enable button when input is valid
     }
 
-    if (submitButton = document.getElementById("submitAccountButton")) {
-        submitButton.disabled = true; //only enable button when input is valid
+    if (loginMsg = document.getElementById("changeLoginMsg")) {
+        loginMsg.hidden = true;
+        originalLoginMsg = loginMsg.innerHTML;
+        console.log(originalLoginMsg);
     }
 });
 
@@ -34,7 +54,8 @@ function validateUsername() {
     // console.log("input is " + input);
     usernameValid = false;
 
-    if (input == "") {
+    if (input == "") { //may not be changing username
+        usernameValid = true;
         checkAllValid();
         return;
     }
@@ -89,7 +110,8 @@ function validatePasswords() {
     const pwText_2 = password_2.value.trim();
 
     if (pwText_2 == "" && pwText_1 == "") {
-        //don't show error (user probably still entering form)
+        //user may not be changing password
+        passwordValid = true;
     }
     else if (pwText_1.includes("`")) { //check for forbidden characters - maybe make this regex
         //show message about having a forbidden character
@@ -145,36 +167,61 @@ function hasRequiredCharacters() {
     }
 }
 
-function isAccountTypeSelected() {
-    var isSelected = false;
-
-    accountTypes.forEach(function (radioButton) {
-        console.log("Is radio button checked: " + radioButton.checked);
-        if (radioButton.checked) {
-            isSelected = true;
-        }
-    });
-
-    return isSelected;
-}
-
-//check if form is filled out correctly and disable/enable button accordingly
 function checkAllValid() {
     var disabled = submitButton.disabled;
-    var accountSelected = isAccountTypeSelected();
-    console.log("Is account type selected: " + accountSelected);
 
-    if (disabled && usernameValid && passwordValid && accountSelected) {
+    if (disabled && usernameValid && passwordValid) {
         console.log("Submit button is enabled.");
         submitButton.disabled = false;
     }
-    else if (!disabled && (!usernameValid || !passwordValid || !accountSelected)) {
+    else if (!disabled && (!usernameValid || !passwordValid)) {
         console.log("Submit button is disabled.");
         submitButton.disabled = true;
     }
+}
 
-    // else {
-    //     console.log("Username valid: " + usernameValid);
-    //     console.log("Password valid: " + passwordValid);
-    // }
+function submitLogin(event) {
+    event.preventDefault();
+
+    const data = new FormData(event.target);
+    const value = Object.fromEntries(data.entries());
+
+    // console.log(value);
+
+    fetch("http://localhost:8081/editLogin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(value)
+        })
+        .then(function (response) {
+            // console.log(response);
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+
+            if (data == "success") {
+                loginMsg.innerHTML = originalLoginMsg;
+                loginMsg.hidden = false;
+            }
+            else {
+                loginMsg.textContent = data;
+                loginMsg.hidden = false;
+            }
+        });
+}
+
+function resetSite() {
+    siteForm.elements["name"].value = profileData.SiteName;
+    siteForm.elements["address"].value = profileData.SiteAddress;
+    siteForm.elements["zipCode"].value = profileData.SiteZipCode;
+    siteForm.elements["phone"].value = profileData.SitePhoneNumber;
+}
+
+function resetInjector() {
+    injectorForm.elements["firstName"].value = profileData.FirstName;
+    injectorForm.elements["lastName"].value = profileData.LastName;
+    injectorForm.elements["siteID"].value = profileData.SiteID;
 }
