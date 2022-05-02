@@ -39,7 +39,8 @@ CREATE TABLE PATIENT_VACCINATION(
     InjectorID int NOT NULL, 
     VaccinationType varchar(30) NOT NULL, /* For now, choose from either "Pfizer-BioNTech", "Moderna", or "Johnson & Johnson''s Janssen" */
     LotNumber varchar(20), /* For now, let's say lot numbers are strings of 5 digits e.g. 00001, 12345, 19293 */
-    PRIMARY KEY (PatientID, VaccinationDate)
+    PRIMARY KEY (PatientID, VaccinationDate), 
+    FOREIGN KEY (InjectorID) REFERENCES INJECTOR(InjectorID)
 );
 
 
@@ -1253,7 +1254,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('731', '2021-07-10', '31', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('472', '2021-12-09', '3', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('701', '2022-04-06', '12', 'Johnson & Johnson''s Janssen', '27');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('392', '2022-04-09', '0', 'Moderna', NULL);
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('392', '2022-04-09', '10', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('981', '2022-01-30', '37', 'Johnson & Johnson''s Janssen', '124');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('503', '2021-02-11', '16', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('914', '2021-05-17', '6', 'Pfizer-BioNTech', NULL);
@@ -1331,7 +1332,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('633', '2021-12-08', '17', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('603', '2021-05-03', '49', 'Johnson & Johnson''s Janssen', '234');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('535', '2022-04-07', '14', 'Pfizer-BioNTech', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('61', '2021-08-22', '0', 'Johnson & Johnson''s Janssen', '144');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('61', '2021-08-22', '20', 'Johnson & Johnson''s Janssen', '144');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('834', '2021-08-26', '31', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('227', '2021-01-11', '24', 'Johnson & Johnson''s Janssen', '66');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('547', '2022-02-14', '8', 'Johnson & Johnson''s Janssen', NULL);
@@ -1487,7 +1488,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('719', '2021-07-08', '10', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('432', '2021-09-18', '13', 'Pfizer-BioNTech', '213');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('297', '2021-07-30', '33', 'Johnson & Johnson''s Janssen', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('839', '2021-03-05', '0', 'Pfizer-BioNTech', '70');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('839', '2021-03-05', '30', 'Pfizer-BioNTech', '70');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('735', '2021-01-21', '35', 'Johnson & Johnson''s Janssen', '83');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('545', '2021-02-26', '14', 'Johnson & Johnson''s Janssen', '264');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('951', '2021-09-15', '38', 'Moderna', '253');
@@ -1561,7 +1562,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('600', '2021-11-06', '13', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('209', '2021-02-11', '7', 'Johnson & Johnson''s Janssen', '252');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('451', '2021-03-29', '50', 'Pfizer-BioNTech', '231');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('696', '2021-04-12', '0', 'Moderna', NULL);
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('696', '2021-04-12', '10', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('95', '2022-02-06', '39', 'Pfizer-BioNTech', '73');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('56', '2021-12-27', '3', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('304', '2021-04-04', '24', 'Johnson & Johnson''s Janssen', '20');
@@ -1592,7 +1593,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('294', '2021-08-23', '6', 'Moderna', '183');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('871', '2021-05-22', '38', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('860', '2021-06-18', '34', 'Moderna', '130');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('653', '2022-02-07', '0', 'Moderna', '25');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('653', '2022-02-07', '30', 'Moderna', '25');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('133', '2022-04-18', '50', 'Moderna', '278');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('117', '2021-07-24', '3', 'Johnson & Johnson''s Janssen', '237');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('31', '2021-02-08', '24', 'Pfizer-BioNTech', '145');
@@ -1644,7 +1645,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('747', '2021-06-26', '8', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('867', '2021-11-12', '13', 'Pfizer-BioNTech', '263');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('790', '2021-04-12', '32', 'Pfizer-BioNTech', '154');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('873', '2021-10-05', '0', 'Johnson & Johnson''s Janssen', '49');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('873', '2021-10-05', '10', 'Johnson & Johnson''s Janssen', '49');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('986', '2021-04-25', '39', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('406', '2021-08-23', '46', 'Pfizer-BioNTech', '195');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('356', '2021-06-29', '47', 'Pfizer-BioNTech', '145');
@@ -1671,7 +1672,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('327', '2022-01-01', '26', 'Johnson & Johnson''s Janssen', '18');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('260', '2021-05-09', '3', 'Johnson & Johnson''s Janssen', '298');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('607', '2021-05-13', '38', 'Moderna', '213');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('76', '2022-04-19', '0', 'Pfizer-BioNTech', '99');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('76', '2022-04-19', '5', 'Pfizer-BioNTech', '99');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('495', '2021-04-26', '12', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('774', '2021-12-03', '10', 'Moderna', '86');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('712', '2021-02-10', '6', 'Pfizer-BioNTech', '22');
@@ -1772,7 +1773,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('347', '2022-01-10', '2', 'Pfizer-BioNTech', '85');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('994', '2021-11-14', '4', 'Pfizer-BioNTech', '61');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('703', '2021-04-24', '18', 'Pfizer-BioNTech', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('224', '2021-04-06', '0', 'Pfizer-BioNTech', '280');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('224', '2021-04-06', '8', 'Pfizer-BioNTech', '280');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('561', '2022-02-02', '33', 'Moderna', '228');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('162', '2021-08-29', '34', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('303', '2021-05-12', '47', 'Johnson & Johnson''s Janssen', NULL);
@@ -1784,7 +1785,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('430', '2021-01-05', '24', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('225', '2021-10-20', '8', 'Moderna', '67');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('605', '2021-10-20', '14', 'Johnson & Johnson''s Janssen', '38');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('738', '2021-08-09', '0', 'Moderna', '12');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('738', '2021-08-09', '9', 'Moderna', '12');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('895', '2022-03-19', '10', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('96', '2021-02-24', '33', 'Moderna', '91');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('379', '2022-01-28', '18', 'Moderna', NULL);
@@ -2005,7 +2006,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('950', '2021-06-01', '11', 'Johnson & Johnson''s Janssen', '195');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('32', '2021-06-01', '16', 'Pfizer-BioNTech', '121');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('762', '2021-05-06', '31', 'Johnson & Johnson''s Janssen', '76');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('360', '2021-06-04', '0', 'Pfizer-BioNTech', NULL);
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('360', '2021-06-04', '3', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('875', '2022-01-04', '43', 'Pfizer-BioNTech', '46');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('770', '2021-04-27', '14', 'Pfizer-BioNTech', '27');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('567', '2021-10-22', '20', 'Moderna', NULL);
@@ -2048,7 +2049,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('922', '2021-01-18', '24', 'Pfizer-BioNTech', '224');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('837', '2021-05-27', '33', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('645', '2021-12-12', '23', 'Johnson & Johnson''s Janssen', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('584', '2021-02-13', '0', 'Pfizer-BioNTech', '192');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('584', '2021-02-13', '14', 'Pfizer-BioNTech', '192');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('393', '2022-01-21', '8', 'Moderna', '228');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('322', '2022-01-13', '47', 'Pfizer-BioNTech', '82');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('316', '2021-08-10', '38', 'Moderna', NULL);
@@ -2162,10 +2163,10 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('634', '2021-09-11', '10', 'Johnson & Johnson''s Janssen', '205');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('661', '2021-12-12', '23', 'Moderna', '231');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('858', '2021-01-02', '24', 'Pfizer-BioNTech', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('566', '2021-04-20', '0', 'Moderna', '226');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('566', '2021-04-20', '4', 'Moderna', '226');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('867', '2021-05-18', '24', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('23', '2021-03-29', '39', 'Moderna', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('35', '2021-05-11', '0', 'Johnson & Johnson''s Janssen', '299');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('35', '2021-05-11', '27', 'Johnson & Johnson''s Janssen', '299');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('251', '2021-11-23', '21', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('569', '2022-03-17', '28', 'Pfizer-BioNTech', '185');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('854', '2021-09-27', '17', 'Moderna', NULL);
@@ -2179,7 +2180,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('515', '2021-09-15', '21', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('138', '2021-05-27', '39', 'Johnson & Johnson''s Janssen', '104');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('407', '2021-01-08', '28', 'Pfizer-BioNTech', '124');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('429', '2021-08-17', '0', 'Pfizer-BioNTech', '265');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('429', '2021-08-17', '51', 'Pfizer-BioNTech', '265');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('769', '2022-01-14', '8', 'Pfizer-BioNTech', '157');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('141', '2021-07-13', '32', 'Pfizer-BioNTech', '160');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('585', '2021-12-08', '15', 'Johnson & Johnson''s Janssen', NULL);
@@ -2214,7 +2215,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('619', '2021-11-24', '28', 'Johnson & Johnson''s Janssen', '73');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('857', '2022-01-30', '44', 'Moderna', '275');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('768', '2022-04-10', '48', 'Johnson & Johnson''s Janssen', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('99', '2021-06-21', '0', 'Moderna', '187');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('99', '2021-06-21', '32', 'Moderna', '187');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('429', '2022-04-03', '43', 'Moderna', '250');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('300', '2021-09-01', '27', 'Pfizer-BioNTech', '228');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('329', '2022-01-05', '42', 'Moderna', NULL);
@@ -2259,7 +2260,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('121', '2022-01-07', '18', 'Moderna', '102');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('794', '2021-06-30', '47', 'Johnson & Johnson''s Janssen', '169');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('213', '2021-05-27', '2', 'Pfizer-BioNTech', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('834', '2021-07-09', '0', 'Johnson & Johnson''s Janssen', '18');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('834', '2021-07-09', '7', 'Johnson & Johnson''s Janssen', '18');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('136', '2021-09-01', '3', 'Johnson & Johnson''s Janssen', '247');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('413', '2021-03-06', '45', 'Pfizer-BioNTech', '26');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('330', '2022-04-21', '10', 'Moderna', '36');
@@ -2294,9 +2295,9 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('746', '2021-06-01', '23', 'Moderna', '228');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('621', '2022-01-13', '4', 'Johnson & Johnson''s Janssen', '238');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('677', '2021-06-25', '39', 'Pfizer-BioNTech', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('957', '2021-11-17', '0', 'Pfizer-BioNTech', '140');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('957', '2021-11-17', '18', 'Pfizer-BioNTech', '140');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('402', '2021-01-08', '47', 'Moderna', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('744', '2021-07-19', '0', 'Moderna', NULL);
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('744', '2021-07-19', '11', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('40', '2021-09-07', '13', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('933', '2022-01-20', '29', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('263', '2021-04-14', '19', 'Johnson & Johnson''s Janssen', '83');
@@ -2305,7 +2306,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('323', '2021-07-12', '6', 'Moderna', '21');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('237', '2022-02-28', '19', 'Moderna', '55');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('738', '2022-01-22', '29', 'Moderna', '244');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('876', '2021-11-25', '0', 'Pfizer-BioNTech', '294');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('876', '2021-11-25', '15', 'Pfizer-BioNTech', '294');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('770', '2021-10-14', '44', 'Pfizer-BioNTech', '67');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('35', '2022-01-13', '13', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('607', '2021-02-22', '7', 'Johnson & Johnson''s Janssen', '259');
@@ -2352,7 +2353,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('928', '2022-02-27', '46', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('47', '2021-01-14', '25', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('139', '2021-05-03', '4', 'Johnson & Johnson''s Janssen', '51');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('515', '2021-11-13', '0', 'Moderna', '147');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('515', '2021-11-13', '38', 'Moderna', '147');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('590', '2021-11-16', '39', 'Pfizer-BioNTech', '218');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('370', '2021-03-12', '41', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('146', '2021-12-05', '46', 'Pfizer-BioNTech', NULL);
@@ -2363,7 +2364,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('554', '2022-02-08', '2', 'Johnson & Johnson''s Janssen', '288');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('61', '2022-03-24', '5', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('237', '2021-01-02', '15', 'Johnson & Johnson''s Janssen', '52');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('597', '2022-02-06', '0', 'Moderna', '84');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('597', '2022-02-06', '36', 'Moderna', '84');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('679', '2022-02-03', '11', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('694', '2021-03-21', '17', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('54', '2021-01-22', '34', 'Johnson & Johnson''s Janssen', '53');
@@ -2639,7 +2640,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('382', '2022-01-13', '2', 'Johnson & Johnson''s Janssen', '165');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('909', '2021-10-21', '49', 'Johnson & Johnson''s Janssen', '252');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('586', '2021-10-09', '20', 'Johnson & Johnson''s Janssen', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('808', '2021-10-06', '0', 'Moderna', NULL);
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('808', '2021-10-06', '35', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('577', '2021-07-31', '41', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('387', '2021-12-13', '17', 'Pfizer-BioNTech', '53');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('154', '2021-08-21', '10', 'Pfizer-BioNTech', '106');
@@ -2658,7 +2659,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('752', '2021-10-18', '43', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('705', '2021-04-23', '18', 'Pfizer-BioNTech', '270');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('404', '2021-12-14', '27', 'Moderna', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('241', '2022-03-18', '0', 'Pfizer-BioNTech', '77');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('241', '2022-03-18', '39', 'Pfizer-BioNTech', '77');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('737', '2021-06-23', '37', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('786', '2021-11-17', '3', 'Pfizer-BioNTech', '17');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('943', '2021-09-05', '4', 'Pfizer-BioNTech', NULL);
@@ -2688,7 +2689,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('632', '2022-03-27', '35', 'Johnson & Johnson''s Janssen', '274');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('551', '2021-10-25', '29', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('328', '2021-05-13', '5', 'Johnson & Johnson''s Janssen', '128');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('881', '2021-06-05', '0', 'Pfizer-BioNTech', '250');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('881', '2021-06-05', '27', 'Pfizer-BioNTech', '250');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('771', '2022-03-24', '38', 'Pfizer-BioNTech', '53');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('974', '2021-07-12', '25', 'Johnson & Johnson''s Janssen', '52');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('556', '2021-02-08', '36', 'Johnson & Johnson''s Janssen', '132');
@@ -2697,7 +2698,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('690', '2021-01-27', '27', 'Pfizer-BioNTech', '143');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('316', '2022-01-17', '5', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('161', '2021-07-17', '11', 'Johnson & Johnson''s Janssen', '94');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('988', '2021-06-23', '0', 'Pfizer-BioNTech', '142');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('988', '2021-06-23', '46', 'Pfizer-BioNTech', '142');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('323', '2022-02-10', '22', 'Pfizer-BioNTech', '257');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('88', '2021-05-28', '19', 'Johnson & Johnson''s Janssen', '271');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('347', '2021-01-14', '3', 'Moderna', '204');
@@ -2714,7 +2715,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('796', '2021-02-09', '13', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('639', '2021-04-16', '39', 'Moderna', '76');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('970', '2021-05-03', '44', 'Pfizer-BioNTech', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('398', '2021-02-15', '0', 'Johnson & Johnson''s Janssen', '242');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('398', '2021-02-15', '42', 'Johnson & Johnson''s Janssen', '242');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('118', '2021-06-25', '19', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('144', '2021-07-10', '9', 'Pfizer-BioNTech', '67');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('161', '2021-07-21', '3', 'Johnson & Johnson''s Janssen', '224');
@@ -2722,7 +2723,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('465', '2021-03-12', '46', 'Pfizer-BioNTech', '273');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('363', '2021-09-17', '41', 'Pfizer-BioNTech', '294');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('165', '2021-01-27', '14', 'Pfizer-BioNTech', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('331', '2021-02-12', '0', 'Pfizer-BioNTech', '202');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('331', '2021-02-12', '41', 'Pfizer-BioNTech', '202');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('61', '2021-11-26', '33', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('706', '2021-02-12', '17', 'Pfizer-BioNTech', '16');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('448', '2021-01-12', '38', 'Pfizer-BioNTech', '212');
@@ -2767,7 +2768,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('98', '2021-01-11', '22', 'Pfizer-BioNTech', '275');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('21', '2021-05-06', '36', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('890', '2021-11-27', '7', 'Moderna', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('325', '2021-04-08', '0', 'Pfizer-BioNTech', '283');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('325', '2021-04-08', '47', 'Pfizer-BioNTech', '283');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('907', '2021-02-25', '13', 'Pfizer-BioNTech', '10');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('235', '2021-07-05', '4', 'Moderna', '229');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('793', '2021-11-22', '41', 'Pfizer-BioNTech', '210');
@@ -2948,7 +2949,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('844', '2021-08-01', '36', 'Moderna', '288');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('786', '2022-02-04', '36', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('584', '2021-03-27', '43', 'Moderna', '226');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('779', '2021-04-30', '0', 'Johnson & Johnson''s Janssen', '40');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('779', '2021-04-30', '45', 'Johnson & Johnson''s Janssen', '40');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('82', '2021-12-12', '20', 'Moderna', '237');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('980', '2021-12-17', '50', 'Moderna', '290');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('987', '2021-12-13', '27', 'Pfizer-BioNTech', '72');
@@ -2959,7 +2960,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('716', '2021-08-12', '44', 'Johnson & Johnson''s Janssen', '279');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('592', '2021-10-09', '18', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('108', '2021-07-02', '50', 'Moderna', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('311', '2021-09-30', '0', 'Moderna', '179');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('311', '2021-09-30', '53', 'Moderna', '179');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('324', '2022-02-12', '7', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('956', '2021-05-08', '19', 'Pfizer-BioNTech', '27');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('16', '2021-07-31', '28', 'Moderna', '20');
@@ -2990,7 +2991,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('283', '2021-05-26', '46', 'Johnson & Johnson''s Janssen', '78');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('465', '2021-12-01', '37', 'Moderna', '279');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('615', '2021-03-07', '31', 'Johnson & Johnson''s Janssen', '226');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('995', '2021-09-04', '0', 'Johnson & Johnson''s Janssen', '136');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('995', '2021-09-04', '54', 'Johnson & Johnson''s Janssen', '136');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('18', '2021-05-31', '35', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('877', '2021-12-15', '40', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('286', '2021-12-26', '46', 'Pfizer-BioNTech', '79');
@@ -3023,7 +3024,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('645', '2021-04-11', '38', 'Moderna', '48');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('1000', '2021-09-18', '37', 'Pfizer-BioNTech', '30');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('126', '2021-04-15', '4', 'Johnson & Johnson''s Janssen', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('892', '2021-07-23', '0', 'Moderna', NULL);
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('892', '2021-07-23', '53', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('117', '2021-01-05', '20', 'Johnson & Johnson''s Janssen', '297');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('914', '2021-01-15', '44', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('111', '2021-11-20', '21', 'Moderna', '119');
@@ -3046,7 +3047,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('83', '2021-11-01', '43', 'Pfizer-BioNTech', '200');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('597', '2021-09-30', '34', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('479', '2021-01-11', '30', 'Moderna', '30');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('178', '2022-04-14', '0', 'Moderna', '233');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('178', '2022-04-14', '52', 'Moderna', '233');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('155', '2021-08-17', '8', 'Moderna', '163');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('695', '2021-02-11', '45', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('65', '2021-10-21', '9', 'Pfizer-BioNTech', '230');
@@ -3100,7 +3101,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('137', '2021-02-06', '30', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('340', '2021-07-31', '29', 'Johnson & Johnson''s Janssen', '40');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('438', '2021-08-25', '6', 'Moderna', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('682', '2021-04-05', '0', 'Johnson & Johnson''s Janssen', NULL);
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('682', '2021-04-05', '51', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('948', '2022-04-21', '26', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('336', '2021-09-05', '10', 'Moderna', '94');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('239', '2021-02-10', '32', 'Johnson & Johnson''s Janssen', '116');
@@ -3127,7 +3128,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('950', '2021-10-17', '17', 'Johnson & Johnson''s Janssen', '55');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('452', '2022-02-07', '29', 'Pfizer-BioNTech', '39');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('515', '2021-05-18', '26', 'Johnson & Johnson''s Janssen', NULL);
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('240', '2021-10-11', '0', 'Pfizer-BioNTech', NULL);
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('240', '2021-10-11', '52', 'Pfizer-BioNTech', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('221', '2021-10-21', '24', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('517', '2021-04-13', '45', 'Pfizer-BioNTech', '287');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('491', '2021-07-20', '40', 'Johnson & Johnson''s Janssen', NULL);
@@ -3184,7 +3185,7 @@ INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, Vaccinat
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('21', '2021-03-20', '26', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('60', '2021-07-01', '14', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('304', '2021-10-23', '38', 'Johnson & Johnson''s Janssen', '266');
-INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('47', '2021-04-06', '0', 'Johnson & Johnson''s Janssen', '248');
+INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('47', '2021-04-06', '54', 'Johnson & Johnson''s Janssen', '248');
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('188', '2021-06-29', '3', 'Johnson & Johnson''s Janssen', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('88', '2022-02-17', '45', 'Moderna', NULL);
 INSERT INTO PATIENT_VACCINATION(PatientID, VaccinationDate, InjectorID, VaccinationType, LotNumber) VALUES('688', '2021-12-27', '32', 'Pfizer-BioNTech', '172');
