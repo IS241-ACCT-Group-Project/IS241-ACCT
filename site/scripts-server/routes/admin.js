@@ -33,14 +33,12 @@ function database(request, response) {
                         `NOT LOGGED IN`,
                         `${result[0].AccountUsername} <a href="/logout">Log out</a>`
                     );
-                    
+
                     response.setHeader('Content-Type', 'text/html');
                     response.write(newhtml);
                     response.end();
                 });
             });
-
-            // response.sendFile("databaseTesting.html", { root: path.resolve(__dirname, "../../") });
         }
     });
 }

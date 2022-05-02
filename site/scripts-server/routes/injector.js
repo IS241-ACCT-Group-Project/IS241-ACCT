@@ -2,6 +2,8 @@ module.exports = function (app) {
     app.get("/injector", homepage);
     app.get("/newvaccination", newVaccination);
     app.get("/newpatient", newPatient);
+
+    app.get("/currentinjectorid", currentInjectorID);
 }
 
 const db = require("./../db");
@@ -30,5 +32,20 @@ function newPatient(request, response) {
         if (isValid) {
             response.sendFile("newPatientForm.html", { root: path.resolve(__dirname, "../../") });
         }
+    });
+}
+
+function currentInjectorID(request, response) {
+    validate(request, response, "injector", function (accountID, associatedID) {
+        response.setHeader("Content-Type", "application/json");
+
+        if (associatedID) {
+            response.write(JSON.stringify(associatedID));
+        }
+        else {
+            response.write(JSON.stringify(""));
+        }
+
+        response.end();
     });
 }

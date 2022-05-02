@@ -1,8 +1,9 @@
-var loginForm, siteForm, injectorForm, usernameDisplay, phoneField;
+var loginForm, siteForm, injectorForm, usernameDisplay, phoneField, siteID, siteName;
 var username, password_1, password_2, accountTypes, submitButton;
 var loginMsg, originalLoginMsg, siteMsg, originalSiteMsg, injectorMsg, originalInjectorMsg;
 var usernameValid = true;
 var passwordValid = true;
+var siteValid = true;
 var profileData;
 
 window.addEventListener("load", function () {
@@ -16,6 +17,28 @@ window.addEventListener("load", function () {
 
     if (loginForm = document.getElementById("editLogin")) {
         loginForm.addEventListener("submit", submitLogin);
+
+        username = document.getElementsByName("username")[0];
+        username.addEventListener("input", validateUsername);
+        username.addEventListener("propertychange", validateUsername);
+        // console.log("Username listeners added.");
+
+        password_1 = document.getElementsByName("password_1")[0];
+        password_1.addEventListener("input", validatePasswords);
+        password_1.addEventListener("propertychange", validatePasswords);
+
+        password_2 = document.getElementsByName("password_2")[0];
+        password_2.addEventListener("input", validatePasswords);
+        password_2.addEventListener("propertychange", validatePasswords);
+
+        submitButton = document.getElementById("submitAccountButton");
+        submitButton.disabled = false; //only enable button when input is valid
+
+        if (loginMsg = document.getElementById("changeLoginMsg")) {
+            loginMsg.hidden = true;
+            originalLoginMsg = loginMsg.innerHTML;
+            // console.log(originalLoginMsg);
+        }
     }
 
     if (phoneField = document.getElementsByName("phone")[0]){
@@ -28,48 +51,30 @@ window.addEventListener("load", function () {
         resetSite();
         document.getElementById("resetSite").addEventListener("click", resetSite);
         siteForm.addEventListener("submit", submitSite);
+
+        if (siteMsg = document.getElementById("changeSiteMsg")) {
+            siteMsg.hidden = true;
+            originalSiteMsg = siteMsg.innerHTML;
+            // console.log(originalSiteMsg);
+        }
     }
+
     if (injectorForm = document.getElementById("editInjector")) {
         resetInjector();
         document.getElementById("resetInjector").addEventListener("click", resetInjector);
         injectorForm.addEventListener("submit", submitInjector);
-    }
 
-    if (username = document.getElementsByName("username")[0]) {
-        username.addEventListener("input", validateUsername);
-        username.addEventListener("propertychange", validateUsername);
-        // console.log("Username listeners added.");
-    }
+        siteID = document.getElementsByName("siteID")[0];
+        siteID.addEventListener("input", validateSiteID);
+        siteID.addEventListener("propertychange", validateSiteID);
 
-    if (password_1 = document.getElementsByName("password_1")[0]) {
-        password_1.addEventListener("input", validatePasswords);
-        password_1.addEventListener("propertychange", validatePasswords);
-    }
-    if (password_2 = document.getElementsByName("password_2")[0]) {
-        password_2.addEventListener("input", validatePasswords);
-        password_2.addEventListener("propertychange", validatePasswords);
-    }
+        siteName = document.getElementById("siteName");
 
-    if (submitButton = document.getElementById("submitAccountButton")) {
-        submitButton.disabled = false; //only enable button when input is valid
-    }
-
-    if (loginMsg = document.getElementById("changeLoginMsg")) {
-        loginMsg.hidden = true;
-        originalLoginMsg = loginMsg.innerHTML;
-        // console.log(originalLoginMsg);
-    }
-
-    if (siteMsg = document.getElementById("changeSiteMsg")) {
-        siteMsg.hidden = true;
-        originalSiteMsg = siteMsg.innerHTML;
-        // console.log(originalSiteMsg);
-    }
-
-    if (injectorMsg = document.getElementById("changeInjectorMsg")) {
-        injectorMsg.hidden = true;
-        originalInjectorMsg = injectorMsg.innerHTML;
-        // console.log(originalInjectorMsg);
+        if (injectorMsg = document.getElementById("changeInjectorMsg")) {
+            injectorMsg.hidden = true;
+            originalInjectorMsg = injectorMsg.innerHTML;
+            // console.log(originalInjectorMsg);
+        }
     }
 });
 
@@ -220,6 +225,50 @@ function formatPhoneField() {
     }
 }
 
+function validateSiteID() {
+    var input = siteID.value;
+    console.log("input is " + input);
+    siteValid = false;
+
+    if (input == "") { //may not be adding site id
+        siteValid = true;
+        return;
+    }
+
+    fetch("http://localhost:8081/siteexists", {
+        method: "POST",
+        headers: {
+            "Content-Type": "text/plain"
+        },
+        body: input
+    })
+    .then(function (response) {
+        // console.log(response);
+        return response.json();
+    })
+    .then(function (site) {
+        console.log("DATA TO COMPARE: " + JSON.stringify(site));
+        console.log(site.SiteID);
+
+        if (site.SiteID > -1) {
+            console.log("Site #" + input + " exists.");
+
+            siteName.innerHTML = `${site.SiteName}<br>${site.SiteAddress}`;
+            siteValid = true;
+        }
+        else if (site.SiteID == null) {
+            console.log("Site #" + input + " does not exist.");
+            
+            siteName.innerHTML = `Site #${input} does not exist.`;
+            siteValid = false;
+        }
+        else {
+            console.log("Error checking if site exists");
+            siteValid = false;
+        }
+    });
+}
+
 function submitLogin(event) {
     event.preventDefault();
 
@@ -295,6 +344,11 @@ function resetSite() {
 
 function submitInjector(event) {
     event.preventDefault();
+
+    if (!siteValid) {
+        alert("Please enter a valid site ID or leave blank.");
+        return;
+    }
 
     // console.log(JSON.stringify(siteForm));
 
