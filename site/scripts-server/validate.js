@@ -45,7 +45,7 @@ module.exports = function (request, response, userType = null, callback) {
         }
 
         if (message == "") {
-            callback(data.accountID);
+            callback(data.accountID, data.associatedID);
         }
         else {
             fs.readFile(path.resolve(__dirname, "../permissionDenied.html"), function (err, data) {

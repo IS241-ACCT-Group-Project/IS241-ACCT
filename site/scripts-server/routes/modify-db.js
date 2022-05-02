@@ -1,7 +1,10 @@
 module.exports = function (app) {
     app.post("/addinjector", addInjector);
+    app.post("/editinjector", editInjector);
     app.post("/addsite", addSite);
+    app.post("/editsite", editSite);
     app.post("/addpatientinfo", addPatientInfo);
+    app.post("/editpatientinfo", editPatientInfo);
     app.post("/addpatientvaccination", addPatientVaccination);
 }
 
@@ -41,6 +44,38 @@ function addInjector(request, response) {
     });
 }
 
+function editInjector(request, response) {
+    validate(request, response, "injector", function (accountID, associatedID) {
+        if (accountID) {
+            //validation checks here
+
+            //get values from form "name=" with request.body
+            const firstname = db.pool.escape(request.body.firstName);
+            const lastname = db.pool.escape(request.body.lastName);
+            const siteid = db.pool.escape(request.body.siteID);
+            //create sql statement
+            const sql = `UPDATE INJECTOR SET FirstName = ${firstname}, LastName = ${lastname}, SiteID = ${siteid} WHERE InjectorID = ${associatedID};`;
+
+            //debugging - prints to terminal
+            //console.log(request.body);
+            console.log(sql);
+
+            db.pool.query(sql, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    //throw err;
+                    return;
+                }
+
+                audit(accountID, "edit", sql);
+
+                response.statusCode = 204; //do not leave web page
+                response.end();
+            });
+        }
+    });
+}
+
 function addSite(request, response) {
     validate(request, response, "site", function (accountID) {
         if (accountID) {
@@ -50,7 +85,7 @@ function addSite(request, response) {
             const name = db.pool.escape(request.body.name);
             const address = db.pool.escape(request.body.address);
             const zipCode = db.pool.escape(request.body.zipCode);
-            const phone = db.pool.escape(request.body.phone);
+            const phone = db.pool.escape(request.body.phone).replaceAll("-", "");
             //create sql statement
             const sql = `INSERT INTO SITE (SiteName, SiteAddress, SiteZipCode, SitePhoneNumber) VALUES (${name}, ${address}, ${zipCode}, ${phone});`;
 
@@ -67,6 +102,40 @@ function addSite(request, response) {
                 }
 
                 audit(accountID, "add", sql);
+
+                response.statusCode = 204; //do not leave web page
+                response.end();
+            });
+        }
+    });
+}
+
+function editSite(request, response) {
+    validate(request, response, "site", function (accountID, associatedID) {
+        if (accountID) {
+            //validation checks here
+
+            //get values from form "name=" with request.body
+            const name = db.pool.escape(request.body.name);
+            const address = db.pool.escape(request.body.address);
+            const zipCode = db.pool.escape(request.body.zipCode);
+            const phone = db.pool.escape(request.body.phone).replaceAll("-", "");
+            //create sql statement
+            const sql = `UPDATE SITE SET SiteName = ${name}, SiteAddress = ${address}, SiteZipCode = ${zipCode}, SitePhoneNumber = ${phone} WHERE SiteID = '${associatedID}';`;
+
+            //debugging - prints to terminal
+            //console.log(request.body);
+            console.log(sql);
+
+            //attempt to execute sql
+            db.pool.query(sql, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    //throw err;
+                    return;
+                }
+
+                audit(accountID, "edit", sql);
 
                 response.statusCode = 204; //do not leave web page
                 response.end();
@@ -108,6 +177,10 @@ function addPatientInfo(request, response) {
             });
         }
     });
+}
+
+function editPatientInfo(request, response) {
+    console.log("No function to edit patient information.");
 }
 
 function addPatientVaccination(request, response) {

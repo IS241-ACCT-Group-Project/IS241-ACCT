@@ -39,8 +39,9 @@
         <br>
 
         <input type="submit" value="Edit Login" id="submitAccountButton">
+
+        <p id="changeLoginMsg">Your account information was successfully changed. Please <a href="http://localhost:8081/accounthome">return to account home</a>.</p>
     </form>
-    <p id="changeLoginMsg">Your account information was successfully changed. Please <a href="http://localhost:8081/accounthome">return to account home</a>.</p>
 
     <form id="editSite">
         <h2>Edit Your Site Profile</h2>
@@ -51,13 +52,19 @@
         <input type="text" name="address"><br>
 
         <label for="zipCode">Zip Code:</label><br>
-        <input type="number" name="zipCode"><br>
+        <input type="number" name="zipCode" pattern="[0-9]{5}"
+        title="Enter five digit zip code"><br>
 
-        <label for="phone">Phone Number (no spaces/dashes):</label><br>
-        <input type="tel" name="phone"><br>
+        <label for="phone">Phone Number:</label><br>
+        <input type="tel" name="phone"
+        placeholder="999-999-9999"
+        pattern="\d{3}[\-]\d{3}[\-]\d{4}"
+        title="Must be 999-999-9999"><br>
 
         <input type="submit" value="Edit Site Information">
         <input type="button" id="resetSite" value="Reset to Current Information">
+
+        <p id="changeSiteMsg">Your site profile was successfully changed. Please <a href="http://localhost:8081/accounthome">return to account home</a>.</p>
     </form>
 
     <form id="editInjector">
@@ -73,5 +80,7 @@
 
         <input type="submit" value="Register New Injector">
         <input type="button" id="resetInjector" value="Reset to Current Information">
+
+        <p id="changeInjectorMsg">Your injector profile was successfully changed. Please <a href="http://localhost:8081/accounthome">return to account home</a>.</p>
     </form>
 </body>

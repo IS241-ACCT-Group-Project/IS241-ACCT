@@ -111,7 +111,7 @@ function editLogin(request, response) {
                     var username = db.pool.escape(request.body.username);
                     if (username == `''`) { username = db.pool.escape(result[0].AccountUsername); }
                     var newPassword = request.body.password_1;
-                    if (newPassword == `''`) { newPassword = oldPassword; }
+                    if (newPassword == ``) { newPassword = oldPassword; }
 
                     bcrypt.compare(oldPassword, currentHash, function (err, successful) {
                         if (successful) {
@@ -122,7 +122,7 @@ function editLogin(request, response) {
                                 }
                                 
                                 const sql2 = `UPDATE ACCOUNT SET AccountUsername = ${username}, AccountPassword = '${newHash}' WHERE AccountID = ${valid};`;
-                                db.pool.query(sql2, function (err) {
+                                db.pool.query(sql2, function (err, result) {
                                     if (err) {
                                         console.log(err);
                                         // throw err;
@@ -131,18 +131,21 @@ function editLogin(request, response) {
 
                                     audit(valid, "edit", sql2.replace(newHash, "****"));
 
+                                    // response.statusCode = 204; //do not leave web page
                                     response.write(JSON.stringify("success"));
                                     response.end();
                                 });
                             }));
                         }
                         else {
+                            response.statusCode = 204; //do not leave web page
                             response.write(JSON.stringify("Account password is incorrect."));
                             response.end();
                         }
                     });
                 }
                 else {
+                    response.statusCode = 204; //do not leave web page
                     response.write(JSON.stringify("Account not found."));
                     response.end();
                 }
