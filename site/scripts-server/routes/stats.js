@@ -117,7 +117,7 @@ function totalVaccinations(request, response) {
 function currentMonthVaccinations(request, response) {
     var date = new Date;
 
-    const sql = `SELECT COUNT(*) AS count FROM PATIENT_VACCINATION WHERE VaccinationDate > '${date.getFullYear()}-${date.getMonth()}';`;
+    const sql = `SELECT COUNT(*) AS count FROM PATIENT_VACCINATION WHERE VaccinationDate > '${date.getFullYear()}-${date.getMonth() + 1}-1';`;
 
     db.pool.query(sql, function (err, result) {
         if (err) {

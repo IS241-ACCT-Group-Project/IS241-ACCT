@@ -247,6 +247,7 @@ function submitLogin(event) {
                 usernameDisplay.innerHTML = newUsername;
                 loginMsg.innerHTML = originalLoginMsg;
                 loginMsg.hidden = false;
+                loginForm.reset();
             }
             else {
                 loginMsg.textContent = data;
@@ -271,14 +272,15 @@ function submitSite(event) {
         body: JSON.stringify(value)
     })
         .then(function (response) {
-            console.log(response);
+            // console.log(response);
             return response.json();
         })
         .then(function (data) {
-            console.log(data[0]);
+            // console.log(data[0]);
             console.log(profileData);
 
             profileData = data[0];
+            siteForm.reset();
             resetSite();
         });
 }
@@ -292,7 +294,32 @@ function resetSite() {
 }
 
 function submitInjector(event) {
-    console.log("Submit injector not created.");
+    event.preventDefault();
+
+    // console.log(JSON.stringify(siteForm));
+
+    const data = new FormData(event.target);
+    const value = Object.fromEntries(data.entries());
+
+    // console.log(value);
+
+    fetch("http://localhost:8081/editinjector", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(value)
+    })
+        .then(function (response) {
+            // console.log(response);
+            return response.json();
+        })
+        .then(function (data) {
+            // console.log(data[0]);
+            console.log(profileData);
+
+            profileData = data[0];
+            injectorForm.reset();
+            resetInjector();
+        });
 }
 
 function resetInjector() {
