@@ -10,18 +10,18 @@ window.onload = function () {
     }
   })
   .then(function (response) {
-      console.log(response);
+      // console.log(response);
       return response.json();
   })
   .then(function (data) {
-    console.log(data);
+    // console.log(data);
 
     const size = data.length - 1;
     var month = new Date;
 
     for (var i = 0; i < size; ++i) {
       monthlyValues[i] = data[i].count;
-      console.log("month: " + i + ", value: " + data[i].count);
+      // console.log("month: " + i + ", value: " + data[i].count);
 
       monthNames[i] = month.toLocaleString('en-us', { month: 'short' });
       month.setMonth(month.getMonth() - 1);

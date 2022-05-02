@@ -55,7 +55,7 @@ function totalSites(request, response) {
         // console.log(result);
 
         response.setHeader("Content-Type", "application/json");
-        response.write(JSON.stringify(result));
+        response.write(JSON.stringify(result[0]));
         response.end();
     });
 }
@@ -73,7 +73,7 @@ function totalInjectors(request, response) {
         // console.log(result);
 
         response.setHeader("Content-Type", "application/json");
-        response.write(JSON.stringify(result));
+        response.write(JSON.stringify(result[0]));
         response.end();
     });
 }
@@ -91,7 +91,7 @@ function totalPatients(request, response) {
         // console.log(result);
 
         response.setHeader("Content-Type", "application/json");
-        response.write(JSON.stringify(result));
+        response.write(JSON.stringify(result[0]));
         response.end();
     });
 }
@@ -109,7 +109,7 @@ function totalVaccinations(request, response) {
         // console.log(result);
 
         response.setHeader("Content-Type", "application/json");
-        response.write(JSON.stringify(result));
+        response.write(JSON.stringify(result[0]));
         response.end();
     });
 }
@@ -129,7 +129,7 @@ function currentMonthVaccinations(request, response) {
         // console.log(result);
 
         response.setHeader("Content-Type", "application/json");
-        response.write(JSON.stringify(result));
+        response.write(JSON.stringify(result[0]));
         response.end();
     });
 }

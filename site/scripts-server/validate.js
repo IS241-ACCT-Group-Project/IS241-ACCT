@@ -56,7 +56,6 @@ module.exports = function (request, response, userType = null, callback) {
                     callback(false);
                 }
                 else {
-
                     const newhtml = data.toString().replace(
                         `<p>The error will appear here with a link to <a href="/login">log in</a>.</p>`,
                         `<p>${message}</p>`

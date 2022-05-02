@@ -17,7 +17,7 @@
   <nav class="blue darken-4">
     <div class="container">
       <div class="nav-wrapper">
-        <a href="admindex.html" class="brand-logo">CDC Graphs</a>
+        <a href="admindex.html" class="brand-logo">Statistics</a>
         <a href="#" data-activates="side-nav" class="button-collapse show-on-large right">
           <i class="material-icons">menu</i>
         </a>
@@ -92,8 +92,8 @@
       <div class="col s12 m6 l3">
         <div class="card-panel blue darken-4 white-text center">
           <i class="material-icons medium">insert_emoticon</i>
-          <h5>Monthly Visitors</h5>
-          <h3 class="count">28300</h3>
+          <h5>Total Sites</h5>
+          <h3 class="count" id="totalSites">0</h3>
           <div class="progress grey lighten-1">
             <div class="determinate white" style="width: 40%;"></div>
           </div>
@@ -102,8 +102,8 @@
       <div class="col s12 m6 l3">
         <div class="card-panel center">
           <i class="material-icons medium">mode_edit</i>
-          <h5>Blog Posts</h5>
-          <h3 class="count">105</h3>
+          <h5>Total Injectors</h5>
+          <h3 class="count" id="totalInjectors">0</h3>
           <div class="progress grey lighten-1">
             <div class="determinate blue lighten-1" style="width: 20%;"></div>
           </div>
@@ -112,8 +112,8 @@
       <div class="col s12 m6 l3">
         <div class="card-panel blue darken-4 white-text center">
           <i class="material-icons medium">mode_comment</i>
-          <h5>Comments</h5>
-          <h3 class="count">1200</h3>
+          <h5>Total Vaccinations</h5>
+          <h3 class="count" id="totalVaccinations">0</h3>
           <div class="progress grey lighten-1">
             <div class="determinate white" style="width: 40%;"></div>
           </div>
@@ -122,8 +122,8 @@
       <div class="col s12 m6 l3">
         <div class="card-panel center">
           <i class="material-icons medium">supervisor_account</i>
-          <h5>Users</h5>
-          <h3 class="count">350</h3>
+          <h5>Vaccinations this Month</h5>
+          <h3 class="count" id="monthVaccinations">0</h3>
           <div class="progress grey lighten-1">
             <div class="determinate blue lighten-1" style="width: 10%;"></div>
           </div>
@@ -374,6 +374,7 @@
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
   <script src="scripts/chart.js"></script>
+  <script src="scripts/stats.js"></script>
 
   <script>
     // Hide Sections
