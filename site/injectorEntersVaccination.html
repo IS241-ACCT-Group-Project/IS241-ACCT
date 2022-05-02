@@ -11,7 +11,7 @@
  <body>
      <main>
      <div class="container">
-         <form id="injectorEntersVaccination" action="http://localhost:8081/addpatientvaccination" method="post" onsubmit="return validateForm()">
+         <form id="injectorEntersVaccination" onsubmit="validateForm(event)">
              <h2>Record New Vaccination:</h2>
 
              <label for="patientID">Patient ID:</label><br>
@@ -33,8 +33,8 @@
 
              <br>
 
-             <label for="vaccinationType">VaccinationType:</label><br>
-             <select name="vaccinationType" id="vaccinationType">
+             <label for="type">VaccinationType:</label><br>
+             <select name="type" id="type">
                  <option value="">Choose</option>
                  <option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
                  <option value="Moderna">Moderna</option>
@@ -49,8 +49,10 @@
  		</form>
 	</div>
          <script>
-             function validateForm() {
-                 const patientID = document.forms["injectorEntersVaccination"]["patientID"].value;
+             function validateForm(event) {
+                 event.preventDefault();
+                 const newVaccinationForm=document.forms["injectorEntersVaccination"];
+                 const patientID = newVaccinationForm["patientID"].value;
                  if (patientID == "") {
                      alert("patientID must be filled out with positive numbers 1-1000.");
                      return false;
@@ -60,7 +62,7 @@
                      return false;
                  }
 
-                 const injectorID = document.forms["injectorEntersVaccination"]["injectorID"].value;
+                 const injectorID = newVaccinationForm["injectorID"].value;
                  if (injectorID == "") {
                      alert("injectorID must be filled out with positive numbers 1-50.");
                      return false;
@@ -71,7 +73,7 @@
                  }
 
 
-                 const date = document.forms["injectorEntersVaccination"]["date"].value;
+                 const date = newVaccinationForm["date"].value;
 
                  //date = new Date(vaccinationDate.value),
                  //    dateEntered = date.getTime(),
@@ -95,19 +97,47 @@
                      return false;
                  }
 
-                 var isValidLot = /(^\d{5}?$)/;
-                 const lotNumber = document.forms["injectorEntersVaccination"]["lotNumber"].value;
-                 if (!isValidLot.match(lotNumber)) {
-                     alert("Please enter a valid 5-digit lot number.");
-                     return false;
-                 }
+                 //does not validate
+                 //var isValidLot = /(^\d{5}?$)/;
+                 //const lotNumber = newVaccinationForm["lotNumber"].value;
+                 //if (!isValidLot.match(lotNumber)) {
+                 //    alert("Please enter a valid 5-digit lot number.");
+                 //    return false;
+                 //}
 
-
-                 var vaccinationType = document.forms["injectorEntersVaccination"]["vaccinationType"].value;
+                 var vaccinationType = newVaccinationForm["type"].value;
                  if (vaccinationType == "") {
                      alert("Please select a vaccination type from the drop down menu.");
                      return false;
                  }
+
+                 const data = new FormData(newVaccinationForm);
+                 const value = Object.fromEntries(data.entries());
+ 
+                 fetch("http://localhost:8081/addpatientvaccination", {
+                         method: "POST",
+                         headers: {
+                             "Content-Type": "application/json"
+                         },
+                         body: JSON.stringify(value)
+                     })
+                     .then(function (response) {
+                         // console.log(response);
+                         return response.json();
+                     })
+                     .then(function (data) {
+                         console.log(data);
+ 
+                         if (data == "success") { //display success message
+                             //vaccinationMsg.innerHTML = originalVaccinationMsg;
+                             //vaccinationMsg.hidden = false;
+                             newVaccinationForm.reset();
+                         }
+                         else { //set message content to error from server - probably won't get called bc validation catches potential errors
+                             //vaccinationMsg.textContent = data;
+                             //vaccinationMsg.hidden = false;
+                         }
+                 });
              }
          </script>
      </div>

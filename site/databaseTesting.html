@@ -13,12 +13,13 @@ The name="" fields must match exactly with what the corresponding function in sc
 
 Forms that add new entries to the database need: 
     - <form action="http://localhost:8081/addACTION" method="post"> at the top 
+    - <input name=""> needs to match exactly (CASE SENSITIVE) with the example in databaseTesting.html
     - <input type="submit"/> within the form 
 
 Forms that search the database need: 
     - A form with <input type="submit"> within the form 
     - Their approproate <script type="text/javascript" src="scripts/searchSCRIPT.js"></script> 
-    - The <form id=""> needs to match exactly with "form = document.getElementById("");" in line 4 of the script mentioned above 
+    - The <form id=""> needs to match exactly (CASE SENSITIVE) with "form = document.getElementById("");" in line 4 of the script mentioned above 
     - To display results, a table with the appropriate <table id=""> mentioned in the script also needs to be on the same page. 
     - The table also needs its headers to be created in HTML. 
 -->

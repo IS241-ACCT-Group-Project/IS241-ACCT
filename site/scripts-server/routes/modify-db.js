@@ -157,6 +157,8 @@ function addPatientInfo(request, response) {
         if (accountID) {
             //validation checks here
 
+            response.setHeader("Content-Type", "application/json");
+
             //get values from form "name=" with request.body
             const firstName = db.pool.escape(request.body.firstName);
             const lastName = db.pool.escape(request.body.lastName);
@@ -175,13 +177,18 @@ function addPatientInfo(request, response) {
                 if (err) {
                     console.log(err);
                     //throw err;
+                    response.write(JSON.stringify("There was an error adding a new patient record. Please try again."));
+                    response.end();
                     return;
                 }
+                else {
 
-                audit(accountID, "add", sql);
+                    audit(accountID, "add", sql);
 
-                response.statusCode = 204; //do not leave web page
-                response.end();
+                    // response.statusCode = 204; //do not leave web page
+                    response.write(JSON.stringify("success"));
+                    response.end();
+                }
             });
         }
     });
@@ -195,7 +202,9 @@ function addPatientVaccination(request, response) {
     validate(request, response, "injector", function (accountID) {
         if (accountID) {
             //validation checks here
-        
+
+            response.setHeader("Content-Type", "application/json");
+
             //get values from form "name=" with request.body
             const patientID = db.pool.escape(request.body.patientID);
             const date = db.pool.escape(request.body.date);
@@ -214,13 +223,17 @@ function addPatientVaccination(request, response) {
                 if (err) {
                     console.log(err);
                     //throw err;
+                    response.write(JSON.stringify("There was an error adding a new patient vaccination. Please try again."));
+                    response.end();
                     return;
                 }
+                else {
+                    audit(accountID, "add", sql);
 
-                audit(accountID, "add", sql);
-
-                response.statusCode = 204; //do not leave web page
-                response.end();
+                    // response.statusCode = 204; //do not leave web page
+                    response.write(JSON.stringify("success"));
+                    response.end();
+                }
             });
         }
     });
