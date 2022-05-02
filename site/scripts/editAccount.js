@@ -18,6 +18,12 @@ window.addEventListener("load", function () {
         loginForm.addEventListener("submit", submitLogin);
     }
 
+    if (phoneField = document.getElementsByName("phone")[0]){
+        phoneField.addEventListener("input", formatPhoneField);
+        phoneField.addEventListener("propertychange", formatPhoneField);
+        console.log(phoneField);
+    }
+
     if (siteForm = document.getElementById("editSite")) {
         resetSite();
         document.getElementById("resetSite").addEventListener("click", resetSite);
@@ -42,12 +48,6 @@ window.addEventListener("load", function () {
     if (password_2 = document.getElementsByName("password_2")[0]) {
         password_2.addEventListener("input", validatePasswords);
         password_2.addEventListener("propertychange", validatePasswords);
-    }
-
-    if (phoneField = document.getElementsByName("phone")[0]){
-            phoneField.addEventListener("input", formatPhoneField);
-            phoneField.addEventListener("propertychange", formatPhoneField);
-            console.log(phoneField);
     }
 
     if (submitButton = document.getElementById("submitAccountButton")) {
@@ -212,7 +212,6 @@ function formatPhoneField() {
 
     if (pfLength > 7) {
         phoneField.value = (pfValue.slice(0, 3) + "-" + pfValue.slice(3, 6) + "-" + pfValue.slice(6));
-        console.log(pfValue.slice(0, 3) + "-" + pfValue.slice(3, 6) + "-" + pfValue.slice(6));
         // console.log("length is greater than 7");
     }
     else if (pfLength <= 7 && pfLength > 3) {
@@ -272,15 +271,14 @@ function submitSite(event) {
         body: JSON.stringify(value)
     })
         .then(function (response) {
-            //console.log(response);
+            console.log(response);
             return response.json();
         })
         .then(function (data) {
-            // console.log(data);
+            console.log(data[0]);
+            console.log(profileData);
 
-            //console.log(profileData);
-            //console.log(data);
-            profileData = data;
+            profileData = data[0];
             resetSite();
         });
 }
@@ -290,6 +288,7 @@ function resetSite() {
     siteForm.elements["address"].value = profileData.SiteAddress;
     siteForm.elements["zipCode"].value = profileData.SiteZipCode;
     siteForm.elements["phone"].value = profileData.SitePhoneNumber;
+    formatPhoneField();
 }
 
 function submitInjector(event) {
