@@ -124,7 +124,7 @@ body {
 }
 
 /* Dropdown button on hover & focus */
-.inj-dropbtn:hover, .dropbtn:focus {
+.inj-dropbtn:hover, .inj-dropbtn:focus {
   background-color: #2980B9;
 }
 
