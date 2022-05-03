@@ -20,7 +20,7 @@
              <br>
 
              <label for="date">Vaccination Date:</label><br>
-             <input type="date" id="date" name="date"
+             <input type="date"  id="date" name="date"
                     value=""
                     min="2021-11-01" max="2022-04-26" />
              <br />
@@ -43,7 +43,7 @@
              <br />
 
  			<label for="lotNumber">LotNumber:</label><br>
- 			<input type="number" id="lotNumber" name="lotNumber" min="00001" max="99999" />
+ 			<input type="number" id="lotNumber" name="lotNumber"  min="00001" max="99999" />
  			<br><br>
  			<input type="submit" value="register" id="newVaccinationForm">
  		</form>
@@ -84,8 +84,19 @@
                  }
 
 
-                 const date = newVaccinationForm["date"].value;
+                 const Date = newVaccinationForm["date"].value;
+                 //        d2 = new Date('2021-11-01').getTime(),
+                 //        d3 = new Date('2022-04-26').getTime();
 
+                 //    if (d1 > d2 || d1 < d3) {
+                 //        return true;
+                 //    } else {
+                 //        alert("date is not in valid range")
+                 //    }
+                 
+                 //const dateRange = new moment(date, 'YYYY/MM/DD', true);
+                 //reutrn dateRange.isValid() && dateRange.isAfter('2021-11-01') && dateRange.isBefore('2022-04-26');
+                 
                  //date = new Date(vaccinationDate.value),
                  //    dateEntered = date.getTime(),
                  //        earliestDate = new Date('11/01/2021').getTime(),
@@ -103,18 +114,30 @@
                      return false;
                  }
 
-                 if (date == "") {
-                     alert("Date must be filled out. Please enter a date in MM / DD / YYYY format");
+                 if (Date == "") {
+                     alert("Date must be filled out. Please enter the date in MM / DD / YYYY format");
                      return false;
                  }
-
-                 //does not validate
-                 //var isValidLot = /(^\d{5}?$)/;
-                 //const lotNumber = newVaccinationForm["lotNumber"].value;
-                 //if (!isValidLot.match(lotNumber)) {
-                 //    alert("Please enter a valid 5-digit lot number.");
+                 //const dateEntered = newVaccinationForm["date"].value;
+                 //var dateEntered = new Date().getTime(); // 1501653935994
+                 //var from = new Date("2021-11-01").getTime(); // gives 1486492200000
+                 //var to = new Date("2022-04-26").getTime();
+                 //if (dateEntered >= from && dateEntered <= to) {
+                 //    alert("Date is not in the valid range")
                  //    return false;
                  //}
+
+
+                 var isValidLot = /^\d{5}$/;
+                 const LotNumber = newVaccinationForm["lotNumber"].value;
+                 if (LotNumber == "") {
+                     alert("Lot Number is empty. Lot Number must be filled out with 5 digits [0-9] in the format XXXXX.");
+                     return false;
+                 }
+                 if (!LotNumber.match(isValidLot)) {
+                     alert("Please enter a valid zip code with 5 digits [0-9] in the format XXXXX.");
+                     return false;
+                 }
 
                  var vaccinationType = newVaccinationForm["type"].value;
                  if (vaccinationType == "") {
