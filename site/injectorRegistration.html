@@ -11,7 +11,7 @@
 <body>
 
 	<div class="container"> 
-		<form id="newInjectorForm" action="http://localhost:8081/addinjector" method="post" onsubmit="return validateForm()">
+		<form id="newInjectorForm" onsubmit="validateForm(event)">
 			<h2>Injector Information</h2>
 			<label for="firstName">First name:</label><br>
 			<input type="text" id="firstName" name="firstName"  /><br>
@@ -24,19 +24,25 @@
 			<br><br>
 			<input type="submit" value="register" id="newInjectorFormSubmit">
 		</form>
+		<p id="injMsg">New injector was successfully registered. Please return to the <a href="http://localhost:8081/accounthome">injector homepage</a>.</p>
 	</div>
 		
 		<script>
 			// commented out for javascript validation testing  
 	
-			//var form = document.getElementById("newInjectorForm");
-   // 		form.addEventListener("submit", function(){
-			//	alert("Success!");
-			//});
+			// 		form.addEventListener("submit", function(){
+				//	alert("Success!");
+				//});
+			const newInjectorForm = document.forms["newInjectorForm"];
+			const injMsg=document.getElementById("injMsg");
+			const originalInjMsg=injMsg.innerHTML;
+			injMsg.hidden=true;
 
-			function validateForm() {
+			function validateForm(event) {
+				event.preventDefault();
+
                 var regName = /^[A-Za-z\s]+$/;
-                const firstName = document.forms["newInjectorForm"]["firstName"].value;
+                const firstName = newInjectorForm["firstName"].value;
                 if (firstName == "") {
                     alert("First name must be filled out");
                     return false;
@@ -45,7 +51,7 @@
 					alert("Invalid first name given");
                 }
 
-                const lastName = document.forms["newInjectorForm"]["lastName"].value;
+                const lastName = newInjectorForm["lastName"].value;
 				if (lastName == "") {
 					alert("Last name must be filled out");
 					return false;
@@ -54,7 +60,7 @@
                     alert("Invalid last name given");
                 }
 
-                const clinicID = document.forms["newInjectorForm"]["clinicID"].value;
+                const clinicID = newInjectorForm["clinicID"].value;
 				if (clinicID == "") {
 					alert("ClinicID must be filled out");
 					return false;
@@ -63,6 +69,34 @@
 					alert("Please only enter numeric characters only for your ClinicID");
 					return false;
 				}
+
+				const data = new FormData(newInjectorForm);
+                const value = Object.fromEntries(data.entries());
+
+				fetch("http://localhost:8081/addinjector", {
+                         method: "POST",
+                         headers: {
+                             "Content-Type": "application/json"
+                         },
+                         body: JSON.stringify(value)
+                     })
+                     .then(function (response) {
+                         console.log(response);
+                         return response.json();
+                     })
+                     .then(function (data) {
+                         console.log(data);
+ 
+                         if (data == "success") { //display success message
+                             injMsg.innerHTML = originalInjMsg;
+                             injMsg.hidden = false;
+                             newInjectorForm.hidden=true;
+                         }
+                         else { //set message content to error from server - probably won't get called bc validation catches potential errors
+                             injMsg.textContent = data;
+                             injMsg.hidden = false;
+                         }
+                 });
             }
 			
 		</script>

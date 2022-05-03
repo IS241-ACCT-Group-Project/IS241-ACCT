@@ -39,9 +39,23 @@ function addInjector(request, response) {
 
                 audit(accountID, "add", sql);
 
-                // response.statusCode = 204; //do not leave web page
-                response.write(JSON.stringify("success"));
-                response.end();
+                const sql2 = `UPDATE ACCOUNT SET AssociatedID = ${result.insertId} WHERE AccountID = ${accountID};`;
+
+                db.pool.query(sql2, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        //throw err;
+                        response.write(JSON.stringify("There was an error adding a new injector record. Please try again."));
+                        response.end();
+                        return;
+                    }
+
+                    audit(accountID, "edit", sql2);
+
+                    // response.statusCode = 204; //do not leave web page
+                    response.write(JSON.stringify("success"));
+                    response.end();
+                });
             });
         }
     });
@@ -116,7 +130,7 @@ function addSite(request, response) {
                     if (err) {
                         console.log(err);
                         //throw err;
-                        response.write(JSON.stringify("There was an error adding a new patient record. Please try again."));
+                        response.write(JSON.stringify("There was an error adding a new site record. Please try again."));
                         response.end();
                         return;
                     }

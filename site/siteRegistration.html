@@ -31,7 +31,7 @@
 
 		</form>
 
-		<p id="siteMsg">New site was successfully registered. Please go back to the previous page.</p>
+		<p id="siteMsg">New site was successfully registered. Please return to the <a href="http://localhost:8081/accounthome">site homepage</a>.</p>
 	</div>
 
 		<script>
@@ -103,7 +103,7 @@
 
 				const data = new FormData(newSiteForm);
                 const value = Object.fromEntries(data.entries());
-				console.log("aaaaaa");
+				// console.log("test");
 
 				fetch("http://localhost:8081/addsite", {
                          method: "POST",
@@ -113,11 +113,11 @@
                          body: JSON.stringify(value)
                      })
                      .then(function (response) {
-                         console.log(response);
+                        //  console.log(response);
                          return response.json();
                      })
                      .then(function (data) {
-                         console.log(data);
+                        //  console.log(data);
  
                          if (data == "success") { //display success message
                              siteMsg.innerHTML = originalSiteMsg;
