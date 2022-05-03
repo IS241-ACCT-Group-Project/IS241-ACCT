@@ -30,7 +30,7 @@ margin: 0;
 </style>
 <body>
     <h1>Missouri Immunization Information System</h1>
-    <form action="http://localhost:8081/createAccount" method="post" >
+    <form id="newUserForm" onsubmit="createAccount(event)">
         <h2>Create a New Account</h2>
 
         <label for="username">Username:</label>
@@ -61,5 +61,7 @@ margin: 0;
         <br>
 
         <input type="submit" value="Create New Account" id="submitAccountButton">
+
+        <p id="newUserMsg">Your account was successfully created. Please <a href="http://localhost:8081/login">log in</a> to access your new account.</p>
     </form>
 </body>

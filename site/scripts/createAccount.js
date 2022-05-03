@@ -1,8 +1,12 @@
+var newUserForm;
 var username, password_1, password_2, accountTypes, submitButton;
+var newUserMsg, originalNewUserMsg;
 var usernameValid = false;
 var passwordValid = false;
 
 window.addEventListener("load", function () {
+    newUserForm = document.getElementById("newUserForm");
+
     if (username = document.getElementsByName("username")[0]) {
         username.addEventListener("input", validateUsername);
         username.addEventListener("propertychange", validateUsername);
@@ -26,6 +30,12 @@ window.addEventListener("load", function () {
 
     if (submitButton = document.getElementById("submitAccountButton")) {
         submitButton.disabled = true; //only enable button when input is valid
+    }
+
+    if (newUserMsg = document.getElementById("newUserMsg")) {
+        newUserMsg.hidden = true;
+        originalNewUserMsg = newUserMsg.innerHTML;
+        // console.log(originalNewUserMsg);
     }
 });
 
@@ -177,4 +187,37 @@ function checkAllValid() {
     //     console.log("Username valid: " + usernameValid);
     //     console.log("Password valid: " + passwordValid);
     // }
+}
+
+function createAccount(event) {
+    event.preventDefault();
+
+    const data = new FormData(event.target);
+    const value = Object.fromEntries(data.entries());
+
+    fetch("http://localhost:8081/createaccount", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(value)
+        })
+        .then(function (response) {
+            // console.log(response);
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+
+            if (data == "success") {
+                newUserMsg.innerHTML = originalNewUserMsg;
+                newUserMsg.hidden = false;
+                // newUserForm.hidden = true;
+                newUserForm.reset();
+            }
+            else {
+                newUserMsg.innerHTML = data;
+                newUserMsg.hidden = false;
+            }
+        });
 }
