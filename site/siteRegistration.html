@@ -4,11 +4,88 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>New Site Registration</title>
-	<link rel="stylesheet" href="styles/style.css">
-	<link rel="stylesheet" href="styles/homePageStyles.css">
+
+    <script defer src="scripts/injectorHomePage.js"></script>
+	
+	<!--css code from homelanding.html for the navbar -->
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="styles/materialize.min.css" media="screen,projection" />
+
+	<!-- <link rel="stylesheet" href="styles/style.css" /> -->
+	<link rel="stylesheet" href="styles/homePageStyles.css">	
+
 </head>
-<body>
-	<div class="container"> 
+<body class="steelblue">
+
+	<!-- navbar from homelanding.html -->
+  <nav class="blue darken-4">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="homelanding.html" class="brand-logo">ACCT Site Registration</a>
+        <a class="button-collapse" data-activates="mobile-nav" href="#">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a href="homelanding.html">Home</a>
+          </li>
+          <li>
+            <a href="faq.html">FAQs</a>
+          </li>
+          
+          <li>
+            <a href="about.html">About Us</a>
+          </li>
+
+          <!-- DROPDOWN TRIGGER -->
+          <li>
+            <a class="dropdown-button" data-activates="my-dropdown" href="#!">Quick Access
+              <i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
+          <!-- BUTTON LINK -->
+          <li>
+            <a href="http://localhost:8081/logout" class="btn waves-effect waves-light" style="background-color:Tomato;">Logout</a>
+          </li>
+          <!-- ICON LINK -->
+          <li>
+            <a href="#">
+              <i class="material-icons">person</i>
+            </a>
+          </li>
+        </ul>
+        <ul class="side-nav" id="mobile-nav">
+          <li>
+            <a href="homelanding.html">Home</a>
+          </li>
+          <li>
+            <a href="faq.html">FAQs</a>
+          </li>
+          <li>
+            <a href="about.html">About Us</a>
+          </li>
+          
+          </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- DROPDOWN MENU -->
+  <ul id="my-dropdown" class="dropdown-content">
+    <li>
+      <a href="injectorHomePage.html">Injectors</a>
+    </li>
+    <li>
+      <a href="siteHomePage.html">Sites</a>
+    </li>
+    <li>
+      <a href="admindex.html">CDC</a>
+    </li>
+  </ul>
+  
+
+
+	<div class="inj-container"> 
 		<h2>Vaccination Site Registration</h2>
 		<form id="newSiteForm" onsubmit="validateForm(event)">
 			<label for="name">Site name:</label><br>
@@ -27,12 +104,17 @@
 				   pattern="\d{3}[\-]\d{3}[\-]\d{4}"
 				   title="Must be 999-999-9999"><br><br>
 
-			<input type="submit" value="Register" id="newSiteFormSubmit">
+			<input type="submit" value="Register" id="newSiteFormSubmit" class="btn waves-effect waves-light" style="background-color: #3498DB;">
 
 		</form>
 
 		<p id="siteMsg">New site was successfully registered. Please return to the <a href="http://localhost:8081/accounthome">site homepage</a>.</p>
 	</div>
+	
+  <!--Import jQuery before materialize.js-->
+  <!-- THESE NEED TO STAY AT THE BOTTOM -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="scripts/materialize.min.js"></script>
 
 		<script>
 			//var form = document.getElementById("newSiteForm");
