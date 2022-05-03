@@ -79,13 +79,18 @@ function createAccount(request, response) {
             if (err) {
                 console.log(err);
                 //throw err;
+                response.setHeader("Content-Type", "application/json");
+                response.write(JSON.stringify("There was an error creating a new account. Please try again."));
+                response.end();
                 return;
             }
 
             audit(result[1][0].AccountID, "add", sql.replace(hash, "****"));
 
             //response.sendFile("../site/login.html");
-            response.statusCode = 204; //do not leave page
+            // response.statusCode = 204; //do not leave page
+            response.setHeader("Content-Type", "application/json");
+            response.write(JSON.stringify("success"));
             response.end();
         });
     }));
