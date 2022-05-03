@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<!--
+DO NOT CHANGE FORM FIELDS, ADD FORM VALIDATION, OR ADD/REMOVE ANY PARTS OF ANY FORMS OR TABLES.
+DO NOT DO ANYTHING THAT FUNCTIONALLY CHANGES HOW THE FORMS ON THIS PAGE WORK OR HOW THEY COMMUNICATE WITH SCRIPTS.
+THESE FORMS ARE HOW I TEST SERVER-SIDE VALIDATION SO THEY NEED TO IGNORE CLIENT-SIDE VALIDATION.
+
+These forms are designed to work with the server. Any problems you have with form fields need to be fixed in the database first, then server.js, then LASTLY in this file.
+Unless you already rewrote create_db.sql AND server.js and have tested that they work (NOT USING THIS FORM), DO NOT CHANGE THESE FORMS.
+
+These forms are examples of how the server expects forms to look.
+The name="" fields must match exactly with what the corresponding function in scripts-server/server.js looks for in request.body.
+
+Forms that add new entries to the database need:
+	- <form action="http://localhost:8081/addACTION" method="post"> at the top
+	- <input name=""> needs to match exactly (CASE SENSITIVE) with the example in databaseTesting.html
+	- <input type="submit"/> within the form
+
+Forms that search the database need:
+	- A form with <input type="submit"> within the form
+	- Their approproate <script type="text/javascript" src="scripts/searchSCRIPT.js"></script>
+	- The <form id=""> needs to match exactly (CASE SENSITIVE) with "form = document.getElementById("");" in line 4 of the script mentioned above
+	- To display results, a table with the appropriate <table id=""> mentioned in the script also needs to be on the same page.
+	- The table also needs its headers to be created in HTML.
+-->
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CDC Reports</title>
+	<!-- <script type="text/javascript" src="scripts/createAccount.js"></script> -->
+	<script type="text/javascript" src="scripts/site.js"></script>
+	<script type="text/javascript" src="scripts/searchSites.js"></script>
+	<script type="text/javascript" src="scripts/searchInjectors.js"></script>
+	<script type="text/javascript" src="scripts/searchPatientInfo.js"></script>
+	<script type="text/javascript" src="scripts/searchPatientVaccination.js"></script>
+	<style>
+		/*div.dbGroup {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		div > * {
+			margin: auto;
+			padding: 40px;
+		}
+
+		h3, p {
+			display: inline;
+			padding: 0;
+		}*/
+
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td, th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #dddddd;
+		}
+	</style>
+</head>
+
+<body>
+	<main id="main-holder">
+		<h1>CDC reports</h1>
+		<div class="dbGroup">
+			<!-- <br><br><button onclick="listDB('sites')">Show Site Database</button> -->
+			<form id="siteSearch">
+				<!-- <form action="http://localhost:8081/searchsites" method="post"> -->
+				<h2>Select fields for your report</h2>
+				<p>(blank fields will be ignored):</p>
+
+				<label for="siteID">Site ID:</label>
+				<br>
+				<input type="number" name="siteID">
+				<br>
+
+				<label for="name">Site Name:</label>
+				<br>
+				<input type="text" name="name">
+				<br>
+
+				<label for="address">Address:</label>
+				<br>
+				<input type="text" name="address">
+				<br>
+
+				<label for="zipCode">Zip Code:</label>
+				<br>
+				<input type="number" name="zipCode">
+				<br>
+
+				<label for="phone">Phone Number (no spaces/dashes):</label>
+				<br>
+				<input type="tel" name="phone">
+				<br>
+
+				<label for="injectorID">Injector ID:</label><br>
+				<input type="number" name="injectorID"><br>
+
+
+				<input type="submit" value="Display Site Chart">
+			</form>
+			<table id="sitesTable">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Address</th>
+						<th>Zip Code</th>
+						<th>Phone Number</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div class="dbGroup">
+			<!-- <br><br><button onclick="listDB('injectors')">Show Injector Database</button> -->
+			<form id="injectorSearch">
+				<h2>Search for an Injector</h2>
+				<label for="injectorID">Injector ID:</label><br>
+				<input type="number" name="injectorID"><br>
+
+				<label for="firstName">First name:</label><br>
+				<input type="text" name="firstName"><br>
+
+				<label for="lastName">Last name:</label><br>
+				<input type="text" name="lastName"><br>
+
+				<label for="siteID">Site ID:</label><br>
+				<input type="number" name="siteID"><br>
+
+				<input type="submit" value="Display Injector Chart">
+			</form>
+			<table id="injectorsTable">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Site ID</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div class="dbGroup">
+			<!-- <br><br><button onclick="listDB('patientinfo')">Show Patient Info Database</button> -->
+			<form id="patientInfoSearch" method="post">
+				<h2>Search Patient Information</h2>
+				<label for="patientID">Patient ID:</label><br>
+				<input type="number" name="patientID"><br>
+
+				<label for="firstName">First name:</label><br>
+				<input type="text" name="firstName"><br>
+
+				<label for="lastName">Last name:</label><br>
+				<input type="text" name="lastName"><br>
+
+				<label for="birthdate">Birth date:</label><br>
+				<input type="date" name="birthdate"><br>
+
+				<label for="address">Address:</label><br>
+				<input type="text" name="address"><br>
+
+				<label for="zipCode">Zip Code:</label><br>
+				<input type="number" name="zipCode"><br>
+
+				<input type="submit" value="Display Patient Chart">
+			</form>
+			<table id="patientInfoTable">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Birthdate</th>
+						<th>Address</th>
+						<th>Zip Code</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div class="dbGroup">
+			<form id="patientVaccinationSearch">
+				<h2>Search Patient Vaccination</h2>
+				<label for="patientID">Patient ID:</label><br>
+				<input type="number" name="patientID"><br>
+
+				<label for="date">Vaccination Date:</label><br>
+				<input type="date" name="date"><br>
+
+				<label for="injectorID">Injector ID:</label><br>
+				<input type="number" name="injectorID"><br>
+
+				<label for="firstName">Injector First name:</label><br>
+				<input type="text" name="firstName"><br>
+
+				<label for="lastName">Injector Last name:</label><br>
+				<input type="text" name="lastName"><br>
+
+				<label for="type">Vaccination Type: </label><br>
+				<select name="type">
+					<option value="">Any Type</option>
+					<option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
+					<option value="Moderna">Moderna</option>
+					<option value="Johnson & Johnson's Janssen">Johnson & Johnson's Janssen</option>
+				</select><br>
+
+				<label for="lotNumber">Lot Number:</label><br>
+				<input type="number" name="lotNumber"><br>
+
+				<input type="submit" value="Search Vaccinations">
+			</form>
+			<table id="patientVaccinationTable">
+				<thead>
+					<tr>
+						<th>Patient ID</th>
+						<th>Date</th>
+						<th>Injector ID</th>
+						<th>Injector First Name</th>
+						<th>Injector Last Name</th>
+						<th>Vaccination Type</th>
+						<th>Lot Number</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</main>
+</body>

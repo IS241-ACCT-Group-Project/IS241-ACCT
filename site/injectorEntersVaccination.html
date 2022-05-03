@@ -48,131 +48,100 @@
  			<input type="submit" value="register" id="newVaccinationForm">
  		</form>
 	</div>
-         <script>
-             var patientValid=false;
+         <div>
+            <script>
+                var patientValid=false;
 
-             var patientID = document.getElementsByName("patientID")[0];
-             patientID.addEventListener("input", validatePatientID);
-             patientID.addEventListener("propertychange", validatePatientID);
+                var patientID = document.getElementsByName("patientID")[0];
+                patientID.addEventListener("input", validatePatientID);
+                patientID.addEventListener("propertychange", validatePatientID);
 
-             //autofill injectorID
-             var injectorID=document.getElementsByName("injectorID")[0];
-             getInjID();
+                //autofill injectorID
+                var injectorID=document.getElementsByName("injectorID")[0];
+                getInjID();
 
-             function validateForm(event) {
-                 event.preventDefault();
+                function validateForm(event) {
+                    event.preventDefault();
 
-                 const newVaccinationForm=document.forms["injectorEntersVaccination"];
-                 const patientID = newVaccinationForm["patientID"].value;
-                 if (patientID == "") {
-                     alert("patientID must be filled out with positive numbers 1-1000.");
-                     return false;
-                 }
-                 if (patientID.match(/\D/.test(patientID))) {
-                     alert("Please only enter numeric characters 0-9 only for your patientID.");
-                     return false;
-                 }
+                    const newVaccinationForm=document.forms["injectorEntersVaccination"];
+                    const patientID = newVaccinationForm["patientID"].value;
+                    if (patientID == "") {
+                        alert("patientID must be filled out with positive numbers 1-1000.");
+                        return false;
+                    }
+                    if (patientID.match(/\D/.test(patientID))) {
+                        alert("Please only enter numeric characters 0-9 only for your patientID.");
+                        return false;
+                    }
 
-                 const injectorID = newVaccinationForm["injectorID"].value;
-                 if (injectorID == "") {
-                     alert("injectorID must be filled out with positive numbers 1-50.");
-                     return false;
-                 }
-                 if (injectorID.match(/\D/.test(injectorID))) {
-                     alert("Please only enter numeric characters 0-9 only for your injectorID.");
-                     return false;
-                 }
-
-
-                 const Date = newVaccinationForm["date"].value;
-                 //        d2 = new Date('2021-11-01').getTime(),
-                 //        d3 = new Date('2022-04-26').getTime();
-
-                 //    if (d1 > d2 || d1 < d3) {
-                 //        return true;
-                 //    } else {
-                 //        alert("date is not in valid range")
-                 //    }
-                 
-                 //const dateRange = new moment(date, 'YYYY/MM/DD', true);
-                 //reutrn dateRange.isValid() && dateRange.isAfter('2021-11-01') && dateRange.isBefore('2022-04-26');
-                 
-                 //date = new Date(vaccinationDate.value),
-                 //    dateEntered = date.getTime(),
-                 //        earliestDate = new Date('11/01/2021').getTime(),
-                 //        latestDate = new Date('02/20/2022').getTime();
-
-                 //if (dateEntered > earliestDate || dateEntered < latestDate) {
-                 //    return true;
-                 //} else {
-                 //    alert("Date is not in the valid range")
-                 //}
-
-                 var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-                 if (dateformat.test(date)) {
-                     alert("Please enter the date in MM / DD / YYYY format");
-                     return false;
-                 }
-
-                 if (Date == "") {
-                     alert("Date must be filled out. Please enter the date in MM / DD / YYYY format");
-                     return false;
-                 }
-                 //const dateEntered = newVaccinationForm["date"].value;
-                 //var dateEntered = new Date().getTime(); // 1501653935994
-                 //var from = new Date("2021-11-01").getTime(); // gives 1486492200000
-                 //var to = new Date("2022-04-26").getTime();
-                 //if (dateEntered >= from && dateEntered <= to) {
-                 //    alert("Date is not in the valid range")
-                 //    return false;
-                 //}
+                    const injectorID = newVaccinationForm["injectorID"].value;
+                    if (injectorID == "") {
+                        alert("injectorID must be filled out with positive numbers 1-50.");
+                        return false;
+                    }
+                    if (injectorID.match(/\D/.test(injectorID))) {
+                        alert("Please only enter numeric characters 0-9 only for your injectorID.");
+                        return false;
+                    }
 
 
-                 var isValidLot = /^\d{5}$/;
-                 const LotNumber = newVaccinationForm["lotNumber"].value;
-                 if (LotNumber == "") {
-                     alert("Lot Number is empty. Lot Number must be filled out with 5 digits [0-9] in the format XXXXX.");
-                     return false;
-                 }
-                 if (!LotNumber.match(isValidLot)) {
-                     alert("Please enter a valid zip code with 5 digits [0-9] in the format XXXXX.");
-                     return false;
-                 }
+                    var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+                    if (dateformat.test(date)) {
+                        alert("Please enter the date in MM / DD / YYYY format");
+                        return false;
+                    }
 
-                 var vaccinationType = newVaccinationForm["type"].value;
-                 if (vaccinationType == "") {
-                     alert("Please select a vaccination type from the drop down menu.");
-                     return false;
-                 }
+                    if (Date == "") {
+                        alert("Date must be filled out. Please enter the date in MM / DD / YYYY format");
+                        return false;
+                    }
 
-                 const data = new FormData(newVaccinationForm);
-                 const value = Object.fromEntries(data.entries());
+
+                    var isValidLot = /^\d{5}$/;
+                    const LotNumber = newVaccinationForm["lotNumber"].value;
+                    if (LotNumber == "") {
+                        alert("Lot Number is empty. Lot Number must be filled out with 5 digits [0-9] in the format XXXXX.");
+                        return false;
+                    }
+                    if (!LotNumber.match(isValidLot)) {
+                        alert("Please enter a valid zip code with 5 digits [0-9] in the format XXXXX.");
+                        return false;
+                    }
+
+                    var vaccinationType = newVaccinationForm["type"].value;
+                    if (vaccinationType == "") {
+                        alert("Please select a vaccination type from the drop down menu.");
+                        return false;
+                    }
+
+                    const data = new FormData(newVaccinationForm);
+                    const value = Object.fromEntries(data.entries());
  
-                 fetch("http://localhost:8081/addpatientvaccination", {
-                         method: "POST",
-                         headers: {
-                             "Content-Type": "application/json"
-                         },
-                         body: JSON.stringify(value)
-                     })
-                     .then(function (response) {
-                         // console.log(response);
-                         return response.json();
-                     })
-                     .then(function (data) {
-                         console.log(data);
+                    fetch("http://localhost:8081/addpatientvaccination", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(value)
+                        })
+                        .then(function (response) {
+                            // console.log(response);
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            console.log(data);
  
-                         if (data == "success") { //display success message
-                             //vaccinationMsg.innerHTML = originalVaccinationMsg;
-                             //vaccinationMsg.hidden = false;
-                             newVaccinationForm.reset();
-                             getInjID();
-                         }
-                         else { //set message content to error from server - probably won't get called bc validation catches potential errors
-                             //vaccinationMsg.textContent = data;
-                             //vaccinationMsg.hidden = false;
-                         }
-                 });
+                            if (data == "success") { //display success message
+                                //vaccinationMsg.innerHTML = originalVaccinationMsg;
+                                //vaccinationMsg.hidden = false;
+                                newVaccinationForm.reset();
+                                getInjID();
+                            }
+                            else { //set message content to error from server - probably won't get called bc validation catches potential errors
+                                //vaccinationMsg.textContent = data;
+                                //vaccinationMsg.hidden = false;
+                            }
+                    });
                 }
 
                 function validatePatientID(){
@@ -216,11 +185,11 @@
                         patientValid = false;
                     }
                 });
-             }
+                }
 
-             function getInjID(){
+                function getInjID(){
                 fetch("http://localhost:8081/currentinjectorid", {
-                   method: "GET",
+                    method: "GET",
                 //    headers: {
                     //    "Content-Type": "text/plain"
                 //    },
@@ -230,18 +199,18 @@
                     return response.json();
                 })
                 .then(function (id) {
-                   console.log(id);
+                    console.log(id);
                 
-                   if (id>-1) {
-                       console.log("Autofilling injector id #" + id);
+                    if (id>-1) {
+                        console.log("Autofilling injector id #" + id);
                     
-                       injectorID.value = id;
-                   }
-                   else {
-                       console.log("Cannot get injector id from session data.");
-                   }
+                        injectorID.value = id;
+                    }
+                    else {
+                        console.log("Cannot get injector id from session data.");
+                    }
                 });
-             }
+                }
          </script>
      </div>
  	</main>
