@@ -13,13 +13,12 @@ The name="" fields must match exactly with what the corresponding function in sc
 
 Forms that add new entries to the database need: 
     - <form action="http://localhost:8081/addACTION" method="post"> at the top 
-    - <input name=""> needs to match exactly (CASE SENSITIVE) with the example in databaseTesting.html
     - <input type="submit"/> within the form 
 
 Forms that search the database need: 
     - A form with <input type="submit"> within the form 
     - Their approproate <script type="text/javascript" src="scripts/searchSCRIPT.js"></script> 
-    - The <form id=""> needs to match exactly (CASE SENSITIVE) with "form = document.getElementById("");" in line 4 of the script mentioned above 
+    - The <form id=""> needs to match exactly with "form = document.getElementById("");" in line 4 of the script mentioned above 
     - To display results, a table with the appropriate <table id=""> mentioned in the script also needs to be on the same page. 
     - The table also needs its headers to be created in HTML. 
 -->
@@ -48,12 +47,23 @@ Forms that search the database need:
 			display:inline;
 			padding:0;
 		}
+
+		h1, h2 {
+			text-align: center;
+		}
+
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: steelblue;
+			color: #fff;
+		}
 	</style>
 </head>
 
 <body>
 	<main id="main-holder">
-		<h1>Database Testing</h1>
+		<h1>Missouri Immunization Information System</h1>
+		<h2>Database Testing</h2>
 		<div>
 			<h3>Logged in as: </h3><p id="username">NOT LOGGED IN</p>
 			<form action="http://localhost:8081/login" method="post">
@@ -279,12 +289,6 @@ Forms that search the database need:
 				<label for="injectorID">Injector ID:</label><br>
 				<input type="number" name="injectorID"><br>
 
-				<label for="firstName">Injector First name:</label><br>
-				<input type="text" name="firstName"><br>
-
-				<label for="lastName">Injector Last name:</label><br>
-				<input type="text" name="lastName"><br>
-
 				<label for="type">Vaccination Type: </label><br>
 				<select name="type">
 					<option value="">Any Type</option>
@@ -304,8 +308,6 @@ Forms that search the database need:
 						<th>Patient ID</th>
 						<th>Date</th>
 						<th>Injector ID</th>
-						<th>Injector First Name</th>
-						<th>Injector Last Name</th>
 						<th>Vaccination Type</th>
 						<th>Lot Number</th>
 					</tr>
