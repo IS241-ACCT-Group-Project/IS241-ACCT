@@ -19,7 +19,7 @@ Forms that add new entries to the database need:
 Forms that search the database need: 
     - A form with <input type="submit"> within the form 
     - Their approproate <script type="text/javascript" src="scripts/searchSCRIPT.js"></script> 
-    - The <form id=""> needs to match exactly (CASE SENSITIVE) with "form = document.getElementById("");" in line 4 of the script mentioned above 
+    - The <form id=""> needs to match exactly with "form = document.getElementById("");" in line 4 of the script mentioned above 
     - To display results, a table with the appropriate <table id=""> mentioned in the script also needs to be on the same page. 
     - The table also needs its headers to be created in HTML. 
 -->
@@ -48,12 +48,23 @@ Forms that search the database need:
 			display:inline;
 			padding:0;
 		}
+
+		h1, h2 {
+			text-align: center;
+		}
+
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: steelblue;
+			color: #fff;
+		}
 	</style>
 </head>
 
 <body>
 	<main id="main-holder">
-		<h1>Database Testing</h1>
+		<h1>Missouri Immunization Information System</h1>
+		<h2>Database Testing</h2>
 		<div>
 			<h3>Logged in as: </h3><p id="username">NOT LOGGED IN</p>
 			<form action="http://localhost:8081/login" method="post">
