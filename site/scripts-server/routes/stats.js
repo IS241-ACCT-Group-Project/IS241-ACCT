@@ -6,6 +6,7 @@ module.exports = function (app) {
     app.get("/totalvax", totalVaccinations);
     app.get("/monthvax", currentMonthVaccinations);
 
+    app.get("/getusername", getUsername);
     app.post("/siteexists", siteExists);
     app.get("/siteexists", currentSiteExists);
     app.post("/injectorexists", injectorExists);
@@ -73,6 +74,16 @@ function currentMonthVaccinations(request, response) {
     const sql = `SELECT COUNT(*) AS count FROM PATIENT_VACCINATION WHERE VaccinationDate > '${date.getFullYear()}-${date.getMonth() + 1}-1';`;
 
     queryOne(sql, response);
+}
+
+function getUsername(request, response) {
+    validate(request, response, null, function (accountID) {
+        if (accountID) {
+            const sql = `SELECT AccountUsername FROM ACCOUNT WHERE AccountID = '${accountID}';`;
+
+            queryOne(sql, response);
+        }
+    });
 }
 
 function siteExists(request, response) {

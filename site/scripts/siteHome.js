@@ -11,6 +11,7 @@ window.addEventListener("load", function () {
 });
 
 function findSiteInfo() {
+    console.log("test");
     fetch("http://localhost:8081/siteexists", {
         method: "GET",
         headers: {
@@ -18,11 +19,11 @@ function findSiteInfo() {
         }
     })
         .then(function (response) {
-            // console.log(response);
+            console.log(response);
             return response.json();
         })
         .then(function (data) {
-            // console.log(data);
+            console.log(data);
             if (data != null) {
                 const formattedPhone = `${data.SitePhoneNumber.slice(0, 3)}-${data.SitePhoneNumber.slice(3, 6)}-${data.SitePhoneNumber.slice(6)}`;
 
