@@ -4,13 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Account</title>
+    <link rel="stylesheet" href="styles/style.css">
     <!-- <script type="text/javascript" src="scripts/createAccount.js"></script> -->
     <script type="text/javascript" src="scripts/editAccount.js"></script>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Roboto', sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 100vh;
+overflow: auto;
+margin: 0;
+}
+
+</style>
 <body>
+    
     <script>
         var profiledata; //this is changed on the server
     </script>
+    <h1>Missouri Immunization Information System</h1>
 
     <p><a href="http://localhost:8081/accounthome">Return to account home</a></p>
 
