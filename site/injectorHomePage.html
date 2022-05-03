@@ -6,63 +6,120 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Injector Home Page</title>
 
+    <script defer src="scripts/injectorHomePage.js"></script>
+	
 	<!--css code from homelanding.html for the navbar -->
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="styles/materialize.min.css" media="screen,projection" />
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="styles/style.css" />
+	<!-- <link rel="stylesheet" href="styles/style.css" /> -->
 	<link rel="stylesheet" href="styles/homePageStyles.css">	
-	<script defer src="scripts/injectorHomePage.js"></script>
 
-	
 </head>
 
-<body>
+<body class="steelblue">
 
 	<!-- navbar from homelanding.html -->
-	  <nav class="blue darken-4">
-		<div class="nav-container">
-		  <div class="nav-wrapper">
-			<a href="homelanding.html" class="brand-logo">ACCT</a>
-			<a class="button-collapse" data-activates="mobile-nav" href="#">
-			  <i class="material-icons">menu</i>
-			</a>
-			<ul class="right hide-on-med-and-down">
-			  <li>
-				<a href="homelanding.html">Home</a>
-			  </li>
-			</ul>
-		  </div>
-		</div>
-	  </nav>
+  <nav class="blue darken-4">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="homelanding.html" class="brand-logo">ACCT Injector Home Page</a>
+        <a class="button-collapse" data-activates="mobile-nav" href="#">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a href="homelanding.html">Home</a>
+          </li>
+          <li>
+            <a href="faq.html">FAQs</a>
+          </li>
+          
+          <li>
+            <a href="about.html">About Us</a>
+          </li>
 
+          <!-- DROPDOWN TRIGGER -->
+          <li>
+            <a class="dropdown-button" data-activates="my-dropdown" href="#!">Quick Access
+              <i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
+          <!-- BUTTON LINK -->
+          <li>
+            <a href="http://localhost:8081/logout" class="btn waves-effect waves-light" style="background-color:Tomato;">Logout</a>
+          </li>
+          <!-- ICON LINK -->
+          <li>
+            <a href="#">
+              <i class="material-icons">person</i>
+            </a>
+          </li>
+        </ul>
+        <ul class="side-nav" id="mobile-nav">
+          <li>
+            <a href="homelanding.html">Home</a>
+          </li>
+          <li>
+            <a href="faq.html">FAQs</a>
+          </li>
+          <li>
+            <a href="about.html">About Us</a>
+          </li>
+          
+          </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- DROPDOWN MENU -->
+  <ul id="my-dropdown" class="dropdown-content">
+    <li>
+      <a href="injectorHomePage.html">Injectors</a>
+    </li>
+    <li>
+      <a href="siteHomePage.html">Sites</a>
+    </li>
+    <li>
+      <a href="admindex.html">CDC</a>
+    </li>
+  </ul>
+  
 
-
-		<h1>Missouri Immunization Information System</h1>
-	    <div class="container">
+	    <div class="inj-container">
 		
-			<h2>Injector Home Page</h2>
-
 			<p>Injectors are site staff members who inject vaccines into patient's arms.  
 			They also play an important role in entering data into the vaccine tracking system.  
 			Injectors enter two forms: patient and vaccine records.  
 			Injectors choose which form to enter by clicking the Form Entry button below.
 			</p>
 			
-			<button onclick="myFunction()" class="dropbtn">Form Data Entry</button>
-			<div id="myDropdown" class="injector-dropdown-content">
+			<button onclick="myFunction()" class="inj-dropbtn">Form Data Entry</button>
+			<div id="myDropdown" class="inj-dropdown-content">
 			  <a href="http://localhost:8081/newpatient">Patient</a>
 			  <a href="http://localhost:8081/newvaccination">Vaccine</a>
 			</div>
-			
-			<p>Powered by ACCT</p>
 		</div>
 
-		<!-- <a href="http://localhost" -->
+  <!--Import jQuery before materialize.js-->
+  <!-- THESE NEED TO STAY AT THE BOTTOM -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="scripts/materialize.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('.dropdown-button').dropdown({
+        constrainWidth: false,
+        hover: true,
+        belowOrigin: true,
+        alignment: 'left'
+      });
+
+      $('.button-collapse').sideNav();
+
+      // JAVASCRIPT START HERE //
+    });
+  </script>
 </body>
 
 </html>

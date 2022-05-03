@@ -127,14 +127,18 @@ function searchPatientVaccination(request, response) {
         "PatientID",
         "VaccinationDate",
         "InjectorID",
+        "INJECTOR.FirstName",
+        "INJECTOR.LastName",
         "VaccinationType",
         "LotNumber"
     ];
     //get values from form "name=" with request.body
     const fieldData = [
-        db.pool.escape("%" + request.body.patientID + "%"),
-        db.pool.escape("%" + request.body.date + "%"),
-        db.pool.escape("%" + request.body.injectorID + "%"),
+        db.pool.escape(request.body.patientID),
+        db.pool.escape(request.body.date),
+        db.pool.escape(request.body.injectorID),
+        db.pool.escape("%" + request.body.firstName + "%"),
+        db.pool.escape("%" + request.body.lastName + "%"),
         db.pool.escape("%" + request.body.type + "%"),
         db.pool.escape("%" + request.body.lotNumber + "%"),
     ];
@@ -160,7 +164,12 @@ function searchPatientVaccination(request, response) {
 }
 
 function buildSearchSQL(db, names, data) {
+    const columnNames = `INJECTOR.FirstName, INJECTOR.LastName, PATIENT_VACCINATION.*`;
     var sql = `SELECT * FROM ${db} WHERE(`;
+
+    if (db == "PATIENT_VACCINATION") {
+        sql = `SELECT ${columnNames} FROM ${db} INNER JOIN INJECTOR ON INJECTOR.InjectorID = PATIENT_VACCINATION.InjectorID WHERE(`;
+    }
     var addAND = false; //for adding multiple search criteria
 
     const arrLength = data.length;
@@ -179,6 +188,10 @@ function buildSearchSQL(db, names, data) {
 
     if (!addAND) { //if no criteria were added, show all sites instead
         sql = `SELECT * FROM ${db};`;
+
+        if (db == "PATIENT_VACCINATION") {
+            sql = `SELECT ${columnNames} FROM ${db} INNER JOIN INJECTOR ON INJECTOR.InjectorID = PATIENT_VACCINATION.InjectorID;`;
+        }
     }
 
     return sql;

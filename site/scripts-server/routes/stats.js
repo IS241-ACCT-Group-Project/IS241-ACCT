@@ -6,9 +6,9 @@ module.exports = function (app) {
     app.get("/totalvax", totalVaccinations);
     app.get("/monthvax", currentMonthVaccinations);
 
-    app.get("/siteexists", siteExists);
-    app.get("/injectorexists", injectorExists);
-    app.get("/patientexists", patientExists);
+    app.post("/siteexists", siteExists);
+    app.post("/injectorexists", injectorExists);
+    app.post("/patientexists", patientExists);
 }
 
 const db = require("./../db");
@@ -45,80 +45,75 @@ function vaxByMonths(request, response) {
 function totalSites(request, response) {
     const sql = `SELECT COUNT(*) AS count FROM SITE;`;
 
-    db.pool.query(sql, function (err, result) {
-        if (err) {
-            console.log(err);
-            // throw err;
-            return;
-        }
-
-        // console.log(result);
-
-        response.setHeader("Content-Type", "application/json");
-        response.write(JSON.stringify(result[0]));
-        response.end();
-    });
+    queryOne(sql, response);
 }
 
 function totalInjectors(request, response) {
     const sql = `SELECT COUNT(*) AS count FROM INJECTOR;`;
 
-    db.pool.query(sql, function (err, result) {
-        if (err) {
-            console.log(err);
-            // throw err;
-            return;
-        }
-
-        // console.log(result);
-
-        response.setHeader("Content-Type", "application/json");
-        response.write(JSON.stringify(result[0]));
-        response.end();
-    });
+    queryOne(sql, response);
 }
 
 function totalPatients(request, response) {
     const sql = `SELECT COUNT(*) AS count FROM PATIENT_INFO;`;
 
-    db.pool.query(sql, function (err, result) {
-        if (err) {
-            console.log(err);
-            // throw err;
-            return;
-        }
-
-        // console.log(result);
-
-        response.setHeader("Content-Type", "application/json");
-        response.write(JSON.stringify(result[0]));
-        response.end();
-    });
+    queryOne(sql, response);
 }
 
 function totalVaccinations(request, response) {
     const sql = `SELECT COUNT(*) AS count FROM PATIENT_VACCINATION;`;
 
-    db.pool.query(sql, function (err, result) {
-        if (err) {
-            console.log(err);
-            // throw err;
-            return;
-        }
-
-        // console.log(result);
-
-        response.setHeader("Content-Type", "application/json");
-        response.write(JSON.stringify(result[0]));
-        response.end();
-    });
+    queryOne(sql, response);
 }
 
 function currentMonthVaccinations(request, response) {
     var date = new Date;
 
-    const sql = `SELECT COUNT(*) AS count FROM PATIENT_VACCINATION WHERE VaccinationDate > '${date.getFullYear()}-${date.getMonth()}';`;
+    const sql = `SELECT COUNT(*) AS count FROM PATIENT_VACCINATION WHERE VaccinationDate > '${date.getFullYear()}-${date.getMonth() + 1}-1';`;
 
+    queryOne(sql, response);
+}
+
+function siteExists(request, response) {
+    validate(request, response, null, function (isValid) {
+        if (isValid) {
+            const siteID = db.pool.escape(request.body);
+            console.log("Check site exists recieved request for: " + siteID);
+
+            const sql = `SELECT * FROM SITE WHERE SiteID = ${siteID};`;
+
+            queryOne(sql, response);
+        }
+    });
+}
+
+function injectorExists(request, response) {
+    validate(request, response, null, function (isValid) {
+        if (isValid) {
+            const injectorID = db.pool.escape(request.body);
+            console.log("Check injector exists recieved request for: " + injectorID);
+
+            const sql = `SELECT * FROM INJECTOR WHERE InjectorID = ${injectorID};`;
+
+            queryOne(sql, response);
+        }
+    });
+}
+
+function patientExists(request, response) {
+    validate(request, response, null, function (isValid) {
+        if (isValid) {
+            const patientID = db.pool.escape(request.body);
+            console.log("Check patient exists recieved request for: " + patientID);
+
+            const sql = `SELECT * FROM PATIENT_INFO WHERE PatientID = ${patientID};`;
+
+            queryOne(sql, response);
+        }
+    });
+}
+
+function queryOne(sql, response) {
     db.pool.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -129,76 +124,12 @@ function currentMonthVaccinations(request, response) {
         // console.log(result);
 
         response.setHeader("Content-Type", "application/json");
-        response.write(JSON.stringify(result[0]));
+        if (result[0]) {
+            response.write(JSON.stringify(result[0]));
+        }
+        else {
+            response.write(JSON.stringify(""));
+        }
         response.end();
-    });
-}
-
-function siteExists(request, response) {
-    validate(request, response, "admin", function (isValid) {
-        if (isValid) {
-            const siteID = db.pool.escape(request.body.siteID);
-            console.log("Check site exists recieved request for: " + siteID);
-
-            const sql = `SELECT 1 FROM SITE WHERE SiteID = ${siteID};`;
-
-            db.pool.query(sql, function (err, result) {
-                if (err) {
-                    console.log(err);
-                    // throw err;
-                    return;
-                }
-
-                response.setHeader("Content-Type", "application/json");
-                response.write(JSON.stringify(result));
-                response.end();
-            });
-        }
-    });
-}
-
-function injectorExists(request, response) {
-    validate(request, response, "admin", function (isValid) {
-        if (isValid) {
-            const injectorID = db.pool.escape(request.body.injectorID);
-            console.log("Check injector exists recieved request for: " + injectorID);
-
-            const sql = `SELECT 1 FROM INJECTOR WHERE InjectorID = ${injectorID};`;
-
-            db.pool.query(sql, function (err, result) {
-                if (err) {
-                    console.log(err);
-                    // throw err;
-                    return;
-                }
-
-                response.setHeader("Content-Type", "application/json");
-                response.write(JSON.stringify(result));
-                response.end();
-            });
-        }
-    });
-}
-
-function patientExists(request, response) {
-    validate(request, response, "admin", function (isValid) {
-        if (isValid) {
-            const patientID = db.pool.escape(request.body.patientID);
-            console.log("Check patient exists recieved request for: " + patientID);
-
-            const sql = `SELECT 1 FROM PATIENT WHERE PatientID = ${patientID};`;
-
-            db.pool.query(sql, function (err, result) {
-                if (err) {
-                    console.log(err);
-                    // throw err;
-                    return;
-                }
-
-                response.setHeader("Content-Type", "application/json");
-                response.write(JSON.stringify(result));
-                response.end();
-            });
-        }
     });
 }

@@ -1,69 +1,191 @@
+/* this css copied from style.css */
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: steelblue;
+  color: #fff;
+  font-family: 'Muli', sans-serif;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0;
+}
+
+.inj-container {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 20px 40px;
+  border-radius: 5px;
+  width: 30%;
+  height: 50%;
+  margin: 100px;
+}
+
+.inj-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.inj-container p {
+  position: relative;
+  margin: 20px 0 30px;
+  width: 400px;
+  text-align: left;  
+} 
+
+.inj-container a {
+  text-decoration: none;
+  color: lightblue;
+}
+
+.inj-btn {
+  cursor: pointer;
+  display: inline-block;
+  width: 100%;
+  background: lightblue;
+  padding: 15px;
+  font-family: inherit;
+  font-size: 16px;
+  border: 0;
+  border-radius: 5px;
+}
+
+.inj-btn:focus {
+  outline: 0;
+}
+
+.inj-btn:active {
+  transform: scale(0.98);
+}
+
+.text {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.form-control {
+  position: relative;
+  margin: 20px 0 40px;
+  width: 300px;
+}
+
+.form-control input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px #fff solid;
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  font-size: 18px;
+  color: #fff;
+}
+
+.form-control input:focus,
+.form-control input:valid {
+  outline: 0;
+  border-bottom-color: lightblue;
+}
+
+.form-control label {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  pointer-events: none;
+}
+
+.form-control label span {
+  display: inline-block;
+  font-size: 18px;
+  min-width: 5px;
+  transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.form-control input:focus + label span,
+.form-control input:valid + label span {
+  color: lightblue;
+  transform: translateY(-30px);
+}
+
+
+/* original homePageStyles.css */
 /* Dropdown Button */
-.dropbtn {
-  background-color: #3498DB;
+.inj-dropbtn {
+  background-color: #3498DB; 
   color: white;
   padding: 16px;
   font-size: 16px;
   border: none;
   cursor: pointer;
-  display: block;
-  margin: 0 auto;  
 }
 
 /* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
+.inj-dropbtn:hover, .inj-dropbtn:focus {
   background-color: #2980B9;
 }
 
-/*
+/* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
-  display: inline-block;
+  display: flex;
   justify-content: center;
   align-items: center;  
 }
- */
 
 /* Dropdown Content (Hidden by Default) */
-.injector-dropdown-content {
+.inj-dropdown-content {
   display: none;
   position: absolute;
   background-color: #f1f1f1;
-  min-width: 120px;
+  min-width: 140px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  left: 50%;
-  transform: translateX(-50%);  
 }
 
 /* Links inside the dropdown */
-.injector-dropdown-content a {
+.inj-dropdown-content a {
   color: black;
-  padding: 12px 12px;
+  padding: 12px 16px;
   text-decoration: none;
   display: block;
-  text-align: center;
 }
 
 /* Change color of dropdown links on hover */
-.injector-dropdown-content a:hover {
-	background-color: #ddd
-}
+.inj-dropdown-content a:hover {background-color: #ddd}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;}
+.inj-show {display:block;}
 
-/* injector paragraph info */
-.container p {
-  position: relative;
-  margin: 20px 0 30px;
-  width: 300px;
-  text-align: center;
-} 
-.container h2 {
+/* container styles */
+/*
+.inj-container {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 20px 40px;
+  border-radius: 5px;
+}
+
+.inj-container h1 {
   text-align: center;
   margin-bottom: 30px;
 }
+
+.inj-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.inj-container a {
+  text-decoration: none;
+  color: lightblue;
+}
+
+
+ */
+
 
 input:invalid {
   border: 2px solid red;

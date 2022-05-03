@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>New Vaccinator Registration</title>
+	<link rel="stylesheet" href="styles/loginStyles.css">
+    <script type="text/javascript" src="scripts/site.js"></script>
+</head>
+
+<body>
+	<main id="main-holder">
+	<h1>Account Registration</h1>
+		<div id="insuffient-information-erro-message-holder">
+			<p id="insuffient-information-error-message">Insufficient information provided</p>
+		</div>
+		<form id="newVaccinatorForm" action="http://localhost:8081/addvaccinator" method="post">
+		<h2>Contact</h2>
+				<label for="firstName">First name:</label><br>
+				<input type="text" id="firstName" name="firstName"><br>
+				
+				<label for="lastName">Last name:</label><br>
+				<input type="text" id="lastName" name="lastName"><br>
+				
+				<label for="clinicID">clinicID</label><br>
+				<input type="number" id="clinicID" name="clinicID">
+		<input type="submit" value="Register" id="newVaccinationForm">
+		</form>
+	</main>
+</body>

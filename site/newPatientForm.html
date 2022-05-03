@@ -10,39 +10,42 @@
 
 <body>
     <div class="container">
-        <main id="patient-holder" method="post" onsubmit="return validateForm()">
+        <main id="patient-holder" method="post" onsubmit="validateForm(event)">
             <form id="newPatientForm">
                 <h2>Patient Demographics</h2>
-                <label for="FirstName">First Name*:</label><br>
-                <input type="text" id="FirstName" name="FirstName" maxlength="30"><br>
+                <label for="firstName">First Name*:</label><br>
+                <input type="text" id="firstName" name="firstName" maxlength="30"><br>
 
-                <label for="LastName">Last Name*:</label><br>
-                <input type="text" id="LastName" name="LastName" maxlength="30"><br>
+                <label for="lastName">Last Name*:</label><br>
+                <input type="text" id="lastName" name="lastName" maxlength="30"><br>
 
-                <label for="PatientDOB">Patient DOB</label><br />
-                <input type="date" id="PatientDOB" name="PatientDOB"
+                <label for="birthdate">Patient DOB</label><br />
+                <input type="date" id="birthdate" name="birthdate"
                        value=""
                        min="1922-01-01" max="2016-12-31" />
                 <br />
 
                 <h2>Patient Contact Information</h2>
 
-                <label for="PatientAddress">Street Address, City, and State:</label><br>
-                <input type="text" id="PatientAddress" name="PatientAddress" maxlength="60"><br>
+                <label for="address">Street Address:</label><br>
+                <input type="text" id="address" name="address" maxlength="60"><br>
 
-                <label for="ZipCode">Zip Code (5-digit):</label><br>
-                <input type="text" id="ZipCode" name="ZipCode" maxlength="5"
-                       pattern="[0-9]{5}" title="Enter five digit zip code"><br>
+                <label for="zipCode">Zip Code (5-digit):</label><br>
+                <input type="text" id="zipCode" name="zipCode" maxlength="5"
+                       title="Enter five digit zip code"><br>
+                        <!--pattern="[0-9]{5}"-->
+                       
 
                 <h3>(*required field)</h3>
                 <input type="submit" value="Register" id="newPatientRegister">
             </form>
 
             <script>
-                function validateForm() {
-
+                function validateForm(event) {
+                    event.preventDefault();
+                    const newPatientForm=document.forms["newPatientForm"];
                     var regName = /^[A-Za-z\s]+$/;
-                    const FirstName = document.forms["newPatientForm"]["FirstName"].value;
+                    const FirstName = newPatientForm["firstName"].value;
                     if (FirstName == "") {
                         alert("The First name field is empty. First Name must be filled out using capital and lowercase letters A-Z.");
                         return false;
@@ -51,7 +54,7 @@
                         alert("Please enter a valid first name using capital and lowercase letters A-Z.");
                     }
 
-                    const LastName = document.forms["newPatientForm"]["LastName"].value;
+                    const LastName = newPatientForm["lastName"].value;
                     if (LastName == "") {
                         alert("The Lastname field is empty. LastName must be filled out using capital and lowercase letters A-Z.");
                         return false;
@@ -61,7 +64,7 @@
                     }
 
                     var isValidAddress = /^[a-zA-Z0-9\s,.'-]{3,}$/;
-                    const PatientAddress = document.forms["newPatientForm"]["PatientAddress"].value;
+                    const PatientAddress = newPatientForm["address"].value;
                     if (PatientAddress == "") {
                         alert("The address field is empty. Address must be filled out using capital and lowercase letters A-Z, and “., ‘-” characters.");
                         return false;
@@ -71,28 +74,61 @@
                         return false;
                     }
 
+
                     var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-                    if (dateformat.test(PatientDOB)) {
+                    const Birthdate = newPatientForm["birthdate"].value;
+                    if (dateformat.test(birthdate)) {
                         alert("Please enter the date in MM / DD / YYYY format.");
                         return false;
                     }
-
-                    if (PatientDOB == "") {
+                    if (Birthdate == "") {
                         alert("Date must be filled out. Please enter the date in MM / DD / YYYY format");
                         return false;
                     }
 
-                    var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test("90210");
-                    const ZipCode = document.forms["newPatientForm"]["ZipCode"].value;
-                    if (ZipCode == "") {
-                        alert("Zip code is empty. Zip code must be filled out with digits in the format XXXXX or XXXXX-XXXX.");
+                    //does not validate 5-digit zip codes
+                    var isValidZip = /^\d{5}$/;
+                    const ZipCode = newPatientForm["zipCode"].value;                    
+                    if (ZipCode == ""){
+                        alert("Zip code is empty. Zip code must be filled out with digits in the format XXXXX.");
                         return false;
                     }
-                    if (!Zipcode.match(isValidZip)) {
-                        alert("Please enter a valid zip code with digits in the format XXXXX or XXXXX-XXXX." );
+                    if (!ZipCode.match(isValidZip)) {
+                        alert("Please enter a valid zip code with 5 digits [0-9] in the format XXXXX." );
                         return false;
                     }
+                    //console.log(isValidZip);
+                    //console.log("Hello world!");
 
+
+                    const data = new FormData(newPatientForm);
+                    const value = Object.fromEntries(data.entries());
+                    // console.log(value);
+
+                    fetch("http://localhost:8081/addpatientinfo", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(value)
+                        })
+                        .then(function (response) {
+                            // console.log(response);
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            console.log(data);
+
+                            if (data == "success") { //display success message
+                                //patientMsg.innerHTML = originalPatientMsg;
+                                //patientMsg.hidden = false;
+                                newPatientForm.reset();
+                            }
+                            else { //set message content to error from server - probably won't get called bc validation catches potential errors
+                                //patientMsg.textContent = data;
+                                //patientMsg.hidden = false;
+                            }
+                    });
                 }
             </script>
         </main>

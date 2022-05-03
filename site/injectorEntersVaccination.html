@@ -11,16 +11,16 @@
  <body>
      <main>
      <div class="container">
-         <form id="injectorEntersVaccination" action="http://localhost:8081/addpatientvaccination" method="post" onsubmit="return validateForm()">
+         <form id="injectorEntersVaccination" onsubmit="validateForm(event)">
              <h2>Record New Vaccination:</h2>
 
              <label for="patientID">Patient ID:</label><br>
              <input type="number" id="patientID" name="patientID"
-                    min="1" max="1000" />
+                    min="1" max="1000" /><div id="patientName" style="color:gray;"></div>
              <br>
 
              <label for="date">Vaccination Date:</label><br>
-             <input type="date" id="date" name="date"
+             <input type="date"  id="date" name="date"
                     value=""
                     min="2021-11-01" max="2022-04-26" />
              <br />
@@ -33,8 +33,8 @@
 
              <br>
 
-             <label for="vaccinationType">VaccinationType:</label><br>
-             <select name="vaccinationType" id="vaccinationType">
+             <label for="type">VaccinationType:</label><br>
+             <select name="type" id="type">
                  <option value="">Choose</option>
                  <option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
                  <option value="Moderna">Moderna</option>
@@ -43,72 +43,174 @@
              <br />
 
  			<label for="lotNumber">LotNumber:</label><br>
- 			<input type="number" id="lotNumber" name="lotNumber" min="00001" max="99999" />
+ 			<input type="number" id="lotNumber" name="lotNumber"  min="00001" max="99999" />
  			<br><br>
  			<input type="submit" value="register" id="newVaccinationForm">
  		</form>
 	</div>
-         <script>
-             function validateForm() {
-                 const patientID = document.forms["injectorEntersVaccination"]["patientID"].value;
-                 if (patientID == "") {
-                     alert("patientID must be filled out with positive numbers 1-1000.");
-                     return false;
-                 }
-                 if (patientID.match(/\D/.test(patientID))) {
-                     alert("Please only enter numeric characters 0-9 only for your patientID.");
-                     return false;
-                 }
+         <div>
+            <script>
+                var patientValid=false;
 
-                 const injectorID = document.forms["injectorEntersVaccination"]["injectorID"].value;
-                 if (injectorID == "") {
-                     alert("injectorID must be filled out with positive numbers 1-50.");
-                     return false;
-                 }
-                 if (injectorID.match(/\D/.test(injectorID))) {
-                     alert("Please only enter numeric characters 0-9 only for your injectorID.");
-                     return false;
-                 }
+                var patientID = document.getElementsByName("patientID")[0];
+                patientID.addEventListener("input", validatePatientID);
+                patientID.addEventListener("propertychange", validatePatientID);
 
+                //autofill injectorID
+                var injectorID=document.getElementsByName("injectorID")[0];
+                getInjID();
 
-                 const date = document.forms["injectorEntersVaccination"]["date"].value;
+                function validateForm(event) {
+                    event.preventDefault();
 
-                 //date = new Date(vaccinationDate.value),
-                 //    dateEntered = date.getTime(),
-                 //        earliestDate = new Date('11/01/2021').getTime(),
-                 //        latestDate = new Date('02/20/2022').getTime();
+                    const newVaccinationForm=document.forms["injectorEntersVaccination"];
+                    const patientID = newVaccinationForm["patientID"].value;
+                    if (patientID == "") {
+                        alert("patientID must be filled out with positive numbers 1-1000.");
+                        return false;
+                    }
+                    if (patientID.match(/\D/.test(patientID))) {
+                        alert("Please only enter numeric characters 0-9 only for your patientID.");
+                        return false;
+                    }
 
-                 //if (dateEntered > earliestDate || dateEntered < latestDate) {
-                 //    return true;
-                 //} else {
-                 //    alert("Date is not in the valid range")
-                 //}
-
-                 var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-                 if (dateformat.test(date)) {
-                     alert("Please enter the date in MM / DD / YYYY format");
-                     return false;
-                 }
-
-                 if (date == "") {
-                     alert("Date must be filled out. Please enter a date in MM / DD / YYYY format");
-                     return false;
-                 }
-
-                 var isValidLot = /(^\d{5}?$)/;
-                 const lotNumber = document.forms["injectorEntersVaccination"]["lotNumber"].value;
-                 if (!isValidLot.match(lotNumber)) {
-                     alert("Please enter a valid 5-digit lot number.");
-                     return false;
-                 }
+                    const injectorID = newVaccinationForm["injectorID"].value;
+                    if (injectorID == "") {
+                        alert("injectorID must be filled out with positive numbers 1-50.");
+                        return false;
+                    }
+                    if (injectorID.match(/\D/.test(injectorID))) {
+                        alert("Please only enter numeric characters 0-9 only for your injectorID.");
+                        return false;
+                    }
 
 
-                 var vaccinationType = document.forms["injectorEntersVaccination"]["vaccinationType"].value;
-                 if (vaccinationType == "") {
-                     alert("Please select a vaccination type from the drop down menu.");
-                     return false;
-                 }
-             }
+                    var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+                    if (dateformat.test(date)) {
+                        alert("Please enter the date in MM / DD / YYYY format");
+                        return false;
+                    }
+
+                    if (Date == "") {
+                        alert("Date must be filled out. Please enter the date in MM / DD / YYYY format");
+                        return false;
+                    }
+
+
+                    var isValidLot = /^\d{5}$/;
+                    const LotNumber = newVaccinationForm["lotNumber"].value;
+                    if (LotNumber == "") {
+                        alert("Lot Number is empty. Lot Number must be filled out with 5 digits [0-9] in the format XXXXX.");
+                        return false;
+                    }
+                    if (!LotNumber.match(isValidLot)) {
+                        alert("Please enter a valid zip code with 5 digits [0-9] in the format XXXXX.");
+                        return false;
+                    }
+
+                    var vaccinationType = newVaccinationForm["type"].value;
+                    if (vaccinationType == "") {
+                        alert("Please select a vaccination type from the drop down menu.");
+                        return false;
+                    }
+
+                    const data = new FormData(newVaccinationForm);
+                    const value = Object.fromEntries(data.entries());
+ 
+                    fetch("http://localhost:8081/addpatientvaccination", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(value)
+                        })
+                        .then(function (response) {
+                            // console.log(response);
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            console.log(data);
+ 
+                            if (data == "success") { //display success message
+                                //vaccinationMsg.innerHTML = originalVaccinationMsg;
+                                //vaccinationMsg.hidden = false;
+                                newVaccinationForm.reset();
+                                getInjID();
+                            }
+                            else { //set message content to error from server - probably won't get called bc validation catches potential errors
+                                //vaccinationMsg.textContent = data;
+                                //vaccinationMsg.hidden = false;
+                            }
+                    });
+                }
+
+                function validatePatientID(){
+                var input = patientID.value;
+                console.log("input is " + input);
+                patientValid = false;
+
+                if (input == "") {
+                    patientName.innerHTML="";
+                    return;
+                }
+
+                fetch("http://localhost:8081/patientexists", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "text/plain"
+                    },
+                    body: input
+                })
+                .then(function (response) {
+                    // console.log(response);
+                    return response.json();
+                })
+                .then(function (patient) {
+                    console.log(patient.PatientID);
+                
+                    if (patient.PatientID > -1) {
+                        console.log("Patient #" + input + " exists.");
+                    
+                        patientName.innerHTML = `${patient.FirstName} ${patient.LastName}`;
+                        patientValid = true;
+                    }
+                    else if (patient.PatientID == null) {
+                        console.log("Patient #" + input + " does not exist.");
+
+                        patientName.innerHTML = `Patient #${input} does not exist.`;
+                        patientValid = false;
+                    }
+                    else {
+                        console.log("Error checking if patient exists");
+                        patientValid = false;
+                    }
+                });
+                }
+
+                function getInjID(){
+                fetch("http://localhost:8081/currentinjectorid", {
+                    method: "GET",
+                //    headers: {
+                    //    "Content-Type": "text/plain"
+                //    },
+                })
+                .then(function (response) {
+                    // console.log(response);
+                    return response.json();
+                })
+                .then(function (id) {
+                    console.log(id);
+                
+                    if (id>-1) {
+                        console.log("Autofilling injector id #" + id);
+                    
+                        injectorID.value = id;
+                    }
+                    else {
+                        console.log("Cannot get injector id from session data.");
+                    }
+                });
+                }
          </script>
      </div>
  	</main>

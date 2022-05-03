@@ -54,7 +54,8 @@ function editInjector(request, response) {
             const lastname = db.pool.escape(request.body.lastName);
             const siteid = db.pool.escape(request.body.siteID);
             //create sql statement
-            const sql = `UPDATE INJECTOR SET FirstName = ${firstname}, LastName = ${lastname}, SiteID = ${siteid} WHERE InjectorID = ${associatedID};`;
+            const sql = `UPDATE INJECTOR SET FirstName = ${firstname}, LastName = ${lastname}, SiteID = ${siteid} WHERE InjectorID = ${associatedID}; `
+            + `SELECT * FROM INJECTOR WHERE InjectorID = '${associatedID}';`;
 
             //debugging - prints to terminal
             //console.log(request.body);
@@ -68,8 +69,11 @@ function editInjector(request, response) {
                 }
 
                 audit(accountID, "edit", sql);
+                // console.log(JSON.stringify(result[1]));
 
-                response.statusCode = 204; //do not leave web page
+                // response.statusCode = 204; //do not leave web page
+                response.setHeader("Content-Type", "application/json");
+                response.write(JSON.stringify(result[1]));
                 response.end();
             });
         }
@@ -121,7 +125,8 @@ function editSite(request, response) {
             const zipCode = db.pool.escape(request.body.zipCode);
             const phone = db.pool.escape(request.body.phone).replaceAll("-", "");
             //create sql statement
-            const sql = `UPDATE SITE SET SiteName = ${name}, SiteAddress = ${address}, SiteZipCode = ${zipCode}, SitePhoneNumber = ${phone} WHERE SiteID = '${associatedID}'; SELECT * FROM SITE WHERE SiteID = '${associatedID}';`;
+            const sql = `UPDATE SITE SET SiteName = ${name}, SiteAddress = ${address}, SiteZipCode = ${zipCode}, SitePhoneNumber = ${phone} WHERE SiteID = '${associatedID}'; `
+            + `SELECT * FROM SITE WHERE SiteID = '${associatedID}';`;
 
             //debugging - prints to terminal
             //console.log(request.body);
@@ -136,11 +141,11 @@ function editSite(request, response) {
                 }
 
                 audit(accountID, "edit", sql);
+                // console.log(JSON.stringify(result[1]));
 
                 // response.statusCode = 204; //do not leave web page
                 response.setHeader("Content-Type", "application/json");
                 response.write(JSON.stringify(result[1]));
-                console.log(JSON.stringify(result[1]));
                 response.end();
             });
         }
@@ -151,6 +156,8 @@ function addPatientInfo(request, response) {
     validate(request, response, "injector", function (accountID) {
         if (accountID) {
             //validation checks here
+
+            response.setHeader("Content-Type", "application/json");
 
             //get values from form "name=" with request.body
             const firstName = db.pool.escape(request.body.firstName);
@@ -170,13 +177,18 @@ function addPatientInfo(request, response) {
                 if (err) {
                     console.log(err);
                     //throw err;
+                    response.write(JSON.stringify("There was an error adding a new patient record. Please try again."));
+                    response.end();
                     return;
                 }
+                else {
 
-                audit(accountID, "add", sql);
+                    audit(accountID, "add", sql);
 
-                response.statusCode = 204; //do not leave web page
-                response.end();
+                    // response.statusCode = 204; //do not leave web page
+                    response.write(JSON.stringify("success"));
+                    response.end();
+                }
             });
         }
     });
@@ -190,7 +202,9 @@ function addPatientVaccination(request, response) {
     validate(request, response, "injector", function (accountID) {
         if (accountID) {
             //validation checks here
-        
+
+            response.setHeader("Content-Type", "application/json");
+
             //get values from form "name=" with request.body
             const patientID = db.pool.escape(request.body.patientID);
             const date = db.pool.escape(request.body.date);
@@ -209,13 +223,17 @@ function addPatientVaccination(request, response) {
                 if (err) {
                     console.log(err);
                     //throw err;
+                    response.write(JSON.stringify("There was an error adding a new patient vaccination. Please try again."));
+                    response.end();
                     return;
                 }
+                else {
+                    audit(accountID, "add", sql);
 
-                audit(accountID, "add", sql);
-
-                response.statusCode = 204; //do not leave web page
-                response.end();
+                    // response.statusCode = 204; //do not leave web page
+                    response.write(JSON.stringify("success"));
+                    response.end();
+                }
             });
         }
     });
