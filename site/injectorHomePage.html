@@ -97,6 +97,7 @@
 			</p>
       
 			<button onclick='window.location.href = "http://localhost:8081/addinjectorinfo";' type="button" class="inj-dropbtn" id="addInjProfile">Add Injector Profile</button>
+			<button onclick='window.location.href = "http://localhost:8081/editaccount";' type="button" class="inj-dropbtn" id="editInjProfile">Edit Injector Profile</button>
 			
 			<button onclick="myFunction()" class="inj-dropbtn" id="inj-dropbtn">Form Data Entry</button>
 			<div id="myDropdown" class="inj-dropdown-content" id="inj=dropctnt">
@@ -123,6 +124,7 @@
 
       // JAVASCRIPT START HERE //
       const addProfile=document.getElementById("addInjProfile");
+      const editProfile=document.getElementById("editInjProfile");
       const injActions=document.getElementById("inj-dropbtn");
       injActions.hidden=true;
       const injActionsContent=document.getElementById("inj-dropctnt");
@@ -147,6 +149,7 @@
                 console.log(data);
                 if (data != null) {
                   addProfile.hidden=true;
+                  editProfile.hidden=false;
                   noInjProfileMsg.hidden=true;
 
                   injActions.hidden=false;
@@ -155,6 +158,7 @@
                 }
                 else{
                   addProfile.hidden=false;
+                  editProfile.hidden=true;
                   noInjProfileMsg.hidden=false;
 
                   injActionsContent.hidden=true;

@@ -10,10 +10,10 @@ window.addEventListener("load", function () {
     // @ts-ignore
     profileData = profiledata;
     // console.log(JSON.stringify(profileData));
-    // console.log(profileData);
+    console.log(profileData);
 
     usernameDisplay = document.getElementsByTagName("strong")[0];
-    console.log(usernameDisplay);
+    // console.log(usernameDisplay);
 
     if (loginForm = document.getElementById("editLogin")) {
         loginForm.addEventListener("submit", submitLogin);
@@ -44,7 +44,7 @@ window.addEventListener("load", function () {
     if (phoneField = document.getElementsByName("phone")[0]){
         phoneField.addEventListener("input", formatPhoneField);
         phoneField.addEventListener("propertychange", formatPhoneField);
-        console.log(phoneField);
+        // console.log(phoneField);
     }
 
     if (siteForm = document.getElementById("editSite")) {
@@ -75,6 +75,13 @@ window.addEventListener("load", function () {
             originalInjectorMsg = injectorMsg.innerHTML;
             // console.log(originalInjectorMsg);
         }
+    }
+
+    if (profileData.SiteID) {
+        resetSite();
+    }
+    if (profileData.InjectorID) {
+        resetInjector();
     }
 });
 
@@ -226,8 +233,8 @@ function formatPhoneField() {
 }
 
 function validateSiteID() {
-    var input = siteID.value;
-    console.log("input is " + input);
+    // console.log("input is " + injectorForm.elements["siteID"].value);
+    var input = injectorForm.elements["siteID"].value;
     siteValid = false;
 
     if (input == "") { //may not be adding site id
@@ -247,17 +254,21 @@ function validateSiteID() {
         return response.json();
     })
     .then(function (site) {
-        console.log("DATA TO COMPARE: " + JSON.stringify(site));
-        console.log(site.SiteID);
+        // console.log(site.SiteID);
 
         if (site.SiteID > -1) {
-            console.log("Site #" + input + " exists.");
+            // console.log("Site #" + input + " exists.");
 
-            siteName.innerHTML = `${site.SiteName}<br>${site.SiteAddress}`;
+            var address="<i>No address available</i>";
+            if (site.SiteAddress != null) {
+                address = site.SiteAddress;
+            }
+
+            siteName.innerHTML = `${site.SiteName}<br>${address}`;
             siteValid = true;
         }
         else if (site.SiteID == null) {
-            console.log("Site #" + input + " does not exist.");
+            // console.log("Site #" + input + " does not exist.");
             
             siteName.innerHTML = `Site #${input} does not exist.`;
             siteValid = false;
@@ -393,5 +404,7 @@ function submitInjector(event) {
 function resetInjector() {
     injectorForm.elements["firstName"].value = profileData.FirstName;
     injectorForm.elements["lastName"].value = profileData.LastName;
-    injectorForm.elements["siteID"].value = profileData.SiteID;
+    if (injectorForm.elements["siteID"].value = profileData.SiteID) {
+        validateSiteID();
+    }
 }
