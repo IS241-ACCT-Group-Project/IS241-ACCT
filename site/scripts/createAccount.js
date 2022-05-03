@@ -207,11 +207,12 @@ function createAccount(event) {
             return response.json();
         })
         .then(function (data) {
-            // console.log(data);
+            console.log(data);
 
             if (data == "success") {
                 newUserMsg.innerHTML = originalNewUserMsg;
                 newUserMsg.hidden = false;
+                // newUserForm.hidden = true;
                 newUserForm.reset();
             }
             else {
