@@ -5,26 +5,34 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Site Home Page</title>
-
-	<script defer src="scripts/injectorHomePage.js"></script>
-	<script defer src="scripts/siteHome.js"></script>
 	
 	<!--css code from homelanding.html for the navbar -->
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="styles/materialize.min.css" media="screen,projection" />
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	
 	<link rel="stylesheet" href="styles/style.css">
 	<link rel="stylesheet" href="styles/homePageStyles.css">	
-
+	<script defer src="scripts/injectorHomePage.js"></script>	
 </head>
+<style>
+	a {
+		display: block;
+		font-size: 1.5rem;
+		margin: 20px;
+		text-align: center;
+
+	}
+
+</style>
 
 <body>
-	
 
 	<!-- navbar from homelanding.html -->
-
 	  <nav class="blue darken-4">
 		<div class="nav-container">
 		  <div class="nav-wrapper">
@@ -41,81 +49,25 @@
 		</div>
 	  </nav>
 
-          <!-- DROPDOWN TRIGGER -->
-          <li>
-            <a class="dropdown-button" data-activates="my-dropdown" href="#!">Quick Access
-              <i class="material-icons right">arrow_drop_down</i>
-            </a>
-          </li>
-          <!-- BUTTON LINK -->
-          <li>
-            <a href="http://localhost:8081/logout" class="btn waves-effect waves-light" style="background-color:Tomato;">Logout</a>
-          </li>
-          <!-- ICON LINK -->
-          <li>
-            <a href="#">
-              <i class="material-icons">person</i>
-            </a>
-          </li>
-        </ul>
-        <ul class="side-nav" id="mobile-nav">
-          <li>
-            <a href="homelanding.html">Home</a>
-          </li>
-          <li>
-            <a href="faq.html">FAQs</a>
-          </li>
-          <li>
-            <a href="about.html">About Us</a>
-          </li>
-          
-          </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- DROPDOWN MENU -->
-  <ul id="my-dropdown" class="dropdown-content">
-    <li>
-      <a href="injectorHomePage.html">Injectors</a>
-    </li>
-    <li>
-      <a href="siteHomePage.html">Sites</a>
-    </li>
-    <li>
-      <a href="admindex.html">CDC</a>
-    </li>
-  </ul>
-  
-		<div class="inj-container">
-      <h1 id="siteName">No Site Account</h2>
-      <h2 id="siteInfo">Please register your site below.</h3>
+		<h1>Missouri Immunization Information System</h1>
+		<div class="container">
+			<h2>Site User Home Page</h2>
+
 			<p>
 			The Site Users are site staff members who are not injectors
 			but have other adminstrative responsibilities such as DHSS admin and staff.
-			The only thing Site Users can do is edit their site record, and manage the injectors associated with their site.
+			The only thing Site Users do is edit the site record, which is the purpose of this page.
+			Note: the edit function is still under development.  
+			Right now the link is to the Site Registration page.  
 			</p>
 			
-			<button onclick="goSiteInfo(event)" type="button" class="inj-dropbtn" id="editSite">Register Site</button>
+			<button onclick="myFunction()" class="dropbtn">Edit Site</button>
+			<div id="myDropdown" class="injector-dropdown-content">
+			  <a href="siteRegistration.html">Site</a>
 			</div>
+			
+			<p style="text-align: center;">Powered by ACCT</p>
 		</div>
 </body>
-  <!--Import jQuery before materialize.js-->
-  <!-- THESE NEED TO STAY AT THE BOTTOM -->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="scripts/materialize.min.js"></script>
 
-  <script>
-    $(document).ready(function () {
-      $('.dropdown-button').dropdown({
-        constrainWidth: false,
-        hover: true,
-        belowOrigin: true,
-        alignment: 'left'
-      });
-
-      $('.button-collapse').sideNav();
-
-      // JAVASCRIPT START HERE //
-    });
-  </script>
 </html>
