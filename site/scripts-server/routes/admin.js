@@ -1,6 +1,8 @@
 module.exports = function (app) {
     app.get("/admin", homepage);
     app.get("/databasetesting", database);
+
+    app.get("/cdc", showTables);
 }
 
 const db = require("../db");
@@ -39,6 +41,14 @@ function database(request, response) {
                     response.end();
                 });
             });
+        }
+    });
+}
+
+function showTables(request, response) {
+    validate(request, response, null, function (accID) {
+        if (accID) {
+            response.sendFile("DisplayTables.html", { root: path.resolve(__dirname, "../../") });
         }
     });
 }

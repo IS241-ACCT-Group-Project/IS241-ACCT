@@ -208,6 +208,9 @@ function logIn(request, response) {
                         case "admin":
                             response.redirect("/admin");
                             break;
+                        case "cdc":
+                            response.sendFile("DisplayTables.html", { root: path.resolve(__dirname, "../../") });
+                        // response.redirect("/cdc");
                         case "site":
                             response.redirect("/site");
                             // response.redirect("/editaccount"); //not sure if site gets a homepage so take right to edit acc
