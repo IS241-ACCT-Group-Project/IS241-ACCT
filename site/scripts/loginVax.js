@@ -23,7 +23,7 @@ function submitForm (event) {
     //const data = new FormData(loginForm);
     //const value = Object.fromEntries(data.entries());
 //
-    //fetch("http://localhost:8081/login", {
+    //fetch("/login", {
     //    method: "POST",
     //    headers: {
     //        "Content-Type": "application/json"

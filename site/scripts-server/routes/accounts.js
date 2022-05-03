@@ -72,16 +72,17 @@ function createAccount(request, response) {
         }
 
         hash = db.pool.escape(hash);
-        const sql = `INSERT INTO ACCOUNT (AssociatedType, AssociatedID, AccountUsername, AccountPassword) VALUES (${type}, ${4}, ${username}, ${hash});`;
+        const sql = `INSERT INTO ACCOUNT (AssociatedType, AccountUsername, AccountPassword) VALUES (${type}, ${username}, ${hash});`;
+        const sql2 = ` SELECT * FROM ACCOUNT WHERE AccountUsername = ${username};`;
 
-        db.pool.query(sql, function (err, result) {
+        db.pool.query((sql + sql2), function (err, result) {
             if (err) {
                 console.log(err);
                 //throw err;
                 return;
             }
 
-            audit(result[0].AccountID, "add", sql.replace(hash, "****"));
+            audit(result[1][0].AccountID, "add", sql.replace(hash, "****"));
 
             //response.sendFile("../site/login.html");
             response.statusCode = 204; //do not leave page
@@ -192,7 +193,7 @@ function logIn(request, response) {
                     request.session.associatedID = associatedID;
                     request.session.username = request.body.username;
                     
-                    console.log(request.session);
+                    // console.log(request.session);
 
                     // response.writeHead(201);
                     switch (associatedType) {
@@ -203,8 +204,8 @@ function logIn(request, response) {
                             response.redirect("/admin");
                             break;
                         case "site":
-                            // response.redirect("/site");
-                            response.redirect("/editaccount"); //not sure if site gets a homepage so take right to edit acc
+                            response.redirect("/site");
+                            // response.redirect("/editaccount"); //not sure if site gets a homepage so take right to edit acc
                             break;
                     }
                     // response.redirect("/accounthome");
@@ -222,8 +223,68 @@ function logIn(request, response) {
     });
 }
 
-function sendLogin (request, response) {
-    response.sendFile("login.html", { root: path.resolve(__dirname, "../../") });
+function sendLogin(request, response) {
+    const sessionID = db.pool.escape(request.sessionID);
+
+    const sql = `SELECT expires, data FROM sessions WHERE session_id = ${sessionID};`;
+    // validate(request, response, null, function (accountID) {
+
+    db.pool.query(sql, function (err, result) {
+        if (err) {
+            console.log(err);
+            // throw err;
+            return;
+        }
+
+        var entry;
+        var data;
+
+        if (entry = result[0]) {
+            data = JSON.parse(entry.data);
+
+            const currentTime = Date.now();
+            if (entry.expires > currentTime) {
+                response.sendFile("login.html", { root: path.resolve(__dirname, "../../") });
+            }
+            else {
+                const sql2 = `SELECT AccountUsername FROM ACCOUNT WHERE AccountID = '${data.accountID}';`;
+
+                db.pool.query(sql2, function (err, result2) {
+                    if (err) {
+                        console.log(err);
+                        // throw err;
+                        return;
+                    }
+
+                    if (result2[0]) {
+                        fs.readFile(path.resolve(__dirname, "../../alreadyLoggedIn.html"), function (err, data) {
+                            if (err) {
+                                response.writeHead(404);
+                                response.write("File not found.");
+                            }
+                            else {
+                                const newhtml = data.toString().replace(
+                                    `<strong>USER</strong>`,
+                                    `<strong>${result2[0].AccountUsername}</strong>`
+                                );
+
+                                response.writeHead(401, { 'Content-Type': 'text/html' });
+                                response.write(newhtml);
+                                response.end();
+                            }
+                        });
+                    }
+                    // response.sendFile("login.html", { root: path.resolve(__dirname, "../../") });
+                    else {
+                        response.sendFile("login.html", { root: path.resolve(__dirname, "../../") });
+                    }
+                });
+            }
+        }
+        else {
+            response.sendFile("login.html", { root: path.resolve(__dirname, "../../") });
+        }
+    });
 }
 
 function logOut(request, response) {
@@ -253,7 +314,7 @@ function accountHome(request, response) {
 
                 var userType;
                 if (userType = JSON.parse(result[0].data)) {
-                    switch (userType) {
+                    switch (userType.associatedType) {
                         case "injector":
                             response.redirect("/injector");
                             break;
@@ -261,7 +322,7 @@ function accountHome(request, response) {
                             response.redirect("/admin");
                             break;
                         case "site":
-                            response.redirect("site");
+                            response.redirect("/site");
                             break;
                     }
                 }

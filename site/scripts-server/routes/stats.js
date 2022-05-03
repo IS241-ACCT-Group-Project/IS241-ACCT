@@ -6,8 +6,11 @@ module.exports = function (app) {
     app.get("/totalvax", totalVaccinations);
     app.get("/monthvax", currentMonthVaccinations);
 
+    app.get("/getusername", getUsername);
     app.post("/siteexists", siteExists);
+    app.get("/siteexists", currentSiteExists);
     app.post("/injectorexists", injectorExists);
+    app.get("/injectorexists", currentInjectorExists);
     app.post("/patientexists", patientExists);
 }
 
@@ -74,6 +77,16 @@ function currentMonthVaccinations(request, response) {
     queryOne(sql, response);
 }
 
+function getUsername(request, response) {
+    validate(request, response, null, function (accountID) {
+        if (accountID) {
+            const sql = `SELECT AccountUsername FROM ACCOUNT WHERE AccountID = '${accountID}';`;
+
+            queryOne(sql, response);
+        }
+    });
+}
+
 function siteExists(request, response) {
     validate(request, response, null, function (isValid) {
         if (isValid) {
@@ -87,6 +100,18 @@ function siteExists(request, response) {
     });
 }
 
+function currentSiteExists(request, response) {
+    validate(request, response, null, function (accountID, associatedID) {
+        if (associatedID) {
+            console.log("Check site exists recieved request for: " + associatedID);
+
+            const sql = `SELECT * FROM SITE WHERE SiteID = ${associatedID};`;
+
+            queryOne(sql, response);
+        }
+    });
+}
+
 function injectorExists(request, response) {
     validate(request, response, null, function (isValid) {
         if (isValid) {
@@ -94,6 +119,18 @@ function injectorExists(request, response) {
             console.log("Check injector exists recieved request for: " + injectorID);
 
             const sql = `SELECT * FROM INJECTOR WHERE InjectorID = ${injectorID};`;
+
+            queryOne(sql, response);
+        }
+    });
+}
+
+function currentInjectorExists(request, response) {
+    validate(request, response, null, function (accountID, associatedID) {
+        if (associatedID) {
+            console.log("Check injector exists recieved request for: " + associatedID);
+
+            const sql = `SELECT * FROM INJECTOR WHERE InjectorID = ${associatedID};`;
 
             queryOne(sql, response);
         }

@@ -149,7 +149,7 @@ function isAccountTypeSelected() {
     var isSelected = false;
 
     accountTypes.forEach(function (radioButton) {
-        console.log("Is radio button checked: " + radioButton.checked);
+        // console.log("Is radio button checked: " + radioButton.checked);
         if (radioButton.checked) {
             isSelected = true;
         }
@@ -162,7 +162,7 @@ function isAccountTypeSelected() {
 function checkAllValid() {
     var disabled = submitButton.disabled;
     var accountSelected = isAccountTypeSelected();
-    console.log("Is account type selected: " + accountSelected);
+    // console.log("Is account type selected: " + accountSelected);
 
     if (disabled && usernameValid && passwordValid && accountSelected) {
         console.log("Submit button is enabled.");

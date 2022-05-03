@@ -7,6 +7,7 @@
 	<title>Site Home Page</title>
 
 	<script defer src="scripts/injectorHomePage.js"></script>
+	<script defer src="scripts/siteHome.js"></script>
 	
 	<!--css code from homelanding.html for the navbar -->
     <!--Import Google Icon Font-->
@@ -56,7 +57,7 @@
   <nav class="blue darken-4">
     <div class="container">
       <div class="nav-wrapper">
-        <a href="homelanding.html" class="brand-logo">ACCT Site Home Page</a>
+        <a href="homelanding.html" class="brand-logo">Site Home Page</a>
         <a class="button-collapse" data-activates="mobile-nav" href="#">
           <i class="material-icons">menu</i>
         </a>
@@ -119,17 +120,15 @@
   </ul>
   
 		<div class="inj-container">
+      <h1 id="siteName">No Site Account</h2>
+      <h2 id="siteInfo">Please register your site below.</h3>
 			<p>
 			The Site Users are site staff members who are not injectors
 			but have other adminstrative responsibilities such as DHSS admin and staff.
-			The only thing Site Users do is edit the site record, which is the purpose of this page.
-			Note: the edit function is still under development.  
-			Right now the link is to the Site Registration page.  
+			The only thing Site Users can do is edit their site record, and manage the injectors associated with their site.
 			</p>
 			
-			<button onclick="myFunction()" class="inj-dropbtn">Form Data Entry</button>
-			<div id="myDropdown" class="inj-dropdown-content">
-			  <a href="siteRegistration.html">Site</a>
+			<button onclick="goSiteInfo(event)" type="button" class="inj-dropbtn" id="editSite">Register Site</button>
 			</div>
 		</div>
 </body>

@@ -4,14 +4,88 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Injector Registration</title>
-	<link rel="stylesheet" href="styles/style.css">
-	<link rel="stylesheet" href="styles/homePageStyles.css">
-</head>
-<body>
+	<title>Injector Home Page</title>
 
-	<div class="container"> 
-		<form id="newInjectorForm" action="http://localhost:8081/addinjector" method="post" onsubmit="return validateForm()">
+    <script defer src="scripts/injectorHomePage.js"></script>
+	
+	<!--css code from homelanding.html for the navbar -->
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="styles/materialize.min.css" media="screen,projection" />
+
+	<!-- <link rel="stylesheet" href="styles/style.css" /> -->
+	<link rel="stylesheet" href="styles/homePageStyles.css">	
+
+</head>
+<body class="steelblue">
+
+	<!-- navbar from homelanding.html -->
+  <nav class="blue darken-4">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="homelanding.html" class="brand-logo">ACCT Injector Registration</a>
+        <a class="button-collapse" data-activates="mobile-nav" href="#">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a href="homelanding.html">Home</a>
+          </li>
+          <li>
+            <a href="faq.html">FAQs</a>
+          </li>
+          
+          <li>
+            <a href="about.html">About Us</a>
+          </li>
+
+          <!-- DROPDOWN TRIGGER -->
+          <li>
+            <a class="dropdown-button" data-activates="my-dropdown" href="#!">Quick Access
+              <i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
+          <!-- BUTTON LINK -->
+          <li>
+            <a href="http://localhost:8081/logout" class="btn waves-effect waves-light" style="background-color:Tomato;">Logout</a>
+          </li>
+          <!-- ICON LINK -->
+          <li>
+            <a href="#">
+              <i class="material-icons">person</i>
+            </a>
+          </li>
+        </ul>
+        <ul class="side-nav" id="mobile-nav">
+          <li>
+            <a href="homelanding.html">Home</a>
+          </li>
+          <li>
+            <a href="faq.html">FAQs</a>
+          </li>
+          <li>
+            <a href="about.html">About Us</a>
+          </li>
+          
+          </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- DROPDOWN MENU -->
+  <ul id="my-dropdown" class="dropdown-content">
+    <li>
+      <a href="injectorHomePage.html">Injectors</a>
+    </li>
+    <li>
+      <a href="siteHomePage.html">Sites</a>
+    </li>
+    <li>
+      <a href="admindex.html">CDC</a>
+    </li>
+  </ul>
+  
+	<div class="inj-container"> 
+		<form id="newInjectorForm" onsubmit="validateForm(event)">
 			<h2>Injector Information</h2>
 			<label for="firstName">First name:</label><br>
 			<input type="text" id="firstName" name="firstName"  /><br>
@@ -19,24 +93,36 @@
 			<label for="lastName">Last name:</label><br>
 			<input type="text" id="lastName" name="lastName"  /><br>
 
-			<label for="clinicID">Clinic ID:</label><br>
-			<input type="number" id="clinicID" name="clinicID" min="1" /><br>
+			<label for="siteID">Clinic ID:</label><br>
+			<input type="number" id="siteID" name="clinicID" min="1" /><br>
 			<br><br>
-			<input type="submit" value="register" id="newInjectorFormSubmit">
+			<input type="submit" value="register" id="newInjectorFormSubmit" class="btn waves-effect waves-light" style="background-color: #3498DB;">
 		</form>
+		<p id="injMsg">New injector was successfully registered. Please return to the <a href="http://localhost:8081/accounthome">injector homepage</a>.</p>
 	</div>
+
+  <!--Import jQuery before materialize.js-->
+  <!-- THESE NEED TO STAY AT THE BOTTOM -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="scripts/materialize.min.js"></script>
+
 		
 		<script>
 			// commented out for javascript validation testing  
 	
-			//var form = document.getElementById("newInjectorForm");
-   // 		form.addEventListener("submit", function(){
-			//	alert("Success!");
-			//});
+			// 		form.addEventListener("submit", function(){
+				//	alert("Success!");
+				//});
+			const newInjectorForm = document.forms["newInjectorForm"];
+			const injMsg=document.getElementById("injMsg");
+			const originalInjMsg=injMsg.innerHTML;
+			injMsg.hidden=true;
 
-			function validateForm() {
+			function validateForm(event) {
+				event.preventDefault();
+
                 var regName = /^[A-Za-z\s]+$/;
-                const firstName = document.forms["newInjectorForm"]["firstName"].value;
+                const firstName = newInjectorForm["firstName"].value;
                 if (firstName == "") {
                     alert("First name must be filled out");
                     return false;
@@ -45,7 +131,7 @@
 					alert("Invalid first name given");
                 }
 
-                const lastName = document.forms["newInjectorForm"]["lastName"].value;
+                const lastName = newInjectorForm["lastName"].value;
 				if (lastName == "") {
 					alert("Last name must be filled out");
 					return false;
@@ -54,7 +140,7 @@
                     alert("Invalid last name given");
                 }
 
-                const clinicID = document.forms["newInjectorForm"]["clinicID"].value;
+                const clinicID = newInjectorForm["clinicID"].value;
 				if (clinicID == "") {
 					alert("ClinicID must be filled out");
 					return false;
@@ -63,6 +149,34 @@
 					alert("Please only enter numeric characters only for your ClinicID");
 					return false;
 				}
+
+				const data = new FormData(newInjectorForm);
+                const value = Object.fromEntries(data.entries());
+
+				fetch("http://localhost:8081/addinjector", {
+                         method: "POST",
+                         headers: {
+                             "Content-Type": "application/json"
+                         },
+                         body: JSON.stringify(value)
+                     })
+                     .then(function (response) {
+                         console.log(response);
+                         return response.json();
+                     })
+                     .then(function (data) {
+                         console.log(data);
+ 
+                         if (data == "success") { //display success message
+                             injMsg.innerHTML = originalInjMsg;
+                             injMsg.hidden = false;
+                             newInjectorForm.hidden=true;
+                         }
+                         else { //set message content to error from server - probably won't get called bc validation catches potential errors
+                             injMsg.textContent = data;
+                             injMsg.hidden = false;
+                         }
+                 });
             }
 			
 		</script>
