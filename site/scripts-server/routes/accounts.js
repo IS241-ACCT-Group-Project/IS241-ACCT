@@ -332,7 +332,7 @@ function accountHome(request, response) {
 }
 
 function editAccount(request, response) {
-    validate(request, response, null, function (valid) {
+    validate(request, response, null, function (valid, associatedID) {
         if (valid) {
             const sessionID = db.pool.escape(request.sessionID);
             const sql = `SELECT data FROM sessions WHERE session_id = ${sessionID};`;
@@ -369,7 +369,7 @@ function editAccount(request, response) {
                                     `id="editSite" style="display:none;"`
                                 );
 
-                                const injectorSql = `SELECT * FROM INJECTOR WHERE InjectorID = ${entry.associatedID};`;
+                                const injectorSql = `SELECT * FROM INJECTOR WHERE InjectorID = ${associatedID};`;
                                 db.pool.query(injectorSql, function (err, injectorData) {
                                     newhtml = newhtml.replace(
                                         `var profiledata;`,
@@ -387,7 +387,7 @@ function editAccount(request, response) {
                                     `id="editInjector" style="display:none;"`
                                 );
 
-                                const siteSql = `SELECT * FROM SITE WHERE SiteID = ${entry.associatedID};`;
+                                const siteSql = `SELECT * FROM SITE WHERE SiteID = ${associatedID};`;
                                 db.pool.query(siteSql, function (err, siteData) {
                                     newhtml = newhtml.replace(
                                         `var profiledata;`,
