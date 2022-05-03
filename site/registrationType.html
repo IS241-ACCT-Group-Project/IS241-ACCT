@@ -4,29 +4,119 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Registration</title>
-	<link rel="stylesheet" href="styles/style.css">
-	<link rel="stylesheet" href="styles/homePageStyles.css">
-	<script defer src="scripts/injectorHomePage.js"></script>		
+	<title>Registration Home Page</title>
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+    <script src="scripts/chart.js"></script>
+	<script defer src="scripts/injectorHomePage.js"></script>
+	
+	<!--css code from homelanding.html for the navbar -->
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="styles/materialize.min.css" media="screen,projection" />
+
+	<!-- <link rel="stylesheet" href="styles/style.css" /> -->
+	<link rel="stylesheet" href="styles/homePageStyles.css">	
+
 </head>
 
-<body>
-	<h1>Missouri Immunization Information System</h1>
+<body class="steelblue">
+  <nav class="blue darken-4">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="homelanding.html" class="brand-logo">ACCT Registration</a>
+        <a class="button-collapse" data-activates="mobile-nav" href="#">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a href="homelanding.html">Home</a>
+          </li>
+          <li>
+            <a href="faq.html">FAQs</a>
+          </li>
+          
+          <li>
+            <a href="about.html">About Us</a>
+          </li>
 
-	<div class="container"> 
-		<h2>Please select an option below:</h2>
+          <!-- DROPDOWN TRIGGER -->
+          <li>
+            <a class="dropdown-button" data-activates="my-dropdown" href="#!">Quick Access
+              <i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
+          <!-- BUTTON LINK -->
+          <li>
+            <a href="http://localhost:8081/logout" class="btn waves-effect waves-light" style="background-color:Tomato;">Logout</a>
+          </li>
+          <!-- ICON LINK -->
+          <li>
+            <a href="#">
+              <i class="material-icons">person</i>
+            </a>
+          </li>
+        </ul>
+        <ul class="side-nav" id="mobile-nav">
+          <li>
+            <a href="homelanding.html">Home</a>
+          </li>
+          <li>
+            <a href="faq.html">FAQs</a>
+          </li>
+          <li>
+            <a href="about.html">About Us</a>
+          </li>
+          
+          </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- DROPDOWN MENU -->
+  <ul id="my-dropdown" class="dropdown-content">
+    <li>
+      <a href="injectorHomePage.html">Injectors</a>
+    </li>
+    <li>
+      <a href="siteHomePage.html">Sites</a>
+    </li>
+    <li>
+      <a href="admindex.html">CDC</a>
+    </li>
+  </ul>
 
-			<div class="dropdown">
-			  <button onclick="myFunction()" class="dropbtn">Registration</button>
-			  <div id="myDropdown" class="dropdown-content">
-				<a href="injectorRegistration.html">Injector Registration</a>
-				<a href="siteRegistration.html">Site Registration</a>
-			  </div>
-			</div>
-		<br><br>
-		<p>Powered by ACCT</p>
-
+	<div class="inj-container">
+	
+		<p>Please select an option below:</p>
+		
+		<button onclick="myFunction()" class="inj-dropbtn">Registration</button>
+		<div id="myDropdown" class="inj-dropdown-content">
+			<a href="injectorRegistration.html">Injector Registration</a>
+			<a href="siteRegistration.html">Site Registration</a>
+		</div>
 	</div>
+	
+  <!--Import jQuery before materialize.js-->
+  <!-- 5/2/2020(wbh) for some reason need script tag here for Quick Access menu to work -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="scripts/materialize.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('.dropdown-button').dropdown({
+        constrainWidth: false,
+        hover: true,
+        belowOrigin: true,
+        alignment: 'left'
+      });
+
+      $('.button-collapse').sideNav();
+
+      // JAVASCRIPT START HERE //    });
+  </script>	
 </body>
 
 </html>
