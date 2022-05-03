@@ -42,7 +42,8 @@
 			const newSiteForm=document.forms["newSiteForm"];
 			const siteMsg=document.getElementById("siteMsg");
 			siteMsg.hidden=true;
-			console.log(siteMsg);
+			originalSiteMsg=siteMsg.innerHTML;
+			// console.log(siteMsg);
 
 			function validateForm(event) {
 				event.preventDefault();
@@ -79,10 +80,11 @@
                     alert("Zip code is empty. Zip code must be filled out with digits in the format XXXXX or XXXXX-XXXX.");
 					return false;
 				}
-				if (!zipcode.match(isValidZip)) {
-                    alert("Please enter a valid zip code with digits in the format XXXXX or XXXXX-XXXX.");
-                    return false;
-				}
+				//does not work
+				//if (!zipcode.match(isValidZip)) {
+                //    alert("Please enter a valid zip code with digits in the format XXXXX or XXXXX-XXXX.");
+                //    return false;
+				//}
 
 
 				//var phoneno = /^\d{3}[\-]\d{3}[\-]\d{4}$/;
