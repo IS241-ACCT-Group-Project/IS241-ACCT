@@ -156,8 +156,8 @@
 				//the address could still be a nonsense string, maybe validate if the address is real? address doesn't do anything so this could be an overcomplication
 
 
-                var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test("90210");
-				const zipCode = newSiteForm["zipCode"].value;
+				var isValidZip = /(^\d{5}$)/; //|(^\d{5}-\d{4}$)/.test("90210");
+				const zipCode = document.forms["newSiteForm"]["zipCode"].value;
                 if (zipCode == "") {
                     alert("Zip code is empty. Zip code must be filled out with digits in the format XXXXX or XXXXX-XXXX.");
 					return false;

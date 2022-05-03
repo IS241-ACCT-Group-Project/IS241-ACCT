@@ -32,7 +32,9 @@
 
                 <label for="zipCode">Zip Code (5-digit):</label><br>
                 <input type="text" id="zipCode" name="zipCode" maxlength="5"
-                       pattern="[0-9]{5}" title="Enter five digit zip code"><br>
+                       title="Enter five digit zip code"><br>
+                        <!--pattern="[0-9]{5}"-->
+                       
 
                 <h3>(*required field)</h3>
                 <input type="submit" value="Register" id="newPatientRegister">
@@ -72,28 +74,32 @@
                         return false;
                     }
 
+
                     var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+                    const Birthdate = newPatientForm["birthdate"].value;
                     if (dateformat.test(birthdate)) {
                         alert("Please enter the date in MM / DD / YYYY format.");
                         return false;
                     }
-
-                    if (birthdate == "") {
+                    if (Birthdate == "") {
                         alert("Date must be filled out. Please enter the date in MM / DD / YYYY format");
                         return false;
                     }
 
                     //does not validate 5-digit zip codes
-                    var isValidZip = true; // /(^\d{5}$)|(^\d{5}-\d{4}$)/.test("90210");
-                    const ZipCode = newPatientForm["zipCode"].value;
-                    if (ZipCode == "") {
-                        alert("Zip code is empty. Zip code must be filled out with digits in the format XXXXX or XXXXX-XXXX.");
+                    var isValidZip = /^\d{5}$/;
+                    const ZipCode = newPatientForm["zipCode"].value;                    
+                    if (ZipCode == ""){
+                        alert("Zip code is empty. Zip code must be filled out with digits in the format XXXXX.");
                         return false;
                     }
-                    //if (!ZipCode.match(isValidZip)) {
-                    //    alert("Please enter a valid zip code with digits in the format XXXXX or XXXXX-XXXX." );
-                    //    return false;
-                    //}
+                    if (!ZipCode.match(isValidZip)) {
+                        alert("Please enter a valid zip code with 5 digits [0-9] in the format XXXXX." );
+                        return false;
+                    }
+                    //console.log(isValidZip);
+                    //console.log("Hello world!");
+
 
                     const data = new FormData(newPatientForm);
                     const value = Object.fromEntries(data.entries());
