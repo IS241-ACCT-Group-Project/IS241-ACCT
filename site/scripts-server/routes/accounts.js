@@ -261,7 +261,7 @@ function accountHome(request, response) {
                             response.redirect("/admin");
                             break;
                         case "site":
-                            response.redirect("site");
+                            response.redirect("/site");
                             break;
                     }
                 }
