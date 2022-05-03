@@ -203,8 +203,8 @@ function logIn(request, response) {
                             response.redirect("/admin");
                             break;
                         case "site":
-                            // response.redirect("/site");
-                            response.redirect("/editaccount"); //not sure if site gets a homepage so take right to edit acc
+                            response.redirect("/site");
+                            // response.redirect("/editaccount"); //not sure if site gets a homepage so take right to edit acc
                             break;
                     }
                     // response.redirect("/accounthome");
@@ -253,7 +253,7 @@ function accountHome(request, response) {
 
                 var userType;
                 if (userType = JSON.parse(result[0].data)) {
-                    switch (userType) {
+                    switch (userType.associatedType) {
                         case "injector":
                             response.redirect("/injector");
                             break;

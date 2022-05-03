@@ -1,6 +1,6 @@
 module.exports = function (app) {
     app.get("/site", homepage);
-    app.get("/newsite", newSite);
+    app.get("/addsiteinfo", newSite);
 
     // app.get("/currentsitename", currentSiteID);
 }

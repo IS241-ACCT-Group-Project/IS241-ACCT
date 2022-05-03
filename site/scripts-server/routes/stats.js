@@ -7,6 +7,7 @@ module.exports = function (app) {
     app.get("/monthvax", currentMonthVaccinations);
 
     app.post("/siteexists", siteExists);
+    app.get("/siteexists", currentSiteExists);
     app.post("/injectorexists", injectorExists);
     app.post("/patientexists", patientExists);
 }
@@ -81,6 +82,18 @@ function siteExists(request, response) {
             console.log("Check site exists recieved request for: " + siteID);
 
             const sql = `SELECT * FROM SITE WHERE SiteID = ${siteID};`;
+
+            queryOne(sql, response);
+        }
+    });
+}
+
+function currentSiteExists(request, response) {
+    validate(request, response, null, function (accountID, associatedID) {
+        if (associatedID) {
+            console.log("Check site exists recieved request for: " + associatedID);
+
+            const sql = `SELECT * FROM SITE WHERE SiteID = ${associatedID};`;
 
             queryOne(sql, response);
         }

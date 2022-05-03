@@ -49,6 +49,9 @@ listDB(app);
 const injector = require("./routes/injector");
 injector(app);
 
+const site = require("./routes/site");
+site(app)
+
 const admin = require("./routes/admin");
 admin(app);
 
