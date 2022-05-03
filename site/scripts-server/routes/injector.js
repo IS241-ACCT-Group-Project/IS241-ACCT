@@ -1,5 +1,6 @@
 module.exports = function (app) {
     app.get("/injector", homepage);
+    app.get("/addinjectorinfo", newInjector);
     app.get("/newvaccination", newVaccination);
     app.get("/newpatient", newPatient);
 
@@ -15,6 +16,14 @@ function homepage(request, response) {
     validate(request, response, "injector", function (isValid) {
         if (isValid) {
             response.sendFile("injectorHomePage.html", { root: path.resolve(__dirname, "../../") });
+        }
+    });
+}
+
+function newInjector(request, response) {
+    validate(request, response, "injector", function (isValid) {
+        if (isValid) {
+            response.sendFile("injectorRegistration.html", { root: path.resolve(__dirname, "../../") });
         }
     });
 }

@@ -10,6 +10,7 @@ module.exports = function (app) {
     app.post("/siteexists", siteExists);
     app.get("/siteexists", currentSiteExists);
     app.post("/injectorexists", injectorExists);
+    app.get("/injectorexists", currentInjectorExists);
     app.post("/patientexists", patientExists);
 }
 
@@ -118,6 +119,18 @@ function injectorExists(request, response) {
             console.log("Check injector exists recieved request for: " + injectorID);
 
             const sql = `SELECT * FROM INJECTOR WHERE InjectorID = ${injectorID};`;
+
+            queryOne(sql, response);
+        }
+    });
+}
+
+function currentInjectorExists(request, response) {
+    validate(request, response, null, function (accountID, associatedID) {
+        if (associatedID) {
+            console.log("Check injector exists recieved request for: " + associatedID);
+
+            const sql = `SELECT * FROM INJECTOR WHERE InjectorID = ${associatedID};`;
 
             queryOne(sql, response);
         }

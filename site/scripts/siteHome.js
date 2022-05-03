@@ -11,7 +11,7 @@ window.addEventListener("load", function () {
 });
 
 function findSiteInfo() {
-    console.log("test");
+    // console.log("test");
     fetch("http://localhost:8081/siteexists", {
         method: "GET",
         headers: {

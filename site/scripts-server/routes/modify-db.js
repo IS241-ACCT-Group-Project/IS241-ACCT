@@ -32,12 +32,15 @@ function addInjector(request, response) {
                 if (err) {
                     console.log(err);
                     //throw err;
+                    response.write(JSON.stringify("There was an error adding an injector record. Please try again."));
+                    response.end();
                     return;
                 }
 
                 audit(accountID, "add", sql);
 
-                response.statusCode = 204; //do not leave web page
+                // response.statusCode = 204; //do not leave web page
+                response.write(JSON.stringify("success"));
                 response.end();
             });
         }

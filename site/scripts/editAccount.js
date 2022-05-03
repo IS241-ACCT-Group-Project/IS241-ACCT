@@ -325,12 +325,26 @@ function submitSite(event) {
             return response.json();
         })
         .then(function (data) {
-            // console.log(data[0]);
-            console.log(profileData);
+            console.log(data[0]);
+            if (data.length > 0) {
+                // const entry = data[0];
+                profileData = data[0];
+                // console.log(profileData);
 
-            profileData = data[0];
-            siteForm.reset();
-            resetSite();
+                // if (data == "success") {
+                siteMsg.innerHTML = originalSiteMsg;
+                siteMsg.hidden = false;
+                siteForm.reset();
+                resetSite();
+            }
+            else {
+                siteMsg.textContent = "There was an error updating site information. Please try again.";
+                siteMsg.hidden = false;
+            }
+
+            // profileData = data[0];
+            // siteForm.reset();
+            // }
         });
 }
 

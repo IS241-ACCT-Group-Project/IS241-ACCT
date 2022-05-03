@@ -87,15 +87,19 @@
   
 
 	    <div class="inj-container">
+        <h1 id="injName">No Profile Created</h1>
+        <p id="noInjProfileMsg"><strong>You have not created an injector profile. To enter vaccinations, please click on the button to add your profile information below.</strong></p>
 		
 			<p>Injectors are site staff members who inject vaccines into patient's arms.  
 			They also play an important role in entering data into the vaccine tracking system.  
 			Injectors enter two forms: patient and vaccine records.  
 			Injectors choose which form to enter by clicking the Form Entry button below.
 			</p>
+      
+			<button onclick='window.location.href = "http://localhost:8081/addinjectorinfo";' type="button" class="inj-dropbtn" id="addInjProfile">Add Injector Profile</button>
 			
-			<button onclick="myFunction()" class="inj-dropbtn">Form Data Entry</button>
-			<div id="myDropdown" class="inj-dropdown-content">
+			<button onclick="myFunction()" class="inj-dropbtn" id="inj-dropbtn">Form Data Entry</button>
+			<div id="myDropdown" class="inj-dropdown-content" id="inj=dropctnt">
 			  <a href="http://localhost:8081/newpatient">Patient</a>
 			  <a href="http://localhost:8081/newvaccination">Vaccine</a>
 			</div>
@@ -118,6 +122,46 @@
       $('.button-collapse').sideNav();
 
       // JAVASCRIPT START HERE //
+      const addProfile=document.getElementById("addInjProfile");
+      const injActions=document.getElementById("inj-dropbtn");
+      injActions.hidden=true;
+      const injActionsContent=document.getElementById("inj-dropctnt");
+      const injName=document.getElementById("injName");
+      const noInjProfileMsg=document.getElementById("noInjProfileMsg");
+
+      getInjectorName();
+
+      function getInjectorName() {
+        console.log("test");
+        fetch("http://localhost:8081/injectorexists", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(function (response) {
+                console.log(response);
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+                if (data != null) {
+                  addProfile.hidden=true;
+                  noInjProfileMsg.hidden=false;
+
+                  injActions.hidden=false;
+                  // injActionsContent.hidden=false;
+                  injName.innerHTML=`${data.FirstName} ${data.LastName}`;
+                }
+                else{
+                  addProfile.hidden=false;
+                  noInjProfileMsg.hidden=false;
+
+                  injActionsContent.hidden=true;
+                  injActions.hidden=true;
+                }
+          });
+      }
     });
   </script>
 </body>
