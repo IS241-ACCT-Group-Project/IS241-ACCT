@@ -9,8 +9,8 @@
 </head>
 <body>
 	<div class="container"> 
-		<h2>Vaccination Site Information</h2>
-		<form id="newSiteForm" action="http://localhost:8081/addsite" method="post" onsubmit="return validateForm()">
+		<h2>Vaccination Site Registration</h2>
+		<form id="newSiteForm" onsubmit="validateForm(event)">
 			<label for="name">Site name:</label><br>
 			<input type="text" id="name" name="name" /><br>
 
@@ -27,9 +27,11 @@
 				   pattern="\d{3}[\-]\d{3}[\-]\d{4}"
 				   title="Must be 999-999-9999"><br><br>
 
-			<input type="submit" value="register" id="newSiteFormSubmit">
+			<input type="submit" value="Register" id="newSiteFormSubmit">
 
 		</form>
+
+		<p id="siteMsg">New site was successfully registered. Please go back to the previous page.</p>
 	</div>
 
 		<script>
@@ -37,10 +39,16 @@
 			//form.addEventListener("submit", function () {
 			//	alert("Success!");
 			//});
+			const newSiteForm=document.forms["newSiteForm"];
+			const siteMsg=document.getElementById("siteMsg");
+			siteMsg.hidden=true;
+			console.log(siteMsg);
 
-			function validateForm() {
+			function validateForm(event) {
+				event.preventDefault();
+				console.log("starting validation");
                 var regName = /^[A-Za-z\s]+$/;
-                const name = document.forms["newSiteForm"]["name"].value;
+                const name = newSiteForm["name"].value;
                 if (name == "") {
                     alert("The name field is empty. Name must be filled out using capital and lowercase letters A-Z." );
 					return false;
@@ -52,7 +60,7 @@
 				//should i also validate for is the site name already exists in the system?
 
 				var isValidAddress = /^[a-zA-Z0-9\s,.'-]{3,}$/;
-                const address = document.forms["newSiteForm"]["address"].value;
+                const address = newSiteForm["address"].value;
                 if (address == "") {
                     alert("The address field is empty. Address must be filled out using capital and lowercase letters A-Z, and “., ‘-” characters..");
 					return false;
@@ -66,7 +74,7 @@
 
 
                 var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test("90210");
-				const zipCode = document.forms["newSiteForm"]["zipCode"].value;
+				const zipCode = newSiteForm["zipCode"].value;
                 if (zipCode == "") {
                     alert("Zip code is empty. Zip code must be filled out with digits in the format XXXXX or XXXXX-XXXX.");
 					return false;
@@ -78,17 +86,47 @@
 
 
 				//var phoneno = /^\d{3}[\-]\d{3}[\-]\d{4}$/;
-                var phoneno = /^\([0-9]{3})\[-]?([0-9]{3})[-]?([0-9]{4})$/;
+                //var phoneno = /^\([0-9]{3})\[-]?([0-9]{3})[-]?([0-9]{4})$/;
 
-                const phone = document.forms["newSiteForm"]["phone"].value;
+                const phone = newSiteForm["phone"].value;
                 if (phone == "") {
                     alert("Phone is empty. Phone must be filled out using 999-999-9999 format.");
                     return false;
 				}
-                if (!phoneno.test(phone)){
-                    alert("Please enter a valid phone number using 999-999-9999 format.");
-					return false;
-                }
+				//does not work bc of an error in phoneno
+                //if (!phoneno.test(phone)){
+                //    alert("Please enter a valid phone number using 999-999-9999 format.");
+				//	return false;
+                //}
+
+				const data = new FormData(newSiteForm);
+                const value = Object.fromEntries(data.entries());
+				console.log("aaaaaa");
+
+				fetch("http://localhost:8081/addsite", {
+                         method: "POST",
+                         headers: {
+                             "Content-Type": "application/json"
+                         },
+                         body: JSON.stringify(value)
+                     })
+                     .then(function (response) {
+                         console.log(response);
+                         return response.json();
+                     })
+                     .then(function (data) {
+                         console.log(data);
+ 
+                         if (data == "success") { //display success message
+                             siteMsg.innerHTML = originalSiteMsg;
+                             siteMsg.hidden = false;
+                             newSiteForm.hidden=true;
+                         }
+                         else { //set message content to error from server - probably won't get called bc validation catches potential errors
+                             siteMsg.textContent = data;
+                             siteMsg.hidden = false;
+                         }
+                 });
 			}
 		</script>
 </body>

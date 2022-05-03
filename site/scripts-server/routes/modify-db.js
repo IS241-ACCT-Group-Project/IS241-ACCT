@@ -113,12 +113,15 @@ function addSite(request, response) {
                     if (err) {
                         console.log(err);
                         //throw err;
+                        response.write(JSON.stringify("There was an error adding a new patient record. Please try again."));
+                        response.end();
                         return;
                     }
 
                     audit(accountID, "edit", sql2);
 
-                    response.statusCode = 204; //do not leave web page
+                    // response.statusCode = 204; //do not leave web page
+                    response.write(JSON.stringify("success"));
                     response.end();
                 });
             });

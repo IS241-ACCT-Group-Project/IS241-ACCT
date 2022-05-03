@@ -72,6 +72,10 @@
                      alert("Please only enter numeric characters 0-9 only for your patientID.");
                      return false;
                  }
+                 if (!patientValid) {
+                     alert(`Patient ID #${patientID.value} does not exist in the system. Please enter a different ID.`);
+                     return false;
+                 }
 
                  const injectorID = newVaccinationForm["injectorID"].value;
                  if (injectorID == "") {
@@ -137,7 +141,7 @@
                          return response.json();
                      })
                      .then(function (data) {
-                         console.log(data);
+                        //  console.log(data);
  
                          if (data == "success") { //display success message
                              //vaccinationMsg.innerHTML = originalVaccinationMsg;
@@ -152,7 +156,7 @@
                  });
                 }
 
-                function validatePatientID(){
+            function validatePatientID(){
                 var input = patientID.value;
                 console.log("input is " + input);
                 patientValid = false;
@@ -198,9 +202,6 @@
              function getInjID(){
                 fetch("http://localhost:8081/currentinjectorid", {
                    method: "GET",
-                //    headers: {
-                    //    "Content-Type": "text/plain"
-                //    },
                 })
                 .then(function (response) {
                     // console.log(response);
