@@ -20,7 +20,7 @@ module.exports = function (request, response, userType = null, callback) {
 
         var sql2 = `SELECT 1 FROM ACCOUNT;`;
 
-        if (result.length < 1) {
+        if (result.length < 1) { //if no sessionID in database
             console.log(`No session ID found in database for session ${sessionID}`);
             message = `We could not find an active session for your account. There a few possible resons for this:</p>
                             <ul>
@@ -47,7 +47,7 @@ module.exports = function (request, response, userType = null, callback) {
 
             const accData = result2[0];
 
-            if (result2.length == 1) {
+            if (result2.length == 1) { //there will always be more than one account if sql2 is not changed
                 const resultUserType = accData.AssociatedType;
 
                 const currentTime = Date.now();
@@ -57,10 +57,10 @@ module.exports = function (request, response, userType = null, callback) {
                 }
                 else if (userType != null && (resultUserType != userType && resultUserType != "admin")) {
                     console.log(`User ${accData.AccountUsername} is attempting to access a page they do not have permissions for.`);
-                    message = `Your account does not have access to this page. Please go back or <a href="/logout">log out</a> and log in with a different account.`;
+                    message = `Your account is a${typeString(resultUserType)} account and does not have access to this information. Please go back or <a href="/logout">log out</a> and log in with a${typeString(userType, true)} account to view this information.`;
                 }
             }
-            else if (message == "") {
+            else if (message == "") { //put this here to avoid asyc problems
                 console.log(`Session ID ${sessionID} exists in database but is not logged in.`);
                 message = `We could not find an active session for your account. There a few possible resons for this:</p>
                             <ul>
@@ -85,7 +85,7 @@ module.exports = function (request, response, userType = null, callback) {
                     }
                     else {
                         const newhtml = data.toString().replace(
-                            `<p>The error will appear here with a link to <a href="/login">log in</a>.</p>`,
+                            `<p>The error will appear here with a link to <a href="http://localhost:8081/login">log in</a>.</p>`,
                             `<p>${message}</p>`
                         );
 
@@ -99,4 +99,31 @@ module.exports = function (request, response, userType = null, callback) {
             }
         });
     });
+}
+
+function typeString(accType, orAdmin = false) {
+    var str;
+
+    switch (accType) {
+        case null:
+        case "admin":
+            str = "n Administrator";
+            break;
+        case "cdc":
+            str = " CDC";
+            break;
+        case "injector":
+            str = "n Injector";
+            break;
+        case "site":
+            str = " Site";
+            break;
+    }
+
+    if (orAdmin && (accType != "admin" || accType != null)) {
+        return str + " or Administrator";
+    }
+    else {
+        return str;
+    }
 }

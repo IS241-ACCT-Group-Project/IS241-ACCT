@@ -195,7 +195,7 @@ function logIn(request, response) {
 
                     request.session.accountID = accountID;
                     request.session.associatedType = associatedType;
-                    request.session.associatedID = associatedID;
+                    // request.session.associatedID = associatedID;
                     request.session.username = request.body.username;
                     
                     // console.log(request.session);
@@ -209,8 +209,8 @@ function logIn(request, response) {
                             response.redirect("/admin");
                             break;
                         case "cdc":
-                            response.sendFile("DisplayTables.html", { root: path.resolve(__dirname, "../../") });
-                        // response.redirect("/cdc");
+                            response.redirect("/cdc");
+                            break;
                         case "site":
                             response.redirect("/site");
                             // response.redirect("/editaccount"); //not sure if site gets a homepage so take right to edit acc
@@ -328,6 +328,9 @@ function accountHome(request, response) {
                             break;
                         case "admin":
                             response.redirect("/admin");
+                            break;
+                        case "cdc":
+                            response.redirect("/cdc");
                             break;
                         case "site":
                             response.redirect("/site");
