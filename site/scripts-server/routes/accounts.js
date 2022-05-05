@@ -225,7 +225,7 @@ function logIn(request, response) {
         }
         else {
             //no account with username exists
-            response.writeHead(404);
+            response.writeHead(401);
             response.end();
         }
     });

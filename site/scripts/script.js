@@ -15,11 +15,13 @@ toggles.forEach(toggle => {
     })
 })
 
-const open = document.getElementById('open')
-const close = document.getElementById('close')
+var open;
+var close;
+
+if (open = document.getElementById('open')) {
+    open.addEventListener('click', () => container.classList.add('show-nav'));
+}
+if (close = document.getElementById('close')) {
+    close.addEventListener('click', () => container.classList.remove('show-nav'));
+}
 const container = document.querySelector('.rotate-container')
-
-open.addEventListener('click', () => container.classList.add('show-nav'))
-
-close.addEventListener('click', () => container.classList.remove('show-nav'))
-

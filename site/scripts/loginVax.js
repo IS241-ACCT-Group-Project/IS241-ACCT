@@ -2,51 +2,55 @@ var loginForm, loginButton, loginErrorMsg, errorMsgDisplay;
 
 window.addEventListener("load", function () {
     loginForm = document.getElementById("login-form");
+    loginForm.addEventListener("submit", submitForm);
     loginButton = document.getElementById("login-form-submit");
     if (loginErrorMsg = document.getElementById("login-error-msg")) {
         errorMsgDisplay = loginErrorMsg.style.display;
         loginErrorMsg.style.display = "none";
-    }
 
-    loginForm.addEventListener("submit", submitForm);
+        var username;
+        if (username = document.getElementsByName("username")[0]) {
+            username.addEventListener("input", hideLoginErrorMsg);
+            username.addEventListener("propertychange", hideLoginErrorMsg);
+        }
+
+        var password;
+        if (password = document.getElementsByName("password")[0]) {
+            password.addEventListener("input", hideLoginErrorMsg);
+            password.addEventListener("propertychange", hideLoginErrorMsg);
+        }
+    }
 });
 
-function submitForm (event) {
-    // event.preventDefault();
+function submitForm(event) {
+    event.preventDefault();
 
-    delay(500).then(function () {
-        loginErrorMsg.style.display = errorMsgDisplay;
-    });
+    const data = new FormData(loginForm);
+    const value = Object.fromEntries(data.entries());
 
-    //this can't work because it stops the server from redirecting user so they keep the same session ID
-    // console.log(JSON.stringify(loginForm));
-    //const data = new FormData(loginForm);
-    //const value = Object.fromEntries(data.entries());
-//
-    //fetch("/login", {
-    //    method: "POST",
-    //    headers: {
-    //        "Content-Type": "application/json"
-    //    },
-    //    body: JSON.stringify(value)
-    //})
-    //    .then(function (response) {
-    //        if (response.status == 201) {
-    //            console.log("OK");
-    //            location.href = "http://localhost:8081/accounthome";
-    //        }
-    //        // console.log(response.json());
-    //        // return JSON.stringify(response.json());
-    //    });
+    fetch("http://localhost:8081/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(value)
+    })
+        .then(function (response) {
+            // console.log(response);
+            // console.log(response.status);
 
-    //if ((username === "XiomaraAdmin" || username === "SurveyUser") && password === "somethingsafe") {
-    //    alert("You have successfully logged in.");
-    //    location.reload();
-    //} else {
-    //    loginErrorMsg.style.opacity = 1;
-    //}
+            if (response.status >= 400) { //if unauthorized (errors 400+)
+                // alert("Login failed. Please try again.");
+                loginErrorMsg.style.display = errorMsgDisplay;
+                // return null;
+            }
+            else {
+                //else redirected to account home
+                window.location.href = response.url;
+            }
+        });
 }
 
-function delay(miliseconds) {
-    return new Promise(resolve => setTimeout(resolve, miliseconds));
+function hideLoginErrorMsg() {
+    loginErrorMsg.style.display = "none";
 }

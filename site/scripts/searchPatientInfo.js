@@ -23,8 +23,8 @@ function searchPatientInfo(event) {
             body: JSON.stringify(value)
         })
         .then(function (response) {
-            console.log(response);
-            console.log(response.status);
+            // console.log(response);
+            // console.log(response.status);
 
             if (response.status >= 400) { //if unauthorized (errors 400+)
                 alert("Your account does not have permission to view this data.");
