@@ -26,10 +26,10 @@
 			<a href="homelanding.html">Home</a>
 		  </li>		
           <li class="active">
-            <a href="admindex.html">Dashboard</a>
+            <a href="http://localhost:8081/accounthome">Dashboard</a>
           </li>
           <li>
-            <a href="DisplayTables.html">Reports</a>
+            <a href="http://localhost:8081/reports">Reports</a>
           </li>
           <!-- <li>
             <a href="categories.html">Categories</a>
@@ -126,7 +126,7 @@
       <div class="col s12 m6 l3">
         <div class="card-panel center">
           <i class="material-icons medium">supervisor_account</i>
-          <h5>Vaccinations this Month</h5>
+          <h5><script>currMonth=new Date(); document.write(currMonth.toLocaleString('en-us', { month: 'long' }));</script> Vaccinations</h5>
           <h3 class="count" id="monthVaccinations">0</h3>
           <div class="progress grey lighten-1">
             <div class="determinate blue lighten-1" style="width: 10%;"></div>
@@ -147,9 +147,9 @@
       </div>
       <div class="col s12 m12 l12">
         <!-- Latest Comments -->
-        <!-- <ul class="collection with-header latest-comments">
-          <li class="collection-header">
-            <h5>Latest Comments</h5>
+        <ul class="collection with-header latest-comments" id="auditLog">
+          <!-- <li class="collection-header">
+            <h5>Recent Actions</h5>
           </li>
           <li class="collection-item avatar">
             <img src="img/person1.jpg" alt="" class="circle">
@@ -174,8 +174,8 @@
               explicabo pariatur maxime fuga sed quod quo voluptas, adipisci illum aspernatur est, fugit tempore.</p>
             <a href="" class="approve green-text">Approve</a> |
             <a href="" class="deny red-text">Deny</a>
-          </li>
-        </ul> -->
+          </li> -->
+        </ul>
       </div>
     </div>
   </section>
@@ -380,6 +380,7 @@
   <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
   <script src="scripts/chart.js"></script>
   <script src="scripts/stats.js"></script>
+  <script src="scripts/adminAudit.js"></script>
 
   <script>
     // Hide Sections

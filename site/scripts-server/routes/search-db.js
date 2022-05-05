@@ -3,10 +3,13 @@ module.exports = function (app) {
     app.post("/searchinjectors", searchInjector);
     app.post("/searchpatientinfo", searchPatientInfo);
     app.post("/searchpatientvaccination", searchPatientVaccination);
+
+    app.get("/auditlog", getAuditLog);
 }
 
 const validate = require("../validate");
 const db = require("./../db");
+const audit = require("./../audit");
 
 function searchSites(request, response) {
     validate(request, response, "cdc", function (accountID) {
@@ -41,6 +44,8 @@ function searchSites(request, response) {
                     //throw err;
                     return;
                 }
+
+                audit(accountID, sql);
 
                 response.setHeader("Content-Type", "application/json");
                 response.write(JSON.stringify(result));
@@ -81,6 +86,8 @@ function searchInjector(request, response) {
                     //throw err;
                     return;
                 }
+
+                audit(accountID, sql);
 
                 response.setHeader("Content-Type", "application/json");
                 response.write(JSON.stringify(result));
@@ -125,6 +132,8 @@ function searchPatientInfo(request, response) {
                     //throw err;
                     return;
                 }
+
+                audit(accountID, sql);
 
                 response.setHeader("Content-Type", "application/json");
                 response.write(JSON.stringify(result));
@@ -172,6 +181,8 @@ function searchPatientVaccination(request, response) {
                     return;
                 }
 
+                audit(accountID, sql);
+
                 response.setHeader("Content-Type", "application/json");
                 response.write(JSON.stringify(result));
                 response.end();
@@ -212,4 +223,26 @@ function buildSearchSQL(db, names, data) {
     }
 
     return sql;
+}
+
+function getAuditLog(request, response) {
+    validate(request, response, "admin", function (accountID) {
+        if (accountID) {
+            const sql = `SELECT AccountID, EntryDate, EntryType, Query FROM LOG ORDER BY EntryDate DESC LIMIT 20;`;
+            
+            db.pool.query(sql, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    // throw err;
+                    return;
+                }
+
+                // audit(accountID, sql);
+
+                response.setHeader("Content-Type", "application/json");
+                response.write(JSON.stringify(result));
+                response.end();
+            });
+        }
+    });
 }

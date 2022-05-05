@@ -1,6 +1,5 @@
 var totalsites, totalinjectors, totalvax, monthvax;
 
-    console.log("hello");
 if (totalsites = document.getElementById("totalSites")) {
     fetch("http://localhost:8081/totalsites", {
         method: "GET",
@@ -43,11 +42,11 @@ if (totalvax = document.getElementById("totalVaccinations")) {
         }
     })
         .then(function (response) {
-            console.log(response);
+            // console.log(response);
             return response.json();
         })
         .then(function (data) {
-            console.log(data.count);
+            // console.log(data.count);
             totalvax.innerHTML = data.count;
         });
 }

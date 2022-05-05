@@ -2,7 +2,8 @@ module.exports = function (app) {
     app.get("/admin", homepage);
     app.get("/databasetesting", database);
 
-    app.get("/cdc", showTables);
+    app.get("/cdc", homepage);
+    app.get("/reports", showTables);
 }
 
 const db = require("../db");
@@ -11,7 +12,7 @@ const path = require("path");
 const fs = require("fs");
 
 function homepage(request, response) {
-    validate(request, response, "admin", function (isValid) {
+    validate(request, response, "cdc", function (isValid) {
         if (isValid) {
             response.sendFile("admindex.html", { root: path.resolve(__dirname, "../../") });
         }

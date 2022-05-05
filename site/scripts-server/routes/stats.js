@@ -18,7 +18,7 @@ const db = require("./../db");
 const validate = require("../validate");
 
 function vaxByMonths(request, response) {
-    validate(request, response, "admin", function (isValid) {
+    validate(request, response, "cdc", function (isValid) {
         if (isValid) {
 
             var date = new Date;

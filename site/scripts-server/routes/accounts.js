@@ -296,12 +296,16 @@ function sendLogin(request, response) {
 }
 
 function logOut(request, response) {
+    const accountID = request.session.accountID;
+
     request.session.destroy(function (err) {
         if (err) {
             console.log(err);
             // throw err;
         }
         else {
+            audit(accountID, "logout");
+
             response.sendFile("loggedOut.html", { root: path.resolve(__dirname, "../../") });
         }
     });
