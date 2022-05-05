@@ -46,7 +46,7 @@
           </li>
           <!-- BUTTON LINK -->
           <li>
-            <a href="http://localhost:8081/logout" class="btn waves-effect waves-light" style="background-color:Tomato;">Logout</a>
+            <a href="https://server.acct-vaxtracker.me/logout" class="btn waves-effect waves-light" style="background-color:Tomato;">Logout</a>
           </li>
           <!-- ICON LINK -->
           <li>
@@ -108,7 +108,7 @@
 
 		</form>
 
-		<p id="siteMsg">New site was successfully registered. Please return to the <a href="http://localhost:8081/accounthome">site homepage</a>.</p>
+		<p id="siteMsg">New site was successfully registered. Please return to the <a href="https://server.acct-vaxtracker.me/accounthome">site homepage</a>.</p>
 	</div>
 	
   <!--Import jQuery before materialize.js-->
@@ -187,7 +187,7 @@
                 const value = Object.fromEntries(data.entries());
 				// console.log("test");
 
-				fetch("http://localhost:8081/addsite", {
+				fetch("https://server.acct-vaxtracker.me/addsite", {
                          method: "POST",
                          headers: {
                              "Content-Type": "application/json"

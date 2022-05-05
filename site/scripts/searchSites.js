@@ -16,7 +16,7 @@ function searchSites(event) {
 
     //console.log(value);
 
-    fetch("http://localhost:8081/searchsites", {
+    fetch("https://server.acct-vaxtracker.me/searchsites", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

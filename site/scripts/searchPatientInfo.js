@@ -15,7 +15,7 @@ function searchPatientInfo(event) {
 
     // console.log(value);
 
-    fetch("http://localhost:8081/searchPatientInfo", {
+    fetch("https://server.acct-vaxtracker.me/searchPatientInfo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

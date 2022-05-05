@@ -1,7 +1,7 @@
 //print whole database to console (debugging purposes only)
 function listDB(database) {
-    //fetch("http://localhost:8081/listinjectors")
-    fetch("http://localhost:8081/list" + database)
+    //fetch("https://server.acct-vaxtracker.me/listinjectors")
+    fetch("https://server.acct-vaxtracker.me/list" + database)
         .then((response) => response.json())
         .then((data) => {
                 console.log(`Showing all ${database.toUpperCase()} entries:`);
@@ -22,7 +22,7 @@ function submitForm() {
     console.log(LastName);
     console.log(ClinicID);
 
-    fetch("http://localhost:8081/addvaccinator", {
+    fetch("https://server.acct-vaxtracker.me/addvaccinator", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

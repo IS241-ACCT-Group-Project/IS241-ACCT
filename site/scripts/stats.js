@@ -1,7 +1,7 @@
 var totalsites, totalinjectors, totalvax, monthvax;
 
 if (totalsites = document.getElementById("totalSites")) {
-    fetch("http://localhost:8081/totalsites", {
+    fetch("https://server.acct-vaxtracker.me/totalsites", {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -18,7 +18,7 @@ if (totalsites = document.getElementById("totalSites")) {
 }
 
 if (totalinjectors = document.getElementById("totalInjectors")) {
-    fetch("http://localhost:8081/totalinjectors", {
+    fetch("https://server.acct-vaxtracker.me/totalinjectors", {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -35,7 +35,7 @@ if (totalinjectors = document.getElementById("totalInjectors")) {
 }
 
 if (totalvax = document.getElementById("totalVaccinations")) {
-    fetch("http://localhost:8081/totalvax", {
+    fetch("https://server.acct-vaxtracker.me/totalvax", {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -52,7 +52,7 @@ if (totalvax = document.getElementById("totalVaccinations")) {
 }
 
 if (monthvax = document.getElementById("monthVaccinations")) {
-    fetch("http://localhost:8081/monthvax", {
+    fetch("https://server.acct-vaxtracker.me/monthvax", {
         method: "GET",
         headers: {
             "Content-Type": "application/json"

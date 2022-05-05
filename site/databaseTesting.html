@@ -12,7 +12,7 @@ These forms are examples of how the server expects forms to look.
 The name="" fields must match exactly with what the corresponding function in scripts-server/server.js looks for in request.body. 
 
 Forms that add new entries to the database need: 
-    - <form action="http://localhost:8081/addACTION" method="post"> at the top 
+    - <form action="https://server.acct-vaxtracker.me/addACTION" method="post"> at the top 
     - <input name=""> needs to match exactly (CASE SENSITIVE) with the example in databaseTesting.html
     - <input type="submit"/> within the form 
 
@@ -67,7 +67,7 @@ Forms that search the database need:
 		<h2>Database Testing</h2>
 		<div>
 			<h3>Logged in as: </h3><p id="username">NOT LOGGED IN</p>
-			<form action="http://localhost:8081/login" method="post">
+			<form action="https://server.acct-vaxtracker.me/login" method="post">
 				<h2>Log In</h2>
 				<label for="username">Username: </label>
 				<br>
@@ -83,7 +83,7 @@ Forms that search the database need:
 			</form>
 		</div>
 		<div class="dbGroup">
-			<form action="http://localhost:8081/addsite" method="post">
+			<form action="https://server.acct-vaxtracker.me/addsite" method="post">
 				<h2>Site Database</h2>
 				<label for="name">Site Name:</label>
 				<br>
@@ -110,7 +110,7 @@ Forms that search the database need:
 			<!-- Just for testing; please don't put this in a form -->
 			<!-- <br><br><button onclick="listDB('sites')">Show Site Database</button> -->
 			<form id="siteSearch">
-				<!-- <form action="http://localhost:8081/searchsites" method="post"> -->
+				<!-- <form action="https://server.acct-vaxtracker.me/searchsites" method="post"> -->
 				<h2>Search for a Site</h2>
 				<p>Enter search criteria (blank fields will be ignored):</p>
 
@@ -154,7 +154,7 @@ Forms that search the database need:
 			</table>
 		</div>
 		<div class="dbGroup">
-			<form action="http://localhost:8081/addinjector" method="post">
+			<form action="https://server.acct-vaxtracker.me/addinjector" method="post">
 				<h2>Injector Database</h2>
 				<label for="firstName">First name:</label><br>
 				<input type="text" name="firstName"><br>
@@ -197,7 +197,7 @@ Forms that search the database need:
 			</table>
 		</div>
 		<div class="dbGroup">
-			<form action="http://localhost:8081/addpatientinfo" method="post">
+			<form action="https://server.acct-vaxtracker.me/addpatientinfo" method="post">
 				<h2>Patient Information Database</h2>
 				<label for="firstName">First name:</label><br>
 				<input type="text" name="firstName"><br>
@@ -254,7 +254,7 @@ Forms that search the database need:
 			</table>
 		</div>
 		<div class="dbGroup">
-			<form action="http://localhost:8081/addpatientvaccination" method="post">
+			<form action="https://server.acct-vaxtracker.me/addpatientvaccination" method="post">
 				<h2>Patient Vaccination Database</h2>
 				<label for="patientID">Patient ID:</label><br>
 				<input type="number" name="patientID"><br>

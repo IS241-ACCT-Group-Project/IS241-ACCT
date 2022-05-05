@@ -117,7 +117,7 @@
                     const data = new FormData(newVaccinationForm);
                     const value = Object.fromEntries(data.entries());
  
-                    fetch("http://localhost:8081/addpatientvaccination", {
+                    fetch("https://server.acct-vaxtracker.me/addpatientvaccination", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"
@@ -154,7 +154,7 @@
                     return;
                 }
 
-                fetch("http://localhost:8081/patientexists", {
+                fetch("https://server.acct-vaxtracker.me/patientexists", {
                     method: "POST",
                     headers: {
                         "Content-Type": "text/plain"
@@ -188,7 +188,7 @@
                 }
 
                 function getInjID(){
-                fetch("http://localhost:8081/currentinjectorid", {
+                fetch("https://server.acct-vaxtracker.me/currentinjectorid", {
                     method: "GET",
                 //    headers: {
                     //    "Content-Type": "text/plain"

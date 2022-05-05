@@ -2,7 +2,7 @@
 
 window.addEventListener("load", function () {
     // if (auditLog = document.getElementById("auditLog")) {
-    fetch("http://localhost:8081/auditlog", {
+    fetch("https://server.acct-vaxtracker.me/auditlog", {
         method: "GET",
         // headers: {
         // "Content-Type": "application/json"

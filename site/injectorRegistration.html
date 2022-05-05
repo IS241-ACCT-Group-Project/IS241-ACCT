@@ -47,7 +47,7 @@
           </li>
           <!-- BUTTON LINK -->
           <li>
-            <a href="http://localhost:8081/logout" class="btn waves-effect waves-light" style="background-color:Tomato;">Logout</a>
+            <a href="https://server.acct-vaxtracker.me/logout" class="btn waves-effect waves-light" style="background-color:Tomato;">Logout</a>
           </li>
           <!-- ICON LINK -->
           <li>
@@ -98,7 +98,7 @@
 			<br><br>
 			<input type="submit" value="register" id="newInjectorFormSubmit" class="btn waves-effect waves-light" style="background-color: #3498DB;">
 		</form>
-		<p id="injMsg">New injector was successfully registered. Please return to the <a href="http://localhost:8081/accounthome">injector homepage</a>.</p>
+		<p id="injMsg">New injector was successfully registered. Please return to the <a href="https://server.acct-vaxtracker.me/accounthome">injector homepage</a>.</p>
 	</div>
 
   <!--Import jQuery before materialize.js-->
@@ -153,7 +153,7 @@
 				const data = new FormData(newInjectorForm);
                 const value = Object.fromEntries(data.entries());
 
-				fetch("http://localhost:8081/addinjector", {
+				fetch("https://server.acct-vaxtracker.me/addinjector", {
                          method: "POST",
                          headers: {
                              "Content-Type": "application/json"

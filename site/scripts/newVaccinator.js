@@ -1,5 +1,5 @@
 function listDB() {
-    fetch("http://localhost:8081/listvaccinators")
+    fetch("https://server.acct-vaxtracker.me/listvaccinators")
         .then(response => response.json())
         .then(data => console.log(data));
 }
@@ -16,7 +16,7 @@ function submitForm() {
     console.log(LastName);
     console.log(ClinicID);
 
-    fetch("http://localhost:8081/addvaccinator", {
+    fetch("https://server.acct-vaxtracker.me/addvaccinator", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

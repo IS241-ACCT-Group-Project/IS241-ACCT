@@ -106,7 +106,7 @@ function validateUsername() {
 
     //play a loading animation here if this ends up taking a while
 
-    fetch("http://localhost:8081/checkUsernameExists", {
+    fetch("https://server.acct-vaxtracker.me/checkUsernameExists", {
         method: "POST",
         headers: {
             "Content-Type": "text/plain"
@@ -243,7 +243,7 @@ function validateSiteID() {
         return;
     }
 
-    fetch("http://localhost:8081/siteexists", {
+    fetch("https://server.acct-vaxtracker.me/siteexists", {
         method: "POST",
         headers: {
             "Content-Type": "text/plain"
@@ -290,7 +290,7 @@ function submitLogin(event) {
 
     // console.log(value);
 
-    fetch("http://localhost:8081/editLogin", {
+    fetch("https://server.acct-vaxtracker.me/editLogin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -327,7 +327,7 @@ function submitSite(event) {
 
     // console.log(value);
 
-    fetch("http://localhost:8081/editsite", {
+    fetch("https://server.acct-vaxtracker.me/editsite", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(value)
@@ -376,7 +376,7 @@ function submitInjector(event) {
 
     // console.log(value);
 
-    fetch("http://localhost:8081/editinjector", {
+    fetch("https://server.acct-vaxtracker.me/editinjector", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(value)

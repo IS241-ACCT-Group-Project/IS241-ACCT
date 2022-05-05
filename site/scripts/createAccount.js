@@ -57,7 +57,7 @@ function validateUsername() {
 
     //play a loading animation here if this ends up taking a while
 
-    fetch("http://localhost:8081/checkUsernameExists", {
+    fetch("https://server.acct-vaxtracker.me/checkUsernameExists", {
         method: "POST",
         headers: {
             "Content-Type": "text/plain"
@@ -195,7 +195,7 @@ function createAccount(event) {
     const data = new FormData(event.target);
     const value = Object.fromEntries(data.entries());
 
-    fetch("http://localhost:8081/createaccount", {
+    fetch("https://server.acct-vaxtracker.me/createaccount", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

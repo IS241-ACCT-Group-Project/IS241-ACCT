@@ -48,7 +48,7 @@
           </li>
           <!-- BUTTON LINK -->
           <li>
-            <a href="http://localhost:8081/logout" class="btn waves-effect waves-light" style="background-color:Tomato;">Logout</a>
+            <a href="https://server.acct-vaxtracker.me/logout" class="btn waves-effect waves-light" style="background-color:Tomato;">Logout</a>
           </li>
           <!-- ICON LINK -->
           <li>
@@ -96,13 +96,13 @@
 			Injectors choose which form to enter by clicking the Form Entry button below.
 			</p>
       
-			<button onclick='window.location.href = "http://localhost:8081/addinjectorinfo";' type="button" class="inj-dropbtn" id="addInjProfile">Add Injector Profile</button>
-			<button onclick='window.location.href = "http://localhost:8081/editaccount";' type="button" class="inj-dropbtn" id="editInjProfile">Edit Injector Profile</button>
+			<button onclick='window.location.href = "https://server.acct-vaxtracker.me/addinjectorinfo";' type="button" class="inj-dropbtn" id="addInjProfile">Add Injector Profile</button>
+			<button onclick='window.location.href = "https://server.acct-vaxtracker.me/editaccount";' type="button" class="inj-dropbtn" id="editInjProfile">Edit Injector Profile</button>
 			
 			<button onclick="myFunction()" class="inj-dropbtn" id="inj-dropbtn">Form Data Entry</button>
 			<div id="myDropdown" class="inj-dropdown-content" id="inj=dropctnt">
-			  <a href="http://localhost:8081/newpatient">Patient</a>
-			  <a href="http://localhost:8081/newvaccination">Vaccine</a>
+			  <a href="https://server.acct-vaxtracker.me/newpatient">Patient</a>
+			  <a href="https://server.acct-vaxtracker.me/newvaccination">Vaccine</a>
 			</div>
 		</div>
 
@@ -135,7 +135,7 @@
 
       function getInjectorName() {
         // console.log("test");
-        fetch("http://localhost:8081/injectorexists", {
+        fetch("https://server.acct-vaxtracker.me/injectorexists", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

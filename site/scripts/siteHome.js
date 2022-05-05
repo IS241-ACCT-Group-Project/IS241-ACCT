@@ -12,7 +12,7 @@ window.addEventListener("load", function () {
 
 function findSiteInfo() {
     // console.log("test");
-    fetch("http://localhost:8081/siteexists", {
+    fetch("https://server.acct-vaxtracker.me/siteexists", {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -40,9 +40,9 @@ function findSiteInfo() {
 function goSiteInfo(event) {
     event.preventDefault();
     if (siteExists) {
-        window.location.href = "http://localhost:8081/editaccount";
+        window.location.href = "https://server.acct-vaxtracker.me/editaccount";
     }
     else {
-        window.location.href = "http://localhost:8081/addsiteinfo";
+        window.location.href = "https://server.acct-vaxtracker.me/addsiteinfo";
     }
 }

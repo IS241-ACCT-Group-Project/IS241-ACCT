@@ -4,7 +4,7 @@ var chart;
 
 window.addEventListener("load", function () {
   console.log("Chart - here");
-  fetch("http://localhost:8081/vaxbymonths", {
+  fetch("https://server.acct-vaxtracker.me/vaxbymonths", {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
